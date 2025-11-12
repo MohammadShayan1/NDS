@@ -329,7 +329,7 @@ $alert = getAlert();
                     <div class="d-flex align-items-center mb-3">
                         <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-2" style="max-width: 120px;">
                         <div style="width: 2px; height: 40px; background: #d4af37; margin: 0 8px;"></div>
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 120px;">
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 120px;">
                     </div>
                     <p class="text-muted small">Empowering youth through debate, diplomacy, and leadership.</p>
                 </div>

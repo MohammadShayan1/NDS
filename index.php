@@ -78,7 +78,7 @@ require_once 'config/config.php';
             <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
                 <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo" class="nds-logo me-2">
                 <div class="logo-separator"></div>
-                <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
+                <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -105,7 +105,7 @@ require_once 'config/config.php';
             <div class="row h-100 align-items-center">
                 <div class="col-lg-8 mx-auto text-center text-white">
                     <div class="mb-4" data-aos="zoom-in">
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 400px;">
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 400px;">
                     </div>
                     <span class="badge bg-warning text-dark mb-3 early-bird-badge" data-aos="fade-down">
                         <i class="fas fa-clock"></i> Early Bird Registration Valid till 15th November
@@ -149,7 +149,7 @@ require_once 'config/config.php';
                     <div class="d-flex align-items-center mb-4">
                         <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-3" style="max-width: 200px;">
                         <div class="mx-3" style="width: 2px; height: 80px; background: var(--secondary-color);"></div>
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 200px;">
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 200px;">
                     </div>
                     <h2 class="section-title mb-4">About NEDMUN-VI</h2>
                     <p class="lead mb-4">Welcome to the sixth edition of NED Model United Nations - Karachi's premier platform for youth diplomacy and international relations!</p>
@@ -402,7 +402,7 @@ require_once 'config/config.php';
                     <div class="d-flex align-items-center mb-3">
                         <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-2" style="max-width: 150px;">
                         <div style="width: 2px; height: 50px; background: var(--secondary-color); margin: 0 8px;"></div>
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 150px;">
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 150px;">
                     </div>
                     <p class="text-muted">Empowering youth through debate, diplomacy, and leadership since its inception.</p>
                 </div>
