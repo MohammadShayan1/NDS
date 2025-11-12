@@ -1,6 +1,15 @@
 <?php
 /**
+ * NEDMUN-VI Registration System
  * Database Configuration Template
+ * 
+ * @copyright Copyright (c) 2025 NED Debating Society & TE Links
+ * @license   Proprietary - All Rights Reserved
+ * @author    TE Links (https://telinks.org)
+ * 
+ * NOTICE: This code is proprietary and confidential.
+ * Unauthorized copying, modification, distribution, or use of this file,
+ * via any medium, is strictly prohibited without explicit written permission.
  * 
  * IMPORTANT: Copy this file to database.php and update with your credentials
  * Never commit database.php to Git!

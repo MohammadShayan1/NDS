@@ -1,5 +1,10 @@
 # NEDMUN-VI Registration System
 
+> **COPYRIGHT NOTICE**: This software is proprietary and confidential.  
+> Copyright © 2025 NED Debating Society & TE Links. All Rights Reserved.  
+> Unauthorized copying, distribution, or use is strictly prohibited.  
+> See [LICENSE](LICENSE) file for full terms and conditions.
+
 A complete Model-View-Controller (MVC) based web application for managing NEDMUN-VI (NED Model United Nations) conference registrations, built with core PHP and MySQL.
 
 ## 🎯 Features
@@ -477,29 +482,73 @@ Add Google Analytics to track visitors:
 ## 🤝 Support
 
 For issues or questions:
-- Email: help.nexsys@gmail.com
-- Documentation: This README file
+- Email: nedmunofficial@gmail.com
+- Technical Partner: [TE Links](https://telinks.org)
 
 ## 📄 License
 
-Copyright © 2025 NED Debating Society. All rights reserved.
+**PROPRIETARY SOFTWARE - ALL RIGHTS RESERVED**
+
+Copyright © 2025 NED Debating Society & TE Links
+
+This software is protected by copyright law and international treaties. Unauthorized reproduction, distribution, modification, or use of this software, in whole or in part, is strictly prohibited and will be prosecuted to the fullest extent of the law.
+
+**See [LICENSE](LICENSE) file for complete terms and conditions.**
+
+### ⚖️ Legal Notice
+
+- ❌ **NO COPYING** - You may not copy any portion of this code
+- ❌ **NO DISTRIBUTION** - You may not share or distribute this software
+- ❌ **NO MODIFICATION** - You may not create derivative works
+- ❌ **NO COMMERCIAL USE** - Unauthorized commercial use is prohibited
+- ❌ **NO REVERSE ENGINEERING** - Decompilation or reverse engineering is prohibited
+
+**Violators will face:**
+- Civil lawsuits for copyright infringement
+- Criminal prosecution under Pakistani law
+- Monetary damages and legal fees
+- Injunctive relief
 
 ## 🎓 Credits
 
-- **Developed for**: NED Debating Society
-- **Event**: NEDMUN-VI
-- **Framework**: Bootstrap 5, PHP 7+, MySQL
-- **Icons**: Font Awesome 6
+- **Developed by**: [TE Links](https://telinks.org) - Technical Partner
+- **For**: NED Debating Society
+- **Event**: NEDMUN-VI (January 2-4, 2026)
+- **Framework**: Bootstrap 5.3.2, PHP 7.4+, MySQL 5.7+
+- **Icons**: Font Awesome 6.4.2
 - **Fonts**: Google Fonts (Poppins, Playfair Display)
 
 ## 🚦 Version
 
-**Version 1.0.0** - November 2025
-- Initial release
-- Complete registration system
-- Admin panel
-- SEO optimization
+**Version 1.0.0** - November 13, 2025
+- Initial production release
+- Complete registration system with MVC architecture
+- Admin panel with black & gold theme
+- Email automation system
+- Auto-deployment support
+- Enhanced security features
 
 ---
 
-**NEDMUN-VI** - Karachi's Largest Model United Nations Conference
+**NEDMUN-VI** - *Noting the Past, Navigating the Present, Nurturing the Future*
+
+---
+
+## ⚠️ Copyright & Intellectual Property Protection
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║  PROPRIETARY AND CONFIDENTIAL                                ║
+║  Copyright (c) 2025 NED Debating Society & TE Links         ║
+║  All Rights Reserved Worldwide                               ║
+║                                                              ║
+║  This software contains trade secrets and proprietary        ║
+║  information. Unauthorized use, copying, or distribution     ║
+║  is strictly prohibited and will be prosecuted.              ║
+║                                                              ║
+║  Protected by Pakistani copyright laws and international     ║
+║  treaties including the Berne Convention.                    ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+**For licensing inquiries**: info@telinks.org

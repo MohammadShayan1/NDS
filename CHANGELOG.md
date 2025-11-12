@@ -1,5 +1,9 @@
 # Changelog - NEDMUN-VI Registration System
 
+> **COPYRIGHT NOTICE**: Proprietary Software - All Rights Reserved  
+> Copyright © 2025 NED Debating Society & TE Links  
+> See [LICENSE](LICENSE) for complete terms and restrictions.
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -388,11 +392,41 @@ Tested and compatible with:
 
 ---
 
-## License
-Proprietary - © 2025 NED Debating Society
+## License & Copyright
 
-All rights reserved. This software is developed for NED Debating Society's exclusive use.
+**PROPRIETARY SOFTWARE - ALL RIGHTS RESERVED**
+
+Copyright © 2025 NED Debating Society & TE Links
+
+This software is protected by copyright law and international treaties. Unauthorized reproduction, distribution, modification, or use of this software, in whole or in part, is strictly prohibited.
+
+**See [LICENSE](LICENSE) file for complete legal terms.**
+
+### Legal Protection
+- Protected by Pakistani copyright laws
+- Protected by international treaties (Berne Convention)
+- Trade secret and proprietary information
+- Unauthorized use will be prosecuted
+
+### Prohibited Actions
+- ❌ Copying any portion of the code
+- ❌ Distributing or sharing the software
+- ❌ Creating derivative works
+- ❌ Reverse engineering or decompilation
+- ❌ Commercial use without authorization
+
+**Violators will be prosecuted to the fullest extent of the law.**
 
 ---
 
 **For detailed setup instructions, see**: README.md, DEPLOYMENT.md, QUICKSTART.md
+
+---
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║            PROPRIETARY AND CONFIDENTIAL                       ║
+║      Copyright (c) 2025 NED Debating Society & TE Links      ║
+║                  All Rights Reserved                          ║
+╚═══════════════════════════════════════════════════════════════╝
+```
