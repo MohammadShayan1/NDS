@@ -1,0 +1,513 @@
+<?php
+require_once '../config/config.php';
+$alert = getAlert();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegate Registration - <?php echo SITE_NAME; ?></title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Register for NEDMUN-VI - Karachi's largest Model United Nations conference. Individual delegates and delegations welcome from NED and other institutions.">
+    <meta name="keywords" content="NEDMUN Registration, MUN Registration Karachi, Model UN Delegate, NEDMUN-VI Registration">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <?php if ($alert): ?>
+                    <div class="alert alert-<?php echo $alert['type']; ?> alert-dismissible fade show" role="alert">
+                        <?php echo $alert['message']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h1 class="h3 mb-1"><i class="fas fa-users me-2"></i>NEDMUN-VI DELEGATE REGISTRATION</h1>
+                            <p class="mb-0">Join Karachi's Largest Model United Nations</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-clock me-2"></i>Early Bird Registration!</h5>
+                                <p class="mb-0">Register before <?php echo EARLY_BIRD_DEADLINE; ?> to avail special early bird rates!</p>
+                            </div>
+
+                            <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm">
+                                <!-- Registration Type -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Registration Type <span class="text-danger">*</span></label>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-check custom-radio-card">
+                                                <input class="form-check-input" type="radio" name="registration_type" id="ned_type" value="NED" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="ned_type">
+                                                    <i class="fas fa-university fa-2x d-block mb-2 text-primary"></i>
+                                                    <strong>NED Student</strong>
+                                                    <p class="small mb-0 text-muted">For current NED University students</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check custom-radio-card">
+                                                <input class="form-check-input" type="radio" name="registration_type" id="other_type" value="Other" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="other_type">
+                                                    <i class="fas fa-school fa-2x d-block mb-2 text-primary"></i>
+                                                    <strong>Other Institution</strong>
+                                                    <p class="small mb-0 text-muted">For students from other schools/universities</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Participant Type -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Participant Type <span class="text-danger">*</span></label>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-check custom-radio-card">
+                                                <input class="form-check-input" type="radio" name="participant_type" id="delegate_type" value="delegate" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="delegate_type">
+                                                    <i class="fas fa-user fa-2x d-block mb-2 text-success"></i>
+                                                    <strong>Individual Delegate</strong>
+                                                    <p class="small mb-0 text-muted">Participating as an individual</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check custom-radio-card">
+                                                <input class="form-check-input" type="radio" name="participant_type" id="delegation_type" value="delegation" required>
+                                                <label class="form-check-label w-100 p-3 border rounded" for="delegation_type">
+                                                    <i class="fas fa-users fa-2x d-block mb-2 text-success"></i>
+                                                    <strong>Delegation</strong>
+                                                    <p class="small mb-0 text-muted">Registering a group of delegates</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3"><i class="fas fa-id-card me-2"></i>Personal Information</h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="full_name" name="full_name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="whatsapp_number" class="form-label">WhatsApp Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="cnic_number" class="form-label">CNIC / B-Form Number</label>
+                                    <input type="text" class="form-control" id="cnic_number" name="cnic_number" placeholder="XXXXX-XXXXXXX-X">
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3"><i class="fas fa-graduation-cap me-2"></i>Institution Details</h5>
+
+                                <div class="mb-3" id="institutionNameField">
+                                    <label for="institution_name" class="form-label">Institution Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="institution_name" name="institution_name" required>
+                                </div>
+
+                                <div class="mb-3" id="educationLevelField">
+                                    <label for="education_level" class="form-label">Education Level <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="education_level" name="education_level" required>
+                                        <option value="">Select your level</option>
+                                        <option value="Middle school">Middle school</option>
+                                        <option value="O Levels/ Secondary School">O Levels / Secondary School</option>
+                                        <option value="A Levels / Higher Secondary School">A Levels / Higher Secondary School</option>
+                                        <option value="Undergraduate">Undergraduate</option>
+                                    </select>
+                                </div>
+
+                                <!-- Delegation Details (shown only if delegation is selected) -->
+                                <div id="delegationDetails" style="display: none;">
+                                    <hr class="my-4">
+                                    <h5 class="mb-3"><i class="fas fa-users-cog me-2"></i>Delegation Details</h5>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="delegation_size" class="form-label">Number of Delegates in Delegation</label>
+                                            <input type="number" class="form-control" id="delegation_size" name="delegation_size" min="2" max="50">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
+                                            <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3"><i class="fas fa-list-ul me-2"></i>Committee Preferences</h5>
+
+                                <div class="mb-3">
+                                    <label for="committee_preference_1" class="form-label">First Preference</label>
+                                    <select class="form-select" id="committee_preference_1" name="committee_preference_1">
+                                        <option value="">Select committee</option>
+                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                        <option value="PNA">PNA – Pakistan National Assembly</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="committee_preference_2" class="form-label">Second Preference</label>
+                                    <select class="form-select" id="committee_preference_2" name="committee_preference_2">
+                                        <option value="">Select committee</option>
+                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                        <option value="PNA">PNA – Pakistan National Assembly</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="committee_preference_3" class="form-label">Third Preference</label>
+                                    <select class="form-select" id="committee_preference_3" name="committee_preference_3">
+                                        <option value="">Select committee</option>
+                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                        <option value="PNA">PNA – Pakistan National Assembly</option>
+                                    </select>
+                                </div>
+
+                                <!-- Double Delegate Details (shown only if UNSC is selected) -->
+                                <div id="doubleDellegateDetails" style="display: none;">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i><strong>UNSC is a Double Delegate Committee</strong> - Please provide partner delegate information
+                                    </div>
+                                    <h6 class="mb-3">Partner Delegate Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="partner_name" class="form-label">Partner Full Name</label>
+                                            <input type="text" class="form-control" id="partner_name" name="partner_name">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="partner_email" class="form-label">Partner Email</label>
+                                            <input type="email" class="form-control" id="partner_email" name="partner_email">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="partner_phone" class="form-label">Partner Phone</label>
+                                            <input type="tel" class="form-control" id="partner_phone" name="partner_phone">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="partner_cnic" class="form-label">Partner CNIC</label>
+                                            <input type="text" class="form-control" id="partner_cnic" name="partner_cnic">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="partner_experience" class="form-label">Partner's Previous MUN Experience</label>
+                                        <textarea class="form-control" id="partner_experience" name="partner_experience" rows="2" placeholder="Partner's previous MUN experience (if any)"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Delegation Members (shown only if delegation is selected) -->
+                                <div id="delegationMembersSection" style="display: none;">
+                                    <hr class="my-4">
+                                    <h5 class="mb-3"><i class="fas fa-users me-2"></i>Delegation Members Information</h5>
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Please provide details for all delegation members (minimum 9)
+                                    </div>
+                                    <div id="delegationMembersContainer">
+                                        <!-- Members will be added dynamically here -->
+                                    </div>
+                                    <button type="button" class="btn btn-outline-primary mb-3" id="addMemberBtn">
+                                        <i class="fas fa-plus me-2"></i>Add Delegation Member
+                                    </button>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Additional Information</h5>
+
+                                <div class="mb-3">
+                                    <label for="mun_experience" class="form-label">Previous MUN Experience</label>
+                                    <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="dietary_requirements" class="form-label">Dietary Requirements</label>
+                                    <input type="text" class="form-control" id="dietary_requirements" name="dietary_requirements" placeholder="Any dietary restrictions or allergies?">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="special_needs" class="form-label">Special Needs / Accommodations</label>
+                                    <textarea class="form-control" id="special_needs" name="special_needs" rows="2" placeholder="Any special accommodations required?"></textarea>
+                                </div>
+
+                                <hr class="my-4">
+                                <h5 class="mb-3"><i class="fas fa-tag me-2"></i>Reference & Promo Code</h5>
+
+                                <div class="mb-3">
+                                    <label for="reference" class="form-label">Reference <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="reference" name="reference" placeholder="Brand Ambassador or NEDMUN-VI Team Member (If Any)" required>
+                                    <small class="text-muted">Please mention if referred by a Brand Ambassador or Team Member</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="promo_code" class="form-label">Promo Code</label>
+                                    <input type="text" class="form-control" id="promo_code" name="promo_code" placeholder="Enter promo code if you have one">
+                                    <small class="text-muted">Optional: Enter promo code for discounts (if applicable)</small>
+                                </div>
+
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="terms_accept" required>
+                                    <label class="form-check-label" for="terms_accept">
+                                        I agree to the terms and conditions and confirm that all information provided is accurate. <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-check-circle me-2"></i>Complete Registration
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-2" style="max-width: 120px;">
+                        <div style="width: 2px; height: 40px; background: #d4af37; margin: 0 8px;"></div>
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 120px;">
+                    </div>
+                    <p class="text-muted small">Empowering youth through debate, diplomacy, and leadership.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+                    <h6 style="color: #d4af37;">Contact Us</h6>
+                    <p class="text-muted small mb-1">Email: nedmunofficial@gmail.com</p>
+                    <p class="text-muted small mb-1">DG: 0324-3343946</p>
+                    <p class="text-muted small">DSG: 0333-3772513</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <h6 style="color: #d4af37;">Follow Us</h6>
+                    <div class="social-links">
+                        <a href="<?php echo FACEBOOK_URL; ?>" target="_blank" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color: #d4af37; opacity: 0.3;" class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p class="mb-0 text-muted small">&copy; <?php echo date('Y'); ?> NED Debating Society. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0 text-muted small">
+                        Developed by <a href="https://telinks.org/team-technical" target="_blank" class="text-decoration-none" style="color: #d4af37; font-weight: 500;">
+                            <i class="fas fa-code me-1"></i>TE Links Technical Team
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let memberCount = 0;
+
+        // Handle NED selection - auto-fill institution details
+        document.querySelectorAll('input[name="registration_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'NED') {
+                    document.getElementById('institution_name').value = 'NED University of Engineering & Technology';
+                    document.getElementById('education_level').value = 'Undergraduate';
+                    document.getElementById('institution_name').readOnly = true;
+                    document.getElementById('education_level').disabled = true;
+                } else {
+                    document.getElementById('institution_name').value = '';
+                    document.getElementById('education_level').value = '';
+                    document.getElementById('institution_name').readOnly = false;
+                    document.getElementById('education_level').disabled = false;
+                }
+            });
+        });
+
+        // Show/hide delegation details and members based on participant type
+        document.querySelectorAll('input[name="participant_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const delegationDetails = document.getElementById('delegationDetails');
+                const delegationMembersSection = document.getElementById('delegationMembersSection');
+                
+                if (this.value === 'delegation') {
+                    delegationDetails.style.display = 'block';
+                    delegationMembersSection.style.display = 'block';
+                    document.getElementById('delegation_size').required = true;
+                } else {
+                    delegationDetails.style.display = 'none';
+                    delegationMembersSection.style.display = 'none';
+                    document.getElementById('delegation_size').required = false;
+                }
+            });
+        });
+
+        // Check for UNSC (Double Delegate) selection
+        function checkDoubleDelegate() {
+            const committee1 = document.getElementById('committee_preference_1').value;
+            const committee2 = document.getElementById('committee_preference_2').value;
+            const committee3 = document.getElementById('committee_preference_3').value;
+            const doubleSection = document.getElementById('doubleDellegateDetails');
+            
+            if (committee1 === 'UNSC' || committee2 === 'UNSC' || committee3 === 'UNSC') {
+                doubleSection.style.display = 'block';
+            } else {
+                doubleSection.style.display = 'none';
+            }
+        }
+
+        document.getElementById('committee_preference_1').addEventListener('change', checkDoubleDelegate);
+        document.getElementById('committee_preference_2').addEventListener('change', checkDoubleDelegate);
+        document.getElementById('committee_preference_3').addEventListener('change', checkDoubleDelegate);
+
+        // Add delegation member fields
+        document.getElementById('addMemberBtn').addEventListener('click', function() {
+            memberCount++;
+            const container = document.getElementById('delegationMembersContainer');
+            const memberHTML = `
+                <div class="card mb-3 delegation-member" id="member-${memberCount}">
+                    <div class="card-header d-flex justify-content-between align-items-center" style="background: #1a1a1a;">
+                        <span><i class="fas fa-user me-2"></i>Delegate ${memberCount}</span>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="removeMember(${memberCount})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">Full Name *</label>
+                                <input type="text" class="form-control form-control-sm" name="member_name[]" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">Email *</label>
+                                <input type="email" class="form-control form-control-sm" name="member_email[]" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">Phone Number *</label>
+                                <input type="tel" class="form-control form-control-sm" name="member_phone[]" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">CNIC / B-Form</label>
+                                <input type="text" class="form-control form-control-sm" name="member_cnic[]">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label small">Committee Preference *</label>
+                                <select class="form-select form-select-sm" name="member_committee[]" required>
+                                    <option value="">Select committee</option>
+                                    <option value="UNSC">UNSC</option>
+                                    <option value="UNCSTD">UNCSTD</option>
+                                    <option value="UNWOMEN">UNWOMEN</option>
+                                    <option value="DISEC">DISEC</option>
+                                    <option value="SPECPOL">SPECPOL</option>
+                                    <option value="SOCHUM">SOCHUM</option>
+                                    <option value="KCC">KCC</option>
+                                    <option value="PNA">PNA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label small">Previous MUN Experience</label>
+                                <textarea class="form-control form-control-sm" name="member_experience[]" rows="2" placeholder="Previous MUN experience (if any)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', memberHTML);
+        });
+
+        // Remove delegation member
+        function removeMember(id) {
+            document.getElementById('member-' + id).remove();
+        }
+
+        // CNIC format validation
+        document.getElementById('cnic_number').addEventListener('blur', function() {
+            const cnic = this.value.replace(/[^0-9]/g, '');
+            if (cnic.length === 13) {
+                this.value = cnic.substring(0,5) + '-' + cnic.substring(5,12) + '-' + cnic.substring(12);
+            }
+        });
+
+        // Custom radio card styling
+        document.querySelectorAll('.custom-radio-card input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove active class from all labels in the same group
+                const groupName = this.name;
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                    r.parentElement.querySelector('label').classList.remove('border-primary', 'bg-light');
+                });
+                // Add active class to selected label
+                if (this.checked) {
+                    this.parentElement.querySelector('label').classList.add('border-primary', 'bg-light');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

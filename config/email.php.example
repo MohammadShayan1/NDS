@@ -1,0 +1,19 @@
+<?php
+/**
+ * Email Configuration Template
+ * 
+ * IMPORTANT: Copy this file to email.php and update with your credentials
+ * Never commit email.php to Git!
+ */
+
+// NOTE: Add your actual email functions here
+// This is just a template showing what credentials need to be configured
+
+/*
+SMTP Configuration:
+- SMTP_HOST: Your SMTP server (e.g., smtp.gmail.com)
+- SMTP_USERNAME: Your email address
+- SMTP_PASSWORD: Your app-specific password
+- FROM_EMAIL: Email address emails will be sent from
+*/
+?>

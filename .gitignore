@@ -1,0 +1,71 @@
+# NEDMUN-VI .gitignore
+
+# Database Configuration (SENSITIVE - Never commit!)
+config/database.php
+config.php
+database.sql
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Sensitive Configuration
+config/email.php
+
+# User Uploads
+uploads/
+public/uploads/
+
+# Logs
+*.log
+logs/
+error_log
+
+# Cache
+cache/
+tmp/
+temp/
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Node Modules (if using npm)
+node_modules/
+package-lock.json
+
+# Composer
+vendor/
+composer.lock
+
+# Backup Files
+*.bak
+*.backup
+*.sql.backup
+*.old
+
+# OS Generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# PHP Storm
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Generated Password Files
+generate-password.php
+
+# Documentation (keep main README only)
+assets/images/README.md
+SETUP-GUIDE.md

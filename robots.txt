@@ -1,0 +1,25 @@
+# NEDMUN-VI Robots.txt
+# NED Debating Society
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /models/
+Disallow: /controllers/
+
+# Sitemap
+Sitemap: http://nds.telinks.org/sitemap.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 10
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
