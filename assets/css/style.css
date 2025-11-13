@@ -47,17 +47,25 @@ section.bg-light {
 .navbar-brand {
     display: flex;
     align-items: center;
+    max-width: 350px;
+    overflow: hidden;
 }
 
 .nds-logo {
-    height: 50px;
+    height: 45px;
     width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    flex-shrink: 0;
     transition: transform 0.3s ease;
 }
 
 .nedmun-logo {
-    height: 50px;
+    height: 45px;
     width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    flex-shrink: 0;
     transition: transform 0.3s ease;
 }
 
@@ -74,12 +82,16 @@ section.bg-light {
 }
 
 @media (max-width: 768px) {
+    .navbar-brand {
+        max-width: 250px;
+    }
     .nds-logo,
     .nedmun-logo {
-        height: 40px;
+        height: 32px;
+        max-width: 70px;
     }
     .logo-separator {
-        height: 30px;
+        height: 28px;
         margin: 0 5px;
     }
 }

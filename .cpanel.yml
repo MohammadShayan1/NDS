@@ -1,41 +1,6 @@
 ---
-# cPanel Deployment Configuration for NEDMUN-VI
-# This file enables automatic deployment via Git Version Control in cPanel
-
 deployment:
   tasks:
-    # Copy all files from repository to deployment directory
     - export DEPLOYPATH=/home/mshayan/public_html/nds.telinks.org
-    
-    # Create necessary directories if they don't exist
-    - mkdir -p $DEPLOYPATH/assets/images
-    - mkdir -p $DEPLOYPATH/admin/ajax
-    - mkdir -p $DEPLOYPATH/admin/includes
-    - mkdir -p $DEPLOYPATH/config
-    - mkdir -p $DEPLOYPATH/controllers
-    - mkdir -p $DEPLOYPATH/models
-    - mkdir -p $DEPLOYPATH/views
-    
-    # Copy all files (rsync preserves structure)
-    - /usr/bin/rsync -av --exclude='.git' --exclude='.gitignore' --exclude='*.example' --exclude='DEPLOYMENT.md' --exclude='QUICKSTART.md' . $DEPLOYPATH
-    
-    # Set proper permissions
-    - chmod 755 $DEPLOYPATH
-    - chmod 755 $DEPLOYPATH/admin
-    - chmod 755 $DEPLOYPATH/assets
-    - chmod 755 $DEPLOYPATH/config
-    - chmod 644 $DEPLOYPATH/config/*.php
-    - chmod 644 $DEPLOYPATH/*.php
-    - chmod 755 $DEPLOYPATH/deploy.php
-    
-    # Create deployment log
-    - echo "Deployed at $(date)" >> $DEPLOYPATH/deployment.log
-    
-    # Note: database.php and email.php must be configured manually on first deployment
-    # They are excluded from Git for security
-
-# Instructions:
-# 1. Update DEPLOYPATH above with your actual cPanel path
-# 2. Ensure config/database.php exists on server (copy from .example)
-# 3. Ensure config/email.php exists on server (copy from .example)
-# 4. Push to repository to trigger automatic deployment
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R .htaccess $DEPLOYPATH 2>/dev/null || true
