@@ -385,10 +385,180 @@ section.bg-light {
 .custom-radio-card label {
     cursor: pointer;
     transition: all 0.3s ease;
+    background: #1a1a1a;
+    border: 2px solid rgba(212, 175, 55, 0.3) !important;
+    color: #fff;
 }
 
 .custom-radio-card label:hover {
-    background-color: #f0f0f0 !important;
+    background: rgba(212, 175, 55, 0.1) !important;
+    border-color: var(--secondary-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.custom-radio-card input[type="radio"]:checked + label {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.15)) !important;
+    border-color: var(--secondary-color) !important;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    transform: scale(1.02);
+}
+
+.custom-radio-card input[type="radio"]:checked + label::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    animation: checkmark 0.3s ease;
+}
+
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.custom-radio-card label strong {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+}
+
+.custom-radio-card label .text-muted {
+    color: #999 !important;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+    background: #1a1a1a;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: #0d0d0d;
+    border-color: var(--secondary-color);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.form-control::placeholder {
+    color: #666;
+}
+
+.form-select option {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 0.5rem;
+}
+
+.form-select option:checked,
+.form-select option:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    color: #000;
+}
+
+.form-label {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+    background-color: #1a1a1a;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.form-check-input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+}
+
+.form-check-label {
+    color: #ddd;
+}
+
+/* Form Cards */
+.card {
+    background: #0d0d0d;
+    border: 2px solid var(--secondary-color);
+    color: #fff;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)) !important;
+    color: #000 !important;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.card-body {
+    background: #0d0d0d;
+}
+
+/* Alert Styling */
+.alert {
+    border-left: 4px solid;
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.alert-success {
+    border-left-color: var(--secondary-color);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1));
+}
+
+.alert-success h5 {
+    color: var(--secondary-color);
+}
+
+.alert-danger {
+    border-left-color: #e53935;
+    background: linear-gradient(135deg, rgba(229, 57, 53, 0.15), rgba(198, 40, 40, 0.1));
+    color: #ff5252;
+}
+
+.alert-warning {
+    border-left-color: #ffa726;
+    background: linear-gradient(135deg, rgba(255, 167, 38, 0.15), rgba(251, 140, 0, 0.1));
+    color: #ffd54f;
+}
+
+.alert-info {
+    border-left-color: var(--secondary-color);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1));
+    color: var(--gold-light);
+}
+
+/* Text Colors in Forms */
+.text-muted {
+    color: #999 !important;
+}
+
+.text-danger {
+    color: #ff5252 !important;
+}
+
+p, .small {
+    color: #ccc;
+}
+
+/* Required Field Indicator */
+.text-danger {
+    filter: drop-shadow(0 0 3px rgba(255, 82, 82, 0.5));
 }
 
 /* Stats */
