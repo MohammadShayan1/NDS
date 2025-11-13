@@ -22,16 +22,16 @@ class DelegateController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate and sanitize input
             $data = [
-                'registration_type' => sanitize($_POST['registration_type']),
-                'participant_type' => sanitize($_POST['participant_type']),
-                'full_name' => sanitize($_POST['full_name']),
-                'email' => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
-                'phone_number' => sanitize($_POST['phone_number']),
+                'registration_type' => sanitize($_POST['registration_type'] ?? ''),
+                'participant_type' => sanitize($_POST['participant_type'] ?? ''),
+                'full_name' => sanitize($_POST['full_name'] ?? ''),
+                'email' => filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL),
+                'phone_number' => sanitize($_POST['phone_number'] ?? ''),
                 'cnic_number' => sanitize($_POST['cnic_number'] ?? ''),
-                'whatsapp_number' => sanitize($_POST['whatsapp_number']),
-                'institution_name' => sanitize($_POST['institution_name']),
+                'whatsapp_number' => sanitize($_POST['whatsapp_number'] ?? ''),
+                'institution_name' => sanitize($_POST['institution_name'] ?? ''),
                 'education_level' => !empty($_POST['education_level']) ? sanitize($_POST['education_level']) : null,
-                'delegation_size' => $_POST['delegation_size'] ?? null,
+                'delegation_size' => !empty($_POST['delegation_size']) ? intval($_POST['delegation_size']) : null,
                 'head_delegate_name' => sanitize($_POST['head_delegate_name'] ?? ''),
                 'committee_preference_1' => sanitize($_POST['committee_preference_1'] ?? ''),
                 'committee_preference_2' => sanitize($_POST['committee_preference_2'] ?? ''),
@@ -42,7 +42,7 @@ class DelegateController {
                 'reference' => sanitize($_POST['reference'] ?? ''),
                 'promo_code' => sanitize($_POST['promo_code'] ?? ''),
                 'partner_name' => sanitize($_POST['partner_name'] ?? ''),
-                'partner_email' => filter_var($_POST['partner_email'] ?? '', FILTER_SANITIZE_EMAIL),
+                'partner_email' => !empty($_POST['partner_email']) ? filter_var($_POST['partner_email'], FILTER_SANITIZE_EMAIL) : '',
                 'partner_phone' => sanitize($_POST['partner_phone'] ?? ''),
                 'partner_cnic' => sanitize($_POST['partner_cnic'] ?? ''),
                 'partner_experience' => sanitize($_POST['partner_experience'] ?? '')
@@ -68,22 +68,22 @@ class DelegateController {
             if ($registrationId) {
                 // Save delegation members if participant type is delegation
                 if ($data['participant_type'] === 'delegation' && isset($_POST['member_name']) && is_array($_POST['member_name'])) {
-                    $memberNames = $_POST['member_name'];
-                    $memberEmails = $_POST['member_email'];
-                    $memberPhones = $_POST['member_phone'];
-                    $memberCnics = $_POST['member_cnic'];
-                    $memberCommittees = $_POST['member_committee'];
+                    $memberNames = $_POST['member_name'] ?? [];
+                    $memberEmails = $_POST['member_email'] ?? [];
+                    $memberPhones = $_POST['member_phone'] ?? [];
+                    $memberCnics = $_POST['member_cnic'] ?? [];
+                    $memberCommittees = $_POST['member_committee'] ?? [];
                     $memberExperiences = $_POST['member_experience'] ?? [];
                     
                     for ($i = 0; $i < count($memberNames); $i++) {
                         if (!empty($memberNames[$i])) {
                             $memberData = [
                                 'registration_id' => $registrationId,
-                                'member_name' => sanitize($memberNames[$i]),
-                                'member_email' => filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL),
-                                'member_phone' => sanitize($memberPhones[$i]),
-                                'member_cnic' => sanitize($memberCnics[$i]),
-                                'member_committee_preference' => sanitize($memberCommittees[$i]),
+                                'member_name' => sanitize($memberNames[$i] ?? ''),
+                                'member_email' => !empty($memberEmails[$i]) ? filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL) : '',
+                                'member_phone' => sanitize($memberPhones[$i] ?? ''),
+                                'member_cnic' => sanitize($memberCnics[$i] ?? ''),
+                                'member_committee_preference' => sanitize($memberCommittees[$i] ?? ''),
                                 'member_experience' => sanitize($memberExperiences[$i] ?? '')
                             ];
                             

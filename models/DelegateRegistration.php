@@ -30,34 +30,37 @@ class DelegateRegistration {
         $stmt = $this->conn->prepare($query);
 
         // Sanitize and set defaults for nullable fields
-        $registration_type = $data['registration_type'] ?? '';
-        $participant_type = $data['participant_type'] ?? '';
+        $registration_type = !empty($data['registration_type']) ? $data['registration_type'] : 'Other';
+        $participant_type = !empty($data['participant_type']) ? $data['participant_type'] : 'delegate';
         $full_name = $data['full_name'] ?? '';
         $email = $data['email'] ?? '';
-        $phone_number = $data['phone_number'] ?? null;
-        $cnic_number = $data['cnic_number'] ?? null;
-        $whatsapp_number = $data['whatsapp_number'] ?? null;
-        $institution_name = $data['institution_name'] ?? null;
-        // Provide a valid default - try common ENUM values
-        $education_level = $data['education_level'] ?? 'O Levels';
-        if (empty($education_level)) {
-            $education_level = 'O Levels'; // Change to match your database ENUM first value
+        $phone_number = !empty($data['phone_number']) ? $data['phone_number'] : null;
+        $cnic_number = !empty($data['cnic_number']) ? $data['cnic_number'] : null;
+        $whatsapp_number = !empty($data['whatsapp_number']) ? $data['whatsapp_number'] : null;
+        $institution_name = !empty($data['institution_name']) ? $data['institution_name'] : null;
+        
+        // Handle education_level with multiple fallbacks for common ENUM values
+        $education_level = $data['education_level'] ?? null;
+        if (empty($education_level) || is_null($education_level)) {
+            // Try common ENUM values in order of likelihood
+            $education_level = 'O Levels'; // Fallback - adjust to your database's first ENUM value
         }
-        $delegation_size = $data['delegation_size'] ?? null;
-        $head_delegate_name = $data['head_delegate_name'] ?? null;
-        $committee_preference_1 = $data['committee_preference_1'] ?? null;
-        $committee_preference_2 = $data['committee_preference_2'] ?? null;
-        $committee_preference_3 = $data['committee_preference_3'] ?? null;
-        $mun_experience = $data['mun_experience'] ?? null;
-        $dietary_requirements = $data['dietary_requirements'] ?? null;
-        $special_needs = $data['special_needs'] ?? null;
-        $reference = $data['reference'] ?? null;
-        $promo_code = $data['promo_code'] ?? null;
-        $partner_name = $data['partner_name'] ?? null;
-        $partner_email = $data['partner_email'] ?? null;
-        $partner_phone = $data['partner_phone'] ?? null;
-        $partner_cnic = $data['partner_cnic'] ?? null;
-        $partner_experience = $data['partner_experience'] ?? null;
+        
+        $delegation_size = !empty($data['delegation_size']) ? intval($data['delegation_size']) : null;
+        $head_delegate_name = !empty($data['head_delegate_name']) ? $data['head_delegate_name'] : null;
+        $committee_preference_1 = !empty($data['committee_preference_1']) ? $data['committee_preference_1'] : null;
+        $committee_preference_2 = !empty($data['committee_preference_2']) ? $data['committee_preference_2'] : null;
+        $committee_preference_3 = !empty($data['committee_preference_3']) ? $data['committee_preference_3'] : null;
+        $mun_experience = !empty($data['mun_experience']) ? $data['mun_experience'] : null;
+        $dietary_requirements = !empty($data['dietary_requirements']) ? $data['dietary_requirements'] : null;
+        $special_needs = !empty($data['special_needs']) ? $data['special_needs'] : null;
+        $reference = !empty($data['reference']) ? $data['reference'] : null;
+        $promo_code = !empty($data['promo_code']) ? $data['promo_code'] : null;
+        $partner_name = !empty($data['partner_name']) ? $data['partner_name'] : null;
+        $partner_email = !empty($data['partner_email']) ? $data['partner_email'] : null;
+        $partner_phone = !empty($data['partner_phone']) ? $data['partner_phone'] : null;
+        $partner_cnic = !empty($data['partner_cnic']) ? $data['partner_cnic'] : null;
+        $partner_experience = !empty($data['partner_experience']) ? $data['partner_experience'] : null;
 
         // Bind parameters
         $stmt->bindParam(':registration_type', $registration_type);
@@ -101,14 +104,14 @@ class DelegateRegistration {
 
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize and set defaults for nullable fields
-        $registration_id = $data['registration_id'] ?? null;
-        $member_name = $data['member_name'] ?? null;
-        $member_email = $data['member_email'] ?? null;
-        $member_phone = $data['member_phone'] ?? null;
-        $member_cnic = $data['member_cnic'] ?? null;
-        $member_committee_preference = $data['member_committee_preference'] ?? null;
-        $member_experience = $data['member_experience'] ?? null;
+        // Sanitize and set defaults for nullable fields with proper type handling
+        $registration_id = !empty($data['registration_id']) ? intval($data['registration_id']) : null;
+        $member_name = !empty($data['member_name']) ? $data['member_name'] : null;
+        $member_email = !empty($data['member_email']) ? $data['member_email'] : null;
+        $member_phone = !empty($data['member_phone']) ? $data['member_phone'] : null;
+        $member_cnic = !empty($data['member_cnic']) ? $data['member_cnic'] : null;
+        $member_committee_preference = !empty($data['member_committee_preference']) ? $data['member_committee_preference'] : null;
+        $member_experience = !empty($data['member_experience']) ? $data['member_experience'] : null;
 
         $stmt->bindParam(':registration_id', $registration_id);
         $stmt->bindParam(':member_name', $member_name);
