@@ -305,8 +305,8 @@ $alert = getAlert();
                                         </ul>
                                     </div>
                                     
-                                    <label for="payment_screenshot" class="form-label">Upload Payment Screenshot <span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*" required>
+                                    <label for="payment_screenshot" class="form-label">Upload Payment Screenshot</label>
+                                    <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*">
                                     <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
                                     <div class="mt-2" id="screenshot_preview"></div>
                                 </div>
@@ -540,6 +540,21 @@ $alert = getAlert();
                 reader.readAsDataURL(file);
             } else {
                 preview.innerHTML = '';
+            }
+        });
+
+        // Enable disabled fields before form submission
+        document.getElementById('delegateForm').addEventListener('submit', function(e) {
+            // Enable education_level if disabled (for NED students)
+            const educationField = document.getElementById('education_level');
+            if (educationField.disabled) {
+                educationField.disabled = false;
+            }
+            
+            // Enable institution_name if readonly (for NED students)
+            const institutionField = document.getElementById('institution_name');
+            if (institutionField.readOnly) {
+                institutionField.readOnly = false;
             }
         });
 

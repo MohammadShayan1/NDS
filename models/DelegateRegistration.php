@@ -42,7 +42,7 @@ class DelegateRegistration {
         $institution_name = !empty($data['institution_name']) ? $data['institution_name'] : null;
         
         // Handle education_level - use first valid ENUM value as default
-        $education_level = !empty($data['education_level']) ? $data['education_level'] : 'O Levels';
+        $education_level = !empty($data['education_level']) ? $data['education_level'] : 'Middle school';
         
         $delegation_size = !empty($data['delegation_size']) ? intval($data['delegation_size']) : null;
         $head_delegate_name = !empty($data['head_delegate_name']) ? $data['head_delegate_name'] : null;

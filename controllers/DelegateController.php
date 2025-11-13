@@ -57,10 +57,6 @@ class DelegateController {
                     redirect('register');
                     return;
                 }
-            } else {
-                showAlert('Please upload payment screenshot.', 'danger');
-                redirect('register');
-                return;
             }
             
             // Validate and sanitize input
