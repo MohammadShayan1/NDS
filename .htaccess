@@ -3,7 +3,7 @@
 # Enable Rewrite Engine
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /telinks.live/NDS/
+RewriteBase /
 
 # Remove trailing slashes
 RewriteCond %{REQUEST_FILENAME} !-d
