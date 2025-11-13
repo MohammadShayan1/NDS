@@ -29,31 +29,57 @@ class DelegateRegistration {
 
         $stmt = $this->conn->prepare($query);
 
+        // Sanitize and set defaults for nullable fields
+        $registration_type = $data['registration_type'] ?? '';
+        $participant_type = $data['participant_type'] ?? '';
+        $full_name = $data['full_name'] ?? '';
+        $email = $data['email'] ?? '';
+        $phone_number = $data['phone_number'] ?? null;
+        $cnic_number = $data['cnic_number'] ?? null;
+        $whatsapp_number = $data['whatsapp_number'] ?? null;
+        $institution_name = $data['institution_name'] ?? null;
+        $education_level = $data['education_level'] ?? null;
+        $delegation_size = $data['delegation_size'] ?? null;
+        $head_delegate_name = $data['head_delegate_name'] ?? null;
+        $committee_preference_1 = $data['committee_preference_1'] ?? null;
+        $committee_preference_2 = $data['committee_preference_2'] ?? null;
+        $committee_preference_3 = $data['committee_preference_3'] ?? null;
+        $mun_experience = $data['mun_experience'] ?? null;
+        $dietary_requirements = $data['dietary_requirements'] ?? null;
+        $special_needs = $data['special_needs'] ?? null;
+        $reference = $data['reference'] ?? null;
+        $promo_code = $data['promo_code'] ?? null;
+        $partner_name = $data['partner_name'] ?? null;
+        $partner_email = $data['partner_email'] ?? null;
+        $partner_phone = $data['partner_phone'] ?? null;
+        $partner_cnic = $data['partner_cnic'] ?? null;
+        $partner_experience = $data['partner_experience'] ?? null;
+
         // Bind parameters
-        $stmt->bindParam(':registration_type', $data['registration_type']);
-        $stmt->bindParam(':participant_type', $data['participant_type']);
-        $stmt->bindParam(':full_name', $data['full_name']);
-        $stmt->bindParam(':email', $data['email']);
-        $stmt->bindParam(':phone_number', $data['phone_number']);
-        $stmt->bindParam(':cnic_number', $data['cnic_number']);
-        $stmt->bindParam(':whatsapp_number', $data['whatsapp_number']);
-        $stmt->bindParam(':institution_name', $data['institution_name']);
-        $stmt->bindParam(':education_level', $data['education_level']);
-        $stmt->bindParam(':delegation_size', $data['delegation_size']);
-        $stmt->bindParam(':head_delegate_name', $data['head_delegate_name']);
-        $stmt->bindParam(':committee_preference_1', $data['committee_preference_1']);
-        $stmt->bindParam(':committee_preference_2', $data['committee_preference_2']);
-        $stmt->bindParam(':committee_preference_3', $data['committee_preference_3']);
-        $stmt->bindParam(':mun_experience', $data['mun_experience']);
-        $stmt->bindParam(':dietary_requirements', $data['dietary_requirements']);
-        $stmt->bindParam(':special_needs', $data['special_needs']);
-        $stmt->bindParam(':reference', $data['reference']);
-        $stmt->bindParam(':promo_code', $data['promo_code']);
-        $stmt->bindParam(':partner_name', $data['partner_name']);
-        $stmt->bindParam(':partner_email', $data['partner_email']);
-        $stmt->bindParam(':partner_phone', $data['partner_phone']);
-        $stmt->bindParam(':partner_cnic', $data['partner_cnic']);
-        $stmt->bindParam(':partner_experience', $data['partner_experience']);
+        $stmt->bindParam(':registration_type', $registration_type);
+        $stmt->bindParam(':participant_type', $participant_type);
+        $stmt->bindParam(':full_name', $full_name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone_number', $phone_number);
+        $stmt->bindParam(':cnic_number', $cnic_number);
+        $stmt->bindParam(':whatsapp_number', $whatsapp_number);
+        $stmt->bindParam(':institution_name', $institution_name);
+        $stmt->bindParam(':education_level', $education_level);
+        $stmt->bindParam(':delegation_size', $delegation_size);
+        $stmt->bindParam(':head_delegate_name', $head_delegate_name);
+        $stmt->bindParam(':committee_preference_1', $committee_preference_1);
+        $stmt->bindParam(':committee_preference_2', $committee_preference_2);
+        $stmt->bindParam(':committee_preference_3', $committee_preference_3);
+        $stmt->bindParam(':mun_experience', $mun_experience);
+        $stmt->bindParam(':dietary_requirements', $dietary_requirements);
+        $stmt->bindParam(':special_needs', $special_needs);
+        $stmt->bindParam(':reference', $reference);
+        $stmt->bindParam(':promo_code', $promo_code);
+        $stmt->bindParam(':partner_name', $partner_name);
+        $stmt->bindParam(':partner_email', $partner_email);
+        $stmt->bindParam(':partner_phone', $partner_phone);
+        $stmt->bindParam(':partner_cnic', $partner_cnic);
+        $stmt->bindParam(':partner_experience', $partner_experience);
 
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();
