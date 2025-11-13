@@ -38,8 +38,11 @@ class DelegateRegistration {
         $cnic_number = $data['cnic_number'] ?? null;
         $whatsapp_number = $data['whatsapp_number'] ?? null;
         $institution_name = $data['institution_name'] ?? null;
-        // Provide a default value for education_level (adjust based on your database ENUM values)
-        $education_level = !empty($data['education_level']) ? $data['education_level'] : 'undergraduate';
+        // Provide a valid default - try common ENUM values
+        $education_level = $data['education_level'] ?? 'O Levels';
+        if (empty($education_level)) {
+            $education_level = 'O Levels'; // Change to match your database ENUM first value
+        }
         $delegation_size = $data['delegation_size'] ?? null;
         $head_delegate_name = $data['head_delegate_name'] ?? null;
         $committee_preference_1 = $data['committee_preference_1'] ?? null;
