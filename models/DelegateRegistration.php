@@ -97,13 +97,22 @@ class DelegateRegistration {
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':registration_id', $data['registration_id']);
-        $stmt->bindParam(':member_name', $data['member_name']);
-        $stmt->bindParam(':member_email', $data['member_email']);
-        $stmt->bindParam(':member_phone', $data['member_phone']);
-        $stmt->bindParam(':member_cnic', $data['member_cnic']);
-        $stmt->bindParam(':member_committee_preference', $data['member_committee_preference']);
-        $stmt->bindParam(':member_experience', $data['member_experience']);
+        // Sanitize and set defaults for nullable fields
+        $registration_id = $data['registration_id'] ?? null;
+        $member_name = $data['member_name'] ?? null;
+        $member_email = $data['member_email'] ?? null;
+        $member_phone = $data['member_phone'] ?? null;
+        $member_cnic = $data['member_cnic'] ?? null;
+        $member_committee_preference = $data['member_committee_preference'] ?? null;
+        $member_experience = $data['member_experience'] ?? null;
+
+        $stmt->bindParam(':registration_id', $registration_id);
+        $stmt->bindParam(':member_name', $member_name);
+        $stmt->bindParam(':member_email', $member_email);
+        $stmt->bindParam(':member_phone', $member_phone);
+        $stmt->bindParam(':member_cnic', $member_cnic);
+        $stmt->bindParam(':member_committee_preference', $member_committee_preference);
+        $stmt->bindParam(':member_experience', $member_experience);
 
         return $stmt->execute();
     }
