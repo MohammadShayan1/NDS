@@ -557,26 +557,6 @@ $alert = getAlert();
                 }
             });
         });
-
-        // Form validation before submit
-        document.getElementById('delegateForm').addEventListener('submit', function(e) {
-            const paymentScreenshot = document.getElementById('payment_screenshot');
-            const termsAccept = document.getElementById('terms_accept');
-            
-            if (!paymentScreenshot.files || paymentScreenshot.files.length === 0) {
-                e.preventDefault();
-                alert('Please upload a payment screenshot before submitting the form.');
-                paymentScreenshot.focus();
-                return false;
-            }
-            
-            if (!termsAccept.checked) {
-                e.preventDefault();
-                alert('Please accept the terms and conditions before submitting.');
-                termsAccept.focus();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
