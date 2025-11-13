@@ -38,7 +38,8 @@ class DelegateRegistration {
         $cnic_number = $data['cnic_number'] ?? null;
         $whatsapp_number = $data['whatsapp_number'] ?? null;
         $institution_name = $data['institution_name'] ?? null;
-        $education_level = $data['education_level'] ?? null;
+        // Set empty string for education_level if not provided, to avoid ENUM errors
+        $education_level = !empty($data['education_level']) ? $data['education_level'] : '';
         $delegation_size = $data['delegation_size'] ?? null;
         $head_delegate_name = $data['head_delegate_name'] ?? null;
         $committee_preference_1 = $data['committee_preference_1'] ?? null;

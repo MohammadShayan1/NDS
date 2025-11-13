@@ -30,7 +30,7 @@ class DelegateController {
                 'cnic_number' => sanitize($_POST['cnic_number'] ?? ''),
                 'whatsapp_number' => sanitize($_POST['whatsapp_number']),
                 'institution_name' => sanitize($_POST['institution_name']),
-                'education_level' => sanitize($_POST['education_level']),
+                'education_level' => sanitize($_POST['education_level'] ?? ''),
                 'delegation_size' => $_POST['delegation_size'] ?? null,
                 'head_delegate_name' => sanitize($_POST['head_delegate_name'] ?? ''),
                 'committee_preference_1' => sanitize($_POST['committee_preference_1'] ?? ''),
