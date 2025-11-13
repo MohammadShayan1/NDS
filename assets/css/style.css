@@ -37,11 +37,12 @@ section.bg-light {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     border-bottom: 2px solid var(--secondary-color);
+    box-shadow: 0 1px 15px rgba(212, 175, 55, 0.15);
 }
 
 #mainNav.navbar-scrolled {
     background-color: rgba(0, 0, 0, 1);
-    box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3), 0 0 30px rgba(212, 175, 55, 0.1);
 }
 
 .navbar-brand {
@@ -74,6 +75,7 @@ section.bg-light {
     height: 40px;
     background: var(--secondary-color);
     margin: 0 10px;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 .navbar-brand:hover .nds-logo,
@@ -114,6 +116,7 @@ section.bg-light {
     background: var(--secondary-color);
     transition: all 0.3s ease;
     transform: translateX(-50%);
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.5);
 }
 
 .nav-link:hover::after,
@@ -148,7 +151,7 @@ section.bg-light {
     background: var(--secondary-color) !important;
     color: #000 !important;
     border: 2px solid var(--accent-color);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.2);
 }
 
 @keyframes pulse {
@@ -164,6 +167,7 @@ section.bg-light {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
 }
 
 .scroll-indicator {
@@ -194,6 +198,7 @@ section.bg-light {
     position: relative;
     display: inline-block;
     margin-bottom: 1rem;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 
 .section-title::after {
@@ -204,7 +209,7 @@ section.bg-light {
     width: 60px;
     height: 4px;
     background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5), 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 /* Committee Cards */
@@ -215,11 +220,12 @@ section.bg-light {
     overflow: hidden;
     background: linear-gradient(135deg, #000, #1a1a1a);
     color: #fff;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
 .committee-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
     border-color: var(--gold-light);
 }
 
@@ -237,6 +243,7 @@ section.bg-light {
 
 .committee-card .card-title {
     color: var(--secondary-color);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .committee-card .card-text {
@@ -275,17 +282,19 @@ section.bg-light {
     border-radius: 15px;
     background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
     border: 2px solid var(--secondary-color);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
 }
 
 .registration-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4), 0 0 25px rgba(212, 175, 55, 0.2);
     border-color: var(--gold-light);
 }
 
 .registration-card .card-header {
     background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)) !important;
     color: #000 !important;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
 .registration-card .card-body {
@@ -324,7 +333,7 @@ section.bg-light {
 .social-icon:hover {
     color: var(--gold-light);
     transform: translateY(-5px);
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.3);
 }
 
 /* Buttons */
@@ -336,12 +345,13 @@ section.bg-light {
     font-weight: 600;
     border-radius: 50px;
     transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .btn-primary:hover {
     background: linear-gradient(135deg, var(--gold-light), var(--secondary-color));
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.3);
     color: #000;
 }
 
@@ -353,13 +363,14 @@ section.bg-light {
     border-radius: 50px;
     transition: all 0.3s ease;
     background: transparent;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
 }
 
 .btn-outline-light:hover {
     background: var(--secondary-color);
     color: #000;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.3);
 }
 
 /* Form Styles */
@@ -384,11 +395,13 @@ section.bg-light {
 .stats-row h3 {
     font-family: 'Playfair Display', serif;
     color: var(--secondary-color);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
 /* All Icons Golden */
 .fa, .fas, .far, .fab {
     color: var(--secondary-color);
+    filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.3));
 }
 
 .text-primary {
@@ -430,14 +443,627 @@ p {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 3rem;
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE FIRST
+   ======================================== */
+
+/* Tablet - 768px to 991px */
+@media (max-width: 991px) {
+    body {
+        padding-top: 70px;
     }
     
-    .display-1 {
-        font-size: 3rem;
+    /* Navbar */
+    #mainNav {
+        padding: 0.75rem 0;
+    }
+    
+    .navbar-collapse {
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.98), rgba(26, 26, 26, 0.98));
+        padding: 1.5rem;
+        margin-top: 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--secondary-color);
+        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+    }
+    
+    .nav-link {
+        padding: 1rem 1.25rem !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    .nav-link:hover {
+        background: rgba(212, 175, 55, 0.1);
+        padding-left: 1.5rem !important;
+    }
+    
+    .nav-link::after {
+        display: none;
+    }
+    
+    .nav-item .btn-primary {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    /* Hero */
+    .hero-section {
+        min-height: 90vh;
+        padding: 100px 0 50px;
+    }
+    
+    .hero-section .img-fluid {
+        max-width: 280px !important;
+    }
+    
+    /* Sections */
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Stats */
+    .stats-row .col-4 {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+    }
+}
+
+/* Mobile - Below 768px */
+@media (max-width: 767px) {
+    body {
+        padding-top: 60px;
+        font-size: 14px;
+    }
+    
+    /* ===== NAVIGATION ===== */
+    #mainNav {
+        padding: 0.5rem 0;
+    }
+    
+    .navbar-brand {
+        max-width: 220px;
+    }
+    
+    .nds-logo,
+    .nedmun-logo {
+        height: 32px;
+        max-width: 60px;
+    }
+    
+    .logo-separator {
+        height: 28px;
+        margin: 0 6px;
+        width: 1px;
+    }
+    
+    .navbar-toggler {
+        padding: 0.35rem 0.6rem;
+        font-size: 1rem;
+        border: 1px solid var(--secondary-color);
+    }
+    
+    .navbar-collapse {
+        padding: 1.25rem;
+        margin-top: 0.75rem;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+        min-height: 100vh;
+        padding: 80px 0 40px;
+    }
+    
+    .hero-section .container {
+        padding: 0 20px;
+    }
+    
+    .hero-section .img-fluid {
+        max-width: 220px !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .early-bird-badge {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1rem !important;
+    }
+    
+    .tagline {
+        font-size: 0.95rem !important;
+        line-height: 1.5;
+        margin-bottom: 0.75rem !important;
+        padding: 0 10px;
+    }
+    
+    .hero-section h2 {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .hero-section p {
+        font-size: 0.9rem !important;
+        padding: 0 10px;
+    }
+    
+    .event-details {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .event-details .lead {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .cta-buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+        width: 100%;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    .scroll-indicator a {
+        font-size: 1.5rem;
+    }
+    
+    /* ===== SECTIONS ===== */
+    section.py-5 {
+        padding: 2.5rem 0 !important;
+    }
+    
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .section-title::after {
+        width: 50px;
+        height: 3px;
+        bottom: -8px;
+    }
+    
+    .lead {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    /* ===== ABOUT SECTION ===== */
+    .about-logos {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .about-logos .img-fluid {
+        max-width: 110px !important;
+    }
+    
+    .about-logos .mx-3 {
+        height: 50px !important;
+        margin: 0 8px !important;
+    }
+    
+    .stats-row {
+        margin-top: 1.5rem !important;
+    }
+    
+    .stats-row h3 {
+        font-size: 2rem !important;
+        margin-bottom: 0.25rem;
+    }
+    
+    .stats-row p {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+    
+    .stats-row .col-4 {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    /* ===== COMMITTEES ===== */
+    .committee-card {
+        margin-bottom: 1rem;
+    }
+    
+    .committee-card .card-body {
+        padding: 1.25rem;
+    }
+    
+    .committee-icon {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .committee-icon i {
+        font-size: 2rem !important;
+    }
+    
+    .committee-card .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .committee-card .card-text {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    .committee-card .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    /* ===== REGISTRATION CARDS ===== */
+    .registration-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .registration-card .card-header {
+        padding: 1.25rem;
+    }
+    
+    .registration-card .card-header i {
+        font-size: 2rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .registration-card .card-header h3 {
+        font-size: 1.35rem;
+    }
+    
+    .registration-card .card-body {
+        padding: 1.25rem;
+    }
+    
+    .registration-card h5 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .pricing-info {
+        font-size: 0.85rem;
+        padding: 0.85rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .pricing-info p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+    
+    .registration-card .alert {
+        font-size: 0.8rem !important;
+        padding: 0.75rem !important;
+    }
+    
+    .registration-card .btn-lg {
+        font-size: 0.95rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .registration-card .list-unstyled li {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* ===== CONTACT SECTION ===== */
+    .contact-info {
+        margin-bottom: 2rem;
+    }
+    
+    .contact-info h4 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .contact-item {
+        font-size: 0.875rem;
+        margin-bottom: 1rem !important;
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .contact-item i {
+        font-size: 1.1rem;
+        margin-right: 0.75rem !important;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+    
+    .social-links h5 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .social-icon {
+        margin: 0 8px;
+    }
+    
+    .social-icon i {
+        font-size: 1.75rem !important;
+    }
+    
+    .map-container {
+        margin-top: 1.5rem;
+    }
+    
+    .map-container iframe {
+        height: 280px !important;
+        border-radius: 8px;
+    }
+    
+    /* ===== FOOTER ===== */
+    footer {
+        padding: 2.5rem 0 !important;
+    }
+    
+    footer .d-flex {
+        justify-content: center !important;
+        margin-bottom: 1rem;
+    }
+    
+    footer .img-fluid {
+        max-width: 90px !important;
+    }
+    
+    footer h5 {
+        font-size: 1.05rem;
+        margin-top: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    footer p,
+    footer ul li {
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+    
+    footer .text-md-start,
+    footer .text-md-end {
+        text-align: center !important;
+    }
+    
+    footer hr {
+        margin: 1.5rem 0 !important;
+    }
+}
+
+/* Small Mobile - Below 576px */
+@media (max-width: 575px) {
+    body {
+        padding-top: 55px;
+    }
+    
+    /* ===== NAVIGATION ===== */
+    .navbar-brand {
+        max-width: 180px;
+    }
+    
+    .nds-logo,
+    .nedmun-logo {
+        height: 28px;
+        max-width: 50px;
+    }
+    
+    .logo-separator {
+        height: 24px;
+        margin: 0 5px;
+    }
+    
+    /* ===== HERO ===== */
+    .hero-section {
+        padding: 70px 0 30px;
+    }
+    
+    .hero-section .img-fluid {
+        max-width: 180px !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .early-bird-badge {
+        font-size: 0.7rem;
+        padding: 0.45rem 0.85rem;
+    }
+    
+    .early-bird-badge i {
+        display: none;
+    }
+    
+    .tagline {
+        font-size: 0.85rem !important;
+        padding: 0 5px;
+    }
+    
+    .hero-section h2 {
+        font-size: 1rem !important;
+    }
+    
+    .hero-section p {
+        font-size: 0.85rem !important;
+    }
+    
+    .event-details .lead {
+        font-size: 0.85rem;
+    }
+    
+    .cta-buttons .btn {
+        font-size: 0.85rem;
+        padding: 0.65rem 1.25rem;
+    }
+    
+    .cta-buttons .btn i {
+        display: none;
+    }
+    
+    /* ===== SECTIONS ===== */
+    section.py-5 {
+        padding: 2rem 0 !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .lead {
+        font-size: 0.9rem !important;
+    }
+    
+    /* ===== ABOUT ===== */
+    .about-logos {
+        flex-direction: column !important;
+    }
+    
+    .about-logos .img-fluid {
+        max-width: 90px !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .about-logos .mx-3 {
+        width: 60px !important;
+        height: 2px !important;
+        margin: 0.5rem auto !important;
+    }
+    
+    .stats-row h3 {
+        font-size: 1.75rem !important;
+    }
+    
+    .stats-row p {
+        font-size: 0.75rem;
+    }
+    
+    /* ===== COMMITTEES ===== */
+    .committee-card .card-body {
+        padding: 1rem;
+    }
+    
+    .committee-icon i {
+        font-size: 1.75rem !important;
+    }
+    
+    .committee-card .card-title {
+        font-size: 1rem;
+    }
+    
+    .committee-card .card-text {
+        font-size: 0.75rem;
+    }
+    
+    /* ===== REGISTRATION ===== */
+    .registration-card .card-header {
+        padding: 1rem;
+    }
+    
+    .registration-card .card-header i {
+        font-size: 1.75rem !important;
+    }
+    
+    .registration-card .card-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .registration-card .card-body {
+        padding: 1rem;
+    }
+    
+    .registration-card h5 {
+        font-size: 0.95rem;
+    }
+    
+    .pricing-info {
+        font-size: 0.8rem;
+        padding: 0.75rem !important;
+    }
+    
+    .pricing-info p {
+        font-size: 0.75rem;
+    }
+    
+    .registration-card .list-unstyled li {
+        font-size: 0.8rem;
+    }
+    
+    /* ===== CONTACT ===== */
+    .contact-item {
+        font-size: 0.8rem;
+    }
+    
+    .contact-item i {
+        font-size: 1rem;
+    }
+    
+    .social-icon i {
+        font-size: 1.5rem !important;
+    }
+    
+    .map-container iframe {
+        height: 240px !important;
+    }
+    
+    /* ===== FOOTER ===== */
+    footer {
+        padding: 2rem 0 !important;
+    }
+    
+    footer .img-fluid {
+        max-width: 70px !important;
+    }
+    
+    footer h5 {
+        font-size: 0.95rem;
+    }
+    
+    footer p,
+    footer ul li {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-width: 767px) and (orientation: landscape) {
+    .hero-section {
+        min-height: 100vh;
+        padding: 60px 0 30px;
+    }
+    
+    .hero-section .img-fluid {
+        max-width: 160px !important;
+    }
+    
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .scroll-indicator,
+    .btn,
+    footer {
+        display: none !important;
+    }
+    
+    body {
+        padding-top: 0;
+        background: white;
+        color: black;
     }
 }
 
@@ -455,3 +1081,47 @@ p {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/* Mobile Menu Enhancements */
+.navbar-toggler {
+    border-color: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212, 175, 55, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Prevent Horizontal Scroll */
+body, html {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+

@@ -5,7 +5,10 @@ require_once 'config/config.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title><?php echo SITE_NAME; ?> - Karachi's Largest Model United Nations</title>
     
     <!-- SEO Meta Tags -->
@@ -146,7 +149,7 @@ require_once 'config/config.php';
         <div class="container py-5">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-                    <div class="d-flex align-items-center mb-4">
+                    <div class="about-logos d-flex align-items-center justify-content-center justify-content-lg-start mb-4">
                         <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-3" style="max-width: 200px;">
                         <div class="mx-3" style="width: 2px; height: 80px; background: var(--secondary-color);"></div>
                         <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 200px;">
