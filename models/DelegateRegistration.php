@@ -39,12 +39,8 @@ class DelegateRegistration {
         $whatsapp_number = !empty($data['whatsapp_number']) ? $data['whatsapp_number'] : null;
         $institution_name = !empty($data['institution_name']) ? $data['institution_name'] : null;
         
-        // Handle education_level with multiple fallbacks for common ENUM values
-        $education_level = $data['education_level'] ?? null;
-        if (empty($education_level) || is_null($education_level)) {
-            // Try common ENUM values in order of likelihood
-            $education_level = 'O Levels'; // Fallback - adjust to your database's first ENUM value
-        }
+        // Handle education_level - use first valid ENUM value as default
+        $education_level = !empty($data['education_level']) ? $data['education_level'] : 'O Levels';
         
         $delegation_size = !empty($data['delegation_size']) ? intval($data['delegation_size']) : null;
         $head_delegate_name = !empty($data['head_delegate_name']) ? $data['head_delegate_name'] : null;

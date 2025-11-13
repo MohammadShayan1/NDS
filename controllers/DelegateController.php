@@ -80,7 +80,7 @@ class DelegateController {
                             $memberData = [
                                 'registration_id' => $registrationId,
                                 'member_name' => sanitize($memberNames[$i] ?? ''),
-                                'member_email' => !empty($memberEmails[$i]) ? filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL) : '',
+                                'member_email' => isset($memberEmails[$i]) && !empty($memberEmails[$i]) ? filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL) : '',
                                 'member_phone' => sanitize($memberPhones[$i] ?? ''),
                                 'member_cnic' => sanitize($memberCnics[$i] ?? ''),
                                 'member_committee_preference' => sanitize($memberCommittees[$i] ?? ''),
