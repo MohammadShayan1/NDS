@@ -590,7 +590,7 @@ $alert = getAlert();
                 .then(response => response.json())
                 .then(data => {
                     if (data.success && data.delegate.payment_screenshot) {
-                        const imageUrl = '<?php echo BASE_URL; ?>uploads/payment_screenshots/' + data.delegate.payment_screenshot;
+                        const imageUrl = '<?php echo BASE_URL; ?>' + data.delegate.payment_screenshot;
                         paymentContent.innerHTML = `
                             <div class="p-3">
                                 <img src="${imageUrl}" alt="Payment Screenshot" class="img-fluid rounded shadow" style="max-height: 70vh; cursor: zoom-in;" onclick="window.open('${imageUrl}', '_blank')">
