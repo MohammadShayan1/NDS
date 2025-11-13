@@ -26,7 +26,17 @@ try {
     $member = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($member) {
-        echo json_encode($member);
+        echo json_encode([
+            'success' => true,
+            'member_name' => $member['member_name'],
+            'member_email' => $member['member_email'],
+            'member_phone' => $member['member_phone'],
+            'member_cnic' => $member['member_cnic'],
+            'member_committee_preference' => $member['member_committee_preference'],
+            'member_experience' => $member['member_experience'],
+            'assigned_committee' => $member['assigned_committee'],
+            'status' => $member['status']
+        ]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Member not found']);
     }

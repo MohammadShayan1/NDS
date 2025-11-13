@@ -124,17 +124,20 @@ $alert = getAlert();
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
+                                        <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
+                                        <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="whatsapp_number" class="form-label">WhatsApp Number <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" required>
+                                        <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
+                                        <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="cnic_number" class="form-label">CNIC / B-Form Number</label>
-                                    <input type="text" class="form-control" id="cnic_number" name="cnic_number" placeholder="XXXXX-XXXXXXX-X">
+                                    <input type="text" class="form-control" id="cnic_number" name="cnic_number" placeholder="XXXXX-XXXXXXX-X" maxlength="15">
+                                    <small class="text-muted">Format: XXXXX-XXXXXXX-X</small>
                                 </div>
 
                                 <hr class="my-4">
@@ -496,12 +499,65 @@ $alert = getAlert();
             document.getElementById('member-' + id).remove();
         }
 
-        // CNIC format validation
-        document.getElementById('cnic_number').addEventListener('blur', function() {
-            const cnic = this.value.replace(/[^0-9]/g, '');
-            if (cnic.length === 13) {
-                this.value = cnic.substring(0,5) + '-' + cnic.substring(5,12) + '-' + cnic.substring(12);
+        // Real-time CNIC formatting (XXXXX-XXXXXXX-X)
+        document.getElementById('cnic_number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            
+            if (value.length > 13) {
+                value = value.substring(0, 13);
             }
+            
+            let formatted = '';
+            if (value.length > 0) {
+                formatted = value.substring(0, 5);
+                if (value.length > 5) {
+                    formatted += '-' + value.substring(5, 12);
+                    if (value.length > 12) {
+                        formatted += '-' + value.substring(12, 13);
+                    }
+                }
+            }
+            
+            e.target.value = formatted;
+        });
+
+        // Real-time phone number formatting (03XX-XXXXXXX or +92XXX-XXXXXXX)
+        function formatPhone(input) {
+            let value = input.value.replace(/[^0-9+]/g, '');
+            
+            // Handle +92 format
+            if (value.startsWith('+92')) {
+                value = value.substring(0, 13); // +92 + 10 digits
+                let formatted = '+92';
+                const digits = value.substring(3);
+                if (digits.length > 0) {
+                    formatted += digits.substring(0, 3);
+                    if (digits.length > 3) {
+                        formatted += '-' + digits.substring(3, 10);
+                    }
+                }
+                input.value = formatted;
+            }
+            // Handle 0 format
+            else if (value.startsWith('0')) {
+                value = value.substring(0, 11); // 0 + 10 digits
+                let formatted = value.substring(0, 4);
+                if (value.length > 4) {
+                    formatted += '-' + value.substring(4, 11);
+                }
+                input.value = formatted;
+            }
+            else {
+                input.value = value.substring(0, 11);
+            }
+        }
+
+        document.getElementById('phone_number').addEventListener('input', function(e) {
+            formatPhone(e.target);
+        });
+
+        document.getElementById('whatsapp_number').addEventListener('input', function(e) {
+            formatPhone(e.target);
         });
 
         // Payment screenshot preview

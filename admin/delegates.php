@@ -333,7 +333,8 @@ $alert = getAlert();
         function viewDetails(id) {
             fetch('<?php echo BASE_URL; ?>admin/ajax/get-delegate.php?id=' + id)
                 .then(response => response.json())
-                .then(data => {
+                .then(response => {
+                    const data = response.success ? response.delegate : response;
                     let html = `
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -509,8 +510,9 @@ $alert = getAlert();
                 .then(response => response.json())
                 .then(data => {
                     if (type === 'main') {
-                        document.getElementById('assignDelegateName').value = data.full_name;
-                        document.getElementById('assignPreferredCommittee').value = data.committee_preference_1 || 'N/A';
+                        const delegate = data.success ? data.delegate : data;
+                        document.getElementById('assignDelegateName').value = delegate.full_name;
+                        document.getElementById('assignPreferredCommittee').value = delegate.committee_preference_1 || 'N/A';
                     } else {
                         document.getElementById('assignDelegateName').value = data.member_name;
                         document.getElementById('assignPreferredCommittee').value = data.member_committee_preference || 'N/A';
@@ -518,6 +520,10 @@ $alert = getAlert();
                     
                     document.getElementById('assignedCommittee').value = '';
                     new bootstrap.Modal(document.getElementById('assignModal')).show();
+                })
+                .catch(error => {
+                    alert('Error loading data: ' + error);
+                    console.error('Error:', error);
                 });
         }
 
@@ -536,6 +542,7 @@ $alert = getAlert();
                 formData.append('member_id', currentAssignId);
             }
             formData.append('assigned_committee', committee);
+            formData.append('type', currentAssignType);
             
             fetch('<?php echo BASE_URL; ?>admin/ajax/assign-committee.php', {
                 method: 'POST',

@@ -23,7 +23,7 @@ class DelegateController {
             // Handle payment screenshot upload
             $paymentScreenshot = '';
             if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = '../uploads/payment_screenshots/';
+                $uploadDir = __DIR__ . '/../uploads/payment_screenshots/';
                 
                 // Create directory if it doesn't exist
                 if (!file_exists($uploadDir)) {
