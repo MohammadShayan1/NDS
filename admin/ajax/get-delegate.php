@@ -14,10 +14,16 @@ if (isset($_GET['id'])) {
     
     if ($delegate) {
         header('Content-Type: application/json');
-        echo json_encode($delegate);
+        echo json_encode([
+            'success' => true,
+            'delegate' => $delegate
+        ]);
     } else {
         http_response_code(404);
-        echo json_encode(['error' => 'Delegate not found']);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Delegate not found'
+        ]);
     }
 } else {
     http_response_code(400);

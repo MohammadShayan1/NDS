@@ -20,6 +20,49 @@ class DelegateController {
 
     public function submit() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Handle payment screenshot upload
+            $paymentScreenshot = '';
+            if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = '../uploads/payment_screenshots/';
+                
+                // Create directory if it doesn't exist
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                
+                $fileExtension = strtolower(pathinfo($_FILES['payment_screenshot']['name'], PATHINFO_EXTENSION));
+                $allowedExtensions = ['jpg', 'jpeg', 'png'];
+                
+                if (!in_array($fileExtension, $allowedExtensions)) {
+                    showAlert('Invalid file format. Please upload JPG, JPEG, or PNG file.', 'danger');
+                    redirect('register');
+                    return;
+                }
+                
+                // Check file size (5MB max)
+                if ($_FILES['payment_screenshot']['size'] > 5 * 1024 * 1024) {
+                    showAlert('File size too large. Maximum size is 5MB.', 'danger');
+                    redirect('register');
+                    return;
+                }
+                
+                // Generate unique filename
+                $fileName = 'payment_' . time() . '_' . uniqid() . '.' . $fileExtension;
+                $uploadPath = $uploadDir . $fileName;
+                
+                if (move_uploaded_file($_FILES['payment_screenshot']['tmp_name'], $uploadPath)) {
+                    $paymentScreenshot = 'uploads/payment_screenshots/' . $fileName;
+                } else {
+                    showAlert('Failed to upload payment screenshot. Please try again.', 'danger');
+                    redirect('register');
+                    return;
+                }
+            } else {
+                showAlert('Please upload payment screenshot.', 'danger');
+                redirect('register');
+                return;
+            }
+            
             // Validate and sanitize input
             $data = [
                 'registration_type' => sanitize($_POST['registration_type'] ?? ''),
@@ -37,10 +80,9 @@ class DelegateController {
                 'committee_preference_2' => sanitize($_POST['committee_preference_2'] ?? ''),
                 'committee_preference_3' => sanitize($_POST['committee_preference_3'] ?? ''),
                 'mun_experience' => sanitize($_POST['mun_experience'] ?? ''),
-                'dietary_requirements' => sanitize($_POST['dietary_requirements'] ?? ''),
-                'special_needs' => sanitize($_POST['special_needs'] ?? ''),
                 'reference' => sanitize($_POST['reference'] ?? ''),
                 'promo_code' => sanitize($_POST['promo_code'] ?? ''),
+                'payment_screenshot' => $paymentScreenshot,
                 'partner_name' => sanitize($_POST['partner_name'] ?? ''),
                 'partner_email' => !empty($_POST['partner_email']) ? filter_var($_POST['partner_email'], FILTER_SANITIZE_EMAIL) : '',
                 'partner_phone' => sanitize($_POST['partner_phone'] ?? ''),

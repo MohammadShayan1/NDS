@@ -143,6 +143,11 @@ $alert = getAlert();
                                         <button class="btn btn-sm btn-primary" onclick="viewDetails(<?php echo $delegate['id']; ?>)" title="View Details">
                                             <i class="fas fa-eye"></i>
                                         </button>
+                                        <?php if (!empty($delegate['payment_screenshot'])): ?>
+                                        <button class="btn btn-sm btn-success" onclick="viewPayment(<?php echo $delegate['id']; ?>)" title="View Payment Screenshot">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <?php endif; ?>
                                         <?php if ($delegate['participant_type'] === 'delegation'): ?>
                                         <button class="btn btn-sm btn-info" onclick="viewMembers(<?php echo $delegate['id']; ?>)" title="View Members">
                                             <i class="fas fa-users"></i>
@@ -282,6 +287,29 @@ $alert = getAlert();
                     <button type="button" class="btn btn-success" onclick="confirmAssignment()">
                         <i class="fas fa-paper-plane me-2"></i>Assign & Send Email
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Screenshot Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Screenshot</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center" id="paymentContent">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="downloadPayment" href="#" download class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-download me-2"></i>Download
+                    </a>
                 </div>
             </div>
         </div>
@@ -537,6 +565,44 @@ $alert = getAlert();
             if (confirm('Are you sure you want to delete this registration?')) {
                 window.location.href = '<?php echo BASE_URL; ?>admin/delegates?action=delete&id=' + id;
             }
+        }
+
+        function viewPayment(id) {
+            const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            const paymentContent = document.getElementById('paymentContent');
+            const downloadBtn = document.getElementById('downloadPayment');
+            
+            // Show loading spinner
+            paymentContent.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+            downloadBtn.style.display = 'none';
+            
+            modal.show();
+            
+            // Fetch payment screenshot info
+            fetch(`<?php echo BASE_URL; ?>admin/ajax/get-delegate.php?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.delegate.payment_screenshot) {
+                        const imageUrl = '<?php echo BASE_URL; ?>uploads/payment_screenshots/' + data.delegate.payment_screenshot;
+                        paymentContent.innerHTML = `
+                            <div class="p-3">
+                                <img src="${imageUrl}" alt="Payment Screenshot" class="img-fluid rounded shadow" style="max-height: 70vh; cursor: zoom-in;" onclick="window.open('${imageUrl}', '_blank')">
+                                <div class="mt-3 text-muted">
+                                    <small><i class="fas fa-info-circle me-1"></i>Click on image to view full size</small>
+                                </div>
+                            </div>
+                        `;
+                        downloadBtn.href = imageUrl;
+                        downloadBtn.download = data.delegate.payment_screenshot;
+                        downloadBtn.style.display = 'inline-block';
+                    } else {
+                        paymentContent.innerHTML = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle me-2"></i>No payment screenshot available for this delegate.</div>';
+                    }
+                })
+                .catch(error => {
+                    paymentContent.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Error loading payment screenshot.</div>';
+                    console.error('Error:', error);
+                });
         }
 
         function exportToCSV() {

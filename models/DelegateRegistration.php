@@ -17,15 +17,17 @@ class DelegateRegistration {
                    cnic_number, whatsapp_number, institution_name, education_level, 
                    delegation_size, head_delegate_name, committee_preference_1, 
                    committee_preference_2, committee_preference_3, mun_experience, 
-                   dietary_requirements, special_needs, reference, promo_code,
-                   partner_name, partner_email, partner_phone, partner_cnic, partner_experience) 
+                   reference, promo_code,
+                   partner_name, partner_email, partner_phone, partner_cnic, partner_experience,
+                   payment_screenshot) 
                   VALUES 
                   (:registration_type, :participant_type, :full_name, :email, :phone_number, 
                    :cnic_number, :whatsapp_number, :institution_name, :education_level, 
                    :delegation_size, :head_delegate_name, :committee_preference_1, 
                    :committee_preference_2, :committee_preference_3, :mun_experience, 
-                   :dietary_requirements, :special_needs, :reference, :promo_code,
-                   :partner_name, :partner_email, :partner_phone, :partner_cnic, :partner_experience)";
+                   :reference, :promo_code,
+                   :partner_name, :partner_email, :partner_phone, :partner_cnic, :partner_experience,
+                   :payment_screenshot)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -48,8 +50,6 @@ class DelegateRegistration {
         $committee_preference_2 = !empty($data['committee_preference_2']) ? $data['committee_preference_2'] : null;
         $committee_preference_3 = !empty($data['committee_preference_3']) ? $data['committee_preference_3'] : null;
         $mun_experience = !empty($data['mun_experience']) ? $data['mun_experience'] : null;
-        $dietary_requirements = !empty($data['dietary_requirements']) ? $data['dietary_requirements'] : null;
-        $special_needs = !empty($data['special_needs']) ? $data['special_needs'] : null;
         $reference = !empty($data['reference']) ? $data['reference'] : null;
         $promo_code = !empty($data['promo_code']) ? $data['promo_code'] : null;
         $partner_name = !empty($data['partner_name']) ? $data['partner_name'] : null;
@@ -57,6 +57,7 @@ class DelegateRegistration {
         $partner_phone = !empty($data['partner_phone']) ? $data['partner_phone'] : null;
         $partner_cnic = !empty($data['partner_cnic']) ? $data['partner_cnic'] : null;
         $partner_experience = !empty($data['partner_experience']) ? $data['partner_experience'] : null;
+        $payment_screenshot = !empty($data['payment_screenshot']) ? $data['payment_screenshot'] : null;
 
         // Bind parameters
         $stmt->bindParam(':registration_type', $registration_type);
@@ -74,8 +75,6 @@ class DelegateRegistration {
         $stmt->bindParam(':committee_preference_2', $committee_preference_2);
         $stmt->bindParam(':committee_preference_3', $committee_preference_3);
         $stmt->bindParam(':mun_experience', $mun_experience);
-        $stmt->bindParam(':dietary_requirements', $dietary_requirements);
-        $stmt->bindParam(':special_needs', $special_needs);
         $stmt->bindParam(':reference', $reference);
         $stmt->bindParam(':promo_code', $promo_code);
         $stmt->bindParam(':partner_name', $partner_name);
@@ -83,6 +82,7 @@ class DelegateRegistration {
         $stmt->bindParam(':partner_phone', $partner_phone);
         $stmt->bindParam(':partner_cnic', $partner_cnic);
         $stmt->bindParam(':partner_experience', $partner_experience);
+        $stmt->bindParam(':payment_screenshot', $payment_screenshot);
 
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();

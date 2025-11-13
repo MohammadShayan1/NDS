@@ -52,7 +52,7 @@ $alert = getAlert();
                                 <p class="mb-0">Register before <?php echo EARLY_BIRD_DEADLINE; ?> to avail special early bird rates!</p>
                             </div>
 
-                            <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm">
+                            <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm" enctype="multipart/form-data">
                                 <!-- Registration Type -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Registration Type <span class="text-danger">*</span></label>
@@ -276,16 +276,6 @@ $alert = getAlert();
                                     <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="dietary_requirements" class="form-label">Dietary Requirements</label>
-                                    <input type="text" class="form-control" id="dietary_requirements" name="dietary_requirements" placeholder="Any dietary restrictions or allergies?">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="special_needs" class="form-label">Special Needs / Accommodations</label>
-                                    <textarea class="form-control" id="special_needs" name="special_needs" rows="2" placeholder="Any special accommodations required?"></textarea>
-                                </div>
-
                                 <hr class="my-4">
                                 <h5 class="mb-3"><i class="fas fa-tag me-2"></i>Reference & Promo Code</h5>
 
@@ -299,6 +289,26 @@ $alert = getAlert();
                                     <label for="promo_code" class="form-label">Promo Code</label>
                                     <input type="text" class="form-control" id="promo_code" name="promo_code" placeholder="Enter promo code if you have one">
                                     <small class="text-muted">Optional: Enter promo code for discounts (if applicable)</small>
+                                </div>
+
+                                <!-- Payment Screenshot Section -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3"><i class="fas fa-credit-card me-2"></i>Payment Confirmation</h5>
+                                    
+                                    <div class="alert alert-info">
+                                        <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
+                                        <p class="mb-2 small">Please make payment via JazzCash/Easypaisa and upload the screenshot:</p>
+                                        <ul class="small mb-0">
+                                            <li><strong>Account Title:</strong> [Account Name]</li>
+                                            <li><strong>JazzCash/Easypaisa Number:</strong> [Number]</li>
+                                            <li><strong>Amount:</strong> As per your registration type</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <label for="payment_screenshot" class="form-label">Upload Payment Screenshot <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*" required>
+                                    <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
+                                    <div class="mt-2" id="screenshot_preview"></div>
                                 </div>
 
                                 <div class="form-check mb-4">
@@ -491,6 +501,45 @@ $alert = getAlert();
             const cnic = this.value.replace(/[^0-9]/g, '');
             if (cnic.length === 13) {
                 this.value = cnic.substring(0,5) + '-' + cnic.substring(5,12) + '-' + cnic.substring(12);
+            }
+        });
+
+        // Payment screenshot preview
+        document.getElementById('payment_screenshot').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('screenshot_preview');
+            
+            if (file) {
+                // Validate file size (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB');
+                    this.value = '';
+                    preview.innerHTML = '';
+                    return;
+                }
+                
+                // Validate file type
+                if (!file.type.match('image.*')) {
+                    alert('Please upload an image file');
+                    this.value = '';
+                    preview.innerHTML = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `
+                        <div class="card" style="max-width: 300px;">
+                            <img src="${e.target.result}" class="card-img-top" alt="Payment Screenshot">
+                            <div class="card-body">
+                                <p class="card-text small text-success"><i class="fas fa-check-circle me-1"></i>Screenshot uploaded successfully</p>
+                            </div>
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
             }
         });
 
