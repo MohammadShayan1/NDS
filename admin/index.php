@@ -8,7 +8,9 @@ require_once '../config/config.php';
 
 // Check if user is already logged in
 if (isLoggedIn()) {
-    redirect('admin/dashboard');
+    header('Location: ' . BASE_URL . 'admin/dashboard.php');
+    exit();
 } else {
-    redirect('admin/login');
+    header('Location: ' . BASE_URL . 'admin/login.php');
+    exit();
 }
