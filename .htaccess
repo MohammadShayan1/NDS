@@ -5,24 +5,30 @@
 RewriteEngine On
 RewriteBase /
 
-# Remove trailing slashes
+# Remove trailing slashes (except for directories that exist)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} (.+)/$
 RewriteRule ^ %1 [R=301,L]
 
-# Clean URLs
+# Brand Ambassador form
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# Brand Ambassador form
 RewriteRule ^brand-ambassador/?$ controllers/BrandAmbassadorController.php [L]
 
 # Delegate registration form
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^register/?$ controllers/DelegateController.php [L]
 
-# Admin routes
-RewriteRule ^admin/?$ admin/login.php [L]
-RewriteRule ^admin/(.*)$ admin/$1 [L,QSA]
+# Admin routes - allow direct access to admin folder
+# Don't rewrite if file or directory exists
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^admin/ - [L]
+
+# Admin login redirect
+RewriteRule ^admin/?$ admin/index.php [L]
+RewriteRule ^admin/(.+)$ admin/$1 [L,QSA]
 </IfModule>
 
 # Prevent directory browsing
