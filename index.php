@@ -6,552 +6,449 @@ require_once 'config/config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo SITE_NAME; ?> - Karachi's Largest Model United Nations</title>
+    
+    <!-- SEO Meta Tags -->
     <meta name="description" content="<?php echo META_DESCRIPTION; ?>">
     <meta name="keywords" content="<?php echo META_KEYWORDS; ?>">
-    <title><?php echo SITE_NAME; ?></title>
+    <meta name="author" content="NED Debating Society">
+    <meta name="robots" content="index, follow">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --text: #333;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-        }
-
-        /* Header/Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .navbar {
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        .nav-links {
-            display: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        .mobile-menu-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: block;
-        }
-
-        .hero-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.95;
-        }
-
-        .hero-date {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        /* Alert Section */
-        .alert {
-            padding: 1rem;
-            margin: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 3rem 1rem;
-            background: var(--light);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--dark);
-        }
-
-        .features-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .feature-text {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 3rem 1rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* About Section */
-        .about {
-            padding: 3rem 1rem;
-            background: white;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: opacity 0.3s;
-        }
-
-        .social-links a:hover {
-            opacity: 0.7;
-        }
-
-        .footer-text {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.5rem;
-        }
-
-        .tech-partner {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        .tech-partner a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* Tablet */
-        @media (min-width: 768px) {
-            .nav-links {
-                display: flex;
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="NEDMUN-VI - Karachi's Largest MUN Conference">
+    <meta property="og:description" content="<?php echo META_DESCRIPTION; ?>">
+    <meta property="og:image" content="<?php echo BASE_URL; ?>assets/images/nedmun-og-image.jpg">
+    <meta property="og:url" content="<?php echo BASE_URL; ?>">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NEDMUN-VI - Karachi's Largest MUN Conference">
+    <meta name="twitter:description" content="<?php echo META_DESCRIPTION; ?>">
+    <meta name="twitter:image" content="<?php echo BASE_URL; ?>assets/images/nedmun-twitter-card.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "NEDMUN-VI",
+        "description": "Karachi's largest Model United Nations conference",
+        "startDate": "2026-01-02",
+        "endDate": "2026-01-04",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+            "@type": "Place",
+            "name": "NED University of Engineering and Technology",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "University Road",
+                "addressLocality": "Karachi",
+                "addressRegion": "Sindh",
+                "addressCountry": "Pakistan"
             }
-
-            .mobile-menu-btn {
-                display: none;
-            }
-
-            .hero-title {
-                font-size: 3.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-
-            .cta-buttons {
-                flex-direction: row;
-                max-width: none;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        },
+        "organizer": {
+            "@type": "Organization",
+            "name": "NED Debating Society",
+            "url": "<?php echo BASE_URL; ?>"
         }
-
-        /* Desktop */
-        @media (min-width: 1024px) {
-            .navbar {
-                padding: 1.5rem 3rem;
-            }
-
-            .hero-content {
-                padding: 3rem;
-            }
-
-            .hero-title {
-                font-size: 4.5rem;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .features,
-            .stats,
-            .about {
-                padding: 5rem 2rem;
-            }
-        }
-    </style>
+    }
+    </script>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
+                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo" class="nds-logo me-2">
+                <div class="logo-separator"></div>
+                <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#committees">Committees</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3" href="<?php echo BASE_URL; ?>register">Register Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="hero">
-        <nav class="navbar">
-            <a href="<?php echo BASE_URL; ?>" class="logo"><?php echo EVENT_NAME; ?></a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#features">Features</a>
-                <a href="<?php echo BASE_URL; ?>register">Register</a>
-                <a href="<?php echo BASE_URL; ?>admin">Admin</a>
-            </div>
-            <button class="mobile-menu-btn">☰</button>
-        </nav>
-
-        <?php
-        $alert = getAlert();
-        if ($alert):
-        ?>
-        <div class="alert alert-<?php echo $alert['type']; ?>">
-            <?php echo $alert['message']; ?>
-        </div>
-        <?php endif; ?>
-
-        <div class="hero-content">
-            <h1 class="hero-title"><?php echo EVENT_NAME; ?></h1>
-            <p class="hero-subtitle">NED Debating Society presents</p>
-            <p class="hero-date">📅 <?php echo EVENT_DATE; ?></p>
-            <p class="hero-date">📍 <?php echo EVENT_VENUE; ?></p>
-            
-            <div class="cta-buttons">
-                <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary">Register Now</a>
-                <a href="#about" class="btn btn-outline">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Expected Delegates</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Committees</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Days</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Universities</span>
+    <header class="hero-section" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-8 mx-auto text-center text-white">
+                    <div class="mb-4" data-aos="zoom-in">
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 400px;">
+                    </div>
+                    <span class="badge bg-warning text-dark mb-3 early-bird-badge" data-aos="fade-down">
+                        <i class="fas fa-clock"></i> Early Bird Registration Valid till 15th November
+                    </span>
+                    <p class="lead mb-2 tagline" data-aos="fade-up" style="color: var(--secondary-color); font-style: italic; font-size: 1.3rem;">
+                        "Noting the Past, Navigating the Present, Nurturing the Future"
+                    </p>
+                    <h2 class="h3 mb-4" data-aos="fade-up" data-aos-delay="100">Karachi's Largest Model United Nations</h2>
+                    <p class="mb-4" data-aos="fade-up" data-aos-delay="150" style="font-size: 1.1rem;">
+                        Enhance your portfolio by participating in Karachi's largest Model United Nations Conference
+                    </p>
+                    <div class="event-details mb-5" data-aos="fade-up" data-aos-delay="200">
+                        <p class="lead mb-2">
+                            <i class="fas fa-calendar-alt me-2"></i><?php echo EVENT_DATE; ?>
+                        </p>
+                        <p class="lead">
+                            <i class="fas fa-map-marker-alt me-2"></i><?php echo EVENT_VENUE; ?>
+                        </p>
+                    </div>
+                    <!-- <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
+                        <a href="<?php echo BASE_URL; ?>register" class="btn btn-lg btn-primary me-3 mb-3">
+                            <i class="fas fa-user-plus me-2"></i>Register as Delegate
+                        </a>
+                        <a href="<?php echo BASE_URL; ?>brand-ambassador" class="btn btn-lg btn-outline-light mb-3">
+                            <i class="fas fa-star me-2"></i>Become Brand Ambassador
+                        </a> -->
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">Why Attend NEDMUN-VI?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Professional Experience</h3>
-                    <p class="feature-text">Gain valuable diplomatic and negotiation skills while engaging with global issues in a professional setting.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3 class="feature-title">Global Perspective</h3>
-                    <p class="feature-text">Discuss pressing international issues and develop a deeper understanding of world affairs.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3 class="feature-title">Networking</h3>
-                    <p class="feature-text">Connect with students from universities across Pakistan and build lasting professional relationships.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3 class="feature-title">Recognition</h3>
-                    <p class="feature-text">Compete for prestigious awards and certificates that recognize outstanding performance.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3 class="feature-title">Skill Development</h3>
-                    <p class="feature-text">Enhance your public speaking, critical thinking, and leadership abilities.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎓</div>
-                    <h3 class="feature-title">Learning Opportunity</h3>
-                    <p class="feature-text">Participate in workshops and training sessions led by experienced diplomats and MUN veterans.</p>
-                </div>
-            </div>
+        <div class="scroll-indicator">
+            <a href="#about"><i class="fas fa-chevron-down"></i></a>
         </div>
-    </section>
+    </header>
 
     <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section-title">About NEDMUN</h2>
-            <div class="about-content">
-                <p class="about-text">
-                    NEDMUN (NED Model United Nations) is one of Karachi's largest and most prestigious MUN conferences, 
-                    organized annually by the NED Debating Society. This year marks our sixth edition, bringing together 
-                    hundreds of students from across Pakistan to simulate UN committees and engage in diplomatic discourse.
-                </p>
-                <p class="about-text">
-                    Whether you're a seasoned delegate or a first-time participant, NEDMUN-VI offers an unparalleled 
-                    platform to develop your skills, expand your network, and make a lasting impact. Join us for three 
-                    days of intense debate, cultural exchange, and personal growth.
-                </p>
-                <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary">Register for NEDMUN-VI</a>
+    <section class="py-5 bg-light" id="about">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-3" style="max-width: 200px;">
+                        <div class="mx-3" style="width: 2px; height: 80px; background: var(--secondary-color);"></div>
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                    <h2 class="section-title mb-4">About NEDMUN-VI</h2>
+                    <p class="lead mb-4">Welcome to the sixth edition of NED Model United Nations - Karachi's premier platform for youth diplomacy and international relations!</p>
+                    <p>Organized by the <strong style="color: var(--secondary-color);">NED Debating Society (NDS)</strong>, NEDMUN-VI brings together bright minds from across Pakistan to engage in meaningful diplomatic discourse, develop leadership skills, and address global challenges.</p>
+                    <p>Join us for three days of intensive debate, networking, and personal growth as we simulate the workings of the United Nations and tackle pressing international issues.</p>
+                    <div class="stats-row mt-5">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h3 class="display-4 text-primary fw-bold">500+</h3>
+                                <p>Delegates Expected</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="display-4 text-primary fw-bold">8</h3>
+                                <p>Committees</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="display-4 text-primary fw-bold">3</h3>
+                                <p>Days of Conference</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="<?php echo BASE_URL; ?>assets/images/about-nedmun.jpg" alt="NEDMUN Conference" class="img-fluid rounded shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Committees Section -->
+    <section class="py-5" id="committees">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Our Committees</h2>
+                <p class="lead text-muted">8 Diverse committees covering critical global and national issues</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">UNSC</h5>
+                            <p class="card-text small"><strong>United Nations Security Council</strong></p>
+                            <span class="badge bg-warning text-dark">Double Delegate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-laptop-code fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">UNCSTD</h5>
+                            <p class="card-text small"><strong>UN Commission on Science and Technology for Development</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-venus fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">UNWOMEN</h5>
+                            <p class="card-text small"><strong>UN Entity for Gender Equality and the Empowerment of Women</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-bomb fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">DISEC</h5>
+                            <p class="card-text small"><strong>Disarmament and International Security Committee</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-globe-americas fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">SPECPOL</h5>
+                            <p class="card-text small"><strong>Special Political and Decolonization Committee</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="350">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-hands-helping fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">SOCHUM</h5>
+                            <p class="card-text small"><strong>Social, Humanitarian, and Cultural Committee</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-exclamation-triangle fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">KCC</h5>
+                            <p class="card-text small"><strong>Karachi Crisis Committee</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="450">
+                    <div class="committee-card card h-100">
+                        <div class="card-body">
+                            <div class="committee-icon mb-3">
+                                <i class="fas fa-landmark fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">PNA</h5>
+                            <p class="card-text small"><strong>Pakistan National Assembly</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Options Section -->
+    <section class="py-5 bg-light" id="registration">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Join NEDMUN-VI</h2>
+                <p class="lead text-muted">Choose your path to participate</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="registration-card card h-100 border-primary">
+                        <div class="card-header bg-primary text-white text-center">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h3>Delegate Registration</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text mb-4">Register as an individual delegate or bring your entire delegation to participate in our prestigious committees.</p>
+                            
+                            <h5 class="mb-3" style="color: var(--secondary-color);">FOR NEDIANS</h5>
+                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
+                                <p class="mb-1"><strong>Early Bird (Till 15th Nov):</strong> PKR 1,500</p>
+                                <p class="mb-0"><strong>Regular Phase:</strong> PKR 1,800</p>
+                            </div>
+                            
+                            <h5 class="mb-3" style="color: var(--secondary-color);">FOR EXTERNALS</h5>
+                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
+                                <p class="mb-1"><strong>Early Bird (Till 15th Nov):</strong></p>
+                                <p class="mb-1 ms-3">• Delegate: PKR 2,000</p>
+                                <p class="mb-2 ms-3">• Delegation (per delegate): PKR 1,800</p>
+                                <p class="mb-1"><strong>Regular Phase:</strong></p>
+                                <p class="mb-1 ms-3">• Delegate: PKR 2,500</p>
+                                <p class="mb-0 ms-3">• Delegation (per delegate): PKR 2,200</p>
+                            </div>
+                            
+                            <div class="alert alert-warning mb-4" style="font-size: 0.9rem;">
+                                <i class="fas fa-users me-2"></i><strong>Note:</strong> Each delegation must consist of minimum 9 delegates
+                            </div>
+                            
+                            <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-user-plus me-2"></i>Register Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="registration-card card h-100 border-warning">
+                        <div class="card-header bg-warning text-dark text-center">
+                            <i class="fas fa-star fa-3x mb-3"></i>
+                            <h3>Brand Ambassador</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text mb-4">Become a NEDMUN-VI Brand Ambassador and help us spread the word while enjoying exclusive benefits!</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Social Media Recognition</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Certificate of Appreciation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Letter of Recommendation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Commemorative Shield</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Free Conference Attendance (for selected BAs)</li>
+                            </ul>
+                            <a href="<?php echo BASE_URL; ?>brand-ambassador" class="btn btn-warning btn-lg w-100">
+                                <i class="fas fa-star me-2"></i>Become Brand Ambassador
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5" id="contact">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="lead text-muted">Have questions? We're here to help!</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <div class="contact-info">
+                        <h4 class="mb-4">Contact Information</h4>
+                        <div class="contact-item mb-3">
+                            <i class="fas fa-envelope text-primary me-3"></i>
+                            <span>nedmunofficial@gmail.com</span>
+                        </div>
+                        <div class="contact-item mb-3">
+                            <i class="fas fa-phone text-primary me-3"></i>
+                            <div>
+                                <p class="mb-1">Directorate General: 0324-3343946</p>
+                                <p class="mb-0">Deputy Secretary General: 0333-3772513</p>
+                            </div>
+                        </div>
+                        <div class="contact-item mb-3">
+                            <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                            <span><?php echo EVENT_VENUE; ?></span>
+                        </div>
+                        <div class="social-links mt-4">
+                            <h5 class="mb-3">Follow Us</h5>
+                            <a href="<?php echo FACEBOOK_URL; ?>" target="_blank" class="social-icon">
+                                <i class="fab fa-facebook fa-2x"></i>
+                            </a>
+                            <a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="social-icon">
+                                <i class="fab fa-instagram fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7235.9697956697355!2d67.10825628877602!3d24.932584390522308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338bf22becb0f%3A0xd5e50842c5c4867b!2sNED%20University%20Of%20Engineering%20%26%20Technology%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1762890726262!5m2!1sen!2s" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="bg-dark text-white py-5">
         <div class="container">
-            <div class="social-links">
-                <a href="<?php echo FACEBOOK_URL; ?>" target="_blank" aria-label="Facebook">📘</a>
-                <a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" aria-label="Instagram">📷</a>
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-2" style="max-width: 150px;">
+                        <div style="width: 2px; height: 50px; background: var(--secondary-color); margin: 0 8px;"></div>
+                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 150px;">
+                    </div>
+                    <p class="text-muted">Empowering youth through debate, diplomacy, and leadership since its inception.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="mb-3" style="color: var(--secondary-color);">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about" class="text-muted text-decoration-none">About NEDMUN</a></li>
+                        <li><a href="#committees" class="text-muted text-decoration-none">Committees</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>register" class="text-muted text-decoration-none">Register</a></li>
+                        <li><a href="#contact" class="text-muted text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3" style="color: var(--secondary-color);">Organized By</h5>
+                    <p><strong>NED Debating Society (NDS)</strong></p>
+                    <p class="text-muted small">NED University of Engineering & Technology, Karachi</p>
+                </div>
             </div>
-            <p class="footer-text">&copy; <?php echo date('Y'); ?> NED Debating Society. All rights reserved.</p>
-            <p class="tech-partner">
-                Developed by <a href="<?php echo TECH_PARTNER_URL; ?>" target="_blank"><?php echo TECH_PARTNER_NAME; ?></a>
-            </p>
+            <hr style="border-color: var(--secondary-color); opacity: 0.3;" class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0 text-muted">&copy; <?php echo date('Y'); ?> NED Debating Society. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0 text-muted">
+                        Developed by <a href="https://telinks.org/team-technical" target="_blank" class="text-decoration-none" style="color: var(--secondary-color); font-weight: 500;">
+                            <i class="fas fa-code me-1"></i>TE Links Technical Team
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script src="<?php echo BASE_URL; ?>assets/js/main.js"></script>
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
         });
-
-        // Mobile menu toggle (if needed in future)
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', function() {
-                // Add mobile menu functionality if needed
-                alert('Mobile menu - implement dropdown navigation');
-            });
-        }
     </script>
 </body>
 </html>
