@@ -505,7 +505,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             <hr style="border-color: var(--secondary-color); opacity: 0.3;" class="my-4">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <p class="mb-0 text-muted">&copy; <?php echo date('Y'); ?> NED Debating Society. All rights reserved.</p>
+                    <p class="mb-0 text-muted">&copy; <?php echo date('Y'); ?> TE Links. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <p class="mb-0 text-muted">
