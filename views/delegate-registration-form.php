@@ -35,6 +35,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
     <style>
+        body {
+            padding-top: 0px !important;
+        }
         .form-step {
             display: none;
         }
