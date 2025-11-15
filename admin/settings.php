@@ -223,13 +223,30 @@ $alert = getAlert();
     </div>
 </div>
 
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery (required for Summernote) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Summernote JS -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <style>
+        /* Fix Summernote visibility on dark background */
+        .note-editor.note-frame {
+            background: #ffffff !important;
+            border: 1px solid #dee2e6 !important;
+        }
+        .note-editing-area .note-editable {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+        .note-toolbar {
+            background: #f8f9fa !important;
+            border-bottom: 1px solid #dee2e6 !important;
+        }
+        .note-btn {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+    </style>
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
