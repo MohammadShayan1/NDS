@@ -324,9 +324,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 
                                     <!-- Delegation Members (shown only if delegation is selected) -->
                                     <div id="delegationMembersSection" style="display: none;">
-                                        <h6 class="mb-3 mt-4"><i class="fas fa-users me-2"></i>Delegation Members Information</h6>
+                                        <h6 class="mb-3 mt-4"><i class="fas fa-users me-2"></i>Additional Delegation Members (Delegates 2-9)</h6>
                                         <div class="alert alert-info">
-                                            <i class="fas fa-info-circle me-2"></i>Add delegation members (Maximum 9 members). Click "Add Member" to add each delegate's information.
+                                            <i class="fas fa-info-circle me-2"></i><strong>Note:</strong> You (the form filler) are Delegate 1. Add the remaining delegation members here (up to 8 more members for a total of 9).
                                         </div>
                                         <div id="delegationMembersContainer">
                                             <!-- Members will be added dynamically here -->
@@ -335,7 +335,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                             <i class="fas fa-plus me-2"></i>Add Delegation Member
                                         </button>
                                         <div class="mb-2">
-                                            <small class="text-muted">Members added: <strong id="memberCount">0</strong> / 9</small>
+                                            <small class="text-muted">Additional members added: <strong id="memberCount">0</strong> / 8 (You are Delegate 1)</small>
                                         </div>
                                     </div>
 
@@ -674,10 +674,10 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 
         // Add delegation member fields
         document.getElementById('addMemberBtn').addEventListener('click', function() {
-            // Maximum 9 members limit
+            // Maximum 8 additional members (form filler is delegate 1, so total 9)
             const currentMembers = document.querySelectorAll('.delegation-member').length;
-            if (currentMembers >= 9) {
-                alert('Maximum 9 delegation members allowed.');
+            if (currentMembers >= 8) {
+                alert('Maximum 8 additional delegation members allowed (you are Delegate 1).');
                 return;
             }
             
@@ -708,8 +708,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                 <input type="tel" class="form-control form-control-sm" name="member_phone[]" required>
                             </div>
                             <div class="col-md-6 mb-2">
-                                <label class="form-label small">CNIC / B-Form</label>
-                                <input type="text" class="form-control form-control-sm" name="member_cnic[]">
+                                <label class="form-label small">CNIC / B-Form *</label>
+                                <input type="text" class="form-control form-control-sm" name="member_cnic[]" required>
                             </div>
                         </div>
                         <div class="row">
@@ -750,7 +750,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             updateCommitteeAvailability();
             
             // Disable button if max reached
-            if (currentMembers + 1 >= 9) {
+            if (currentMembers + 1 >= 8) {
                 this.disabled = true;
             }
         });
@@ -763,7 +763,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             
             // Re-enable add button if below max
             const currentMembers = document.querySelectorAll('.delegation-member').length;
-            if (currentMembers < 9) {
+            if (currentMembers < 8) {
                 document.getElementById('addMemberBtn').disabled = false;
             }
         }
@@ -782,7 +782,16 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             const allSelects = document.querySelectorAll('.member-committee-select');
             const selectedCommittees = {};
             
-            // Count how many times each committee is selected
+            // Count head delegate's committee preferences first
+            const committee1 = document.getElementById('committee_preference_1')?.value;
+            const committee2 = document.getElementById('committee_preference_2')?.value;
+            const committee3 = document.getElementById('committee_preference_3')?.value;
+            
+            if (committee1) selectedCommittees[committee1] = (selectedCommittees[committee1] || 0) + 1;
+            if (committee2) selectedCommittees[committee2] = (selectedCommittees[committee2] || 0) + 1;
+            if (committee3) selectedCommittees[committee3] = (selectedCommittees[committee3] || 0) + 1;
+            
+            // Count how many times each committee is selected by delegation members
             allSelects.forEach(select => {
                 const value = select.value;
                 if (value) {
@@ -803,7 +812,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                     const isCurrentSelection = value === currentValue;
                     
                     // Disable if:
-                    // - Not UNSC and already selected by someone else
+                    // - Not UNSC and already selected
                     // - UNSC and already selected twice
                     if (value === 'UNSC') {
                         option.disabled = !isCurrentSelection && count >= 2;
