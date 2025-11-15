@@ -211,7 +211,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/UNSC.png" alt="UNSC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNSC</h5>
                             <p class="card-text small"><strong>United Nations Security Council</strong></p>
@@ -223,7 +223,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-laptop-code fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/UNCSTD.png" alt="UNCSTD Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNCSTD</h5>
                             <p class="card-text small"><strong>UN Commission on Science and Technology for Development</strong></p>
@@ -234,7 +234,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-venus fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/UNWOMEN.png" alt="UNWOMEN Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNWOMEN</h5>
                             <p class="card-text small"><strong>UN Entity for Gender Equality and the Empowerment of Women</strong></p>
@@ -245,7 +245,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-bomb fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/DISEC.png" alt="DISEC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">DISEC</h5>
                             <p class="card-text small"><strong>Disarmament and International Security Committee</strong></p>
@@ -256,7 +256,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-globe-americas fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/SPECPOL.png" alt="SPECPOL Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">SPECPOL</h5>
                             <p class="card-text small"><strong>Special Political and Decolonization Committee</strong></p>
@@ -267,7 +267,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-hands-helping fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/SOCHUM.png" alt="SOCHUM Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">SOCHUM</h5>
                             <p class="card-text small"><strong>Social, Humanitarian, and Cultural Committee</strong></p>
@@ -278,7 +278,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-exclamation-triangle fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/KCC.png" alt="KCC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">KCC</h5>
                             <p class="card-text small"><strong>Karachi Crisis Committee</strong></p>
@@ -289,7 +289,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <div class="committee-card card h-100">
                         <div class="card-body">
                             <div class="committee-icon mb-3">
-                                <i class="fas fa-landmark fa-3x text-primary"></i>
+                                <img src="<?php echo BASE_URL; ?>assets/images/PNA.png" alt="PNA Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">PNA</h5>
                             <p class="card-text small"><strong>Pakistan National Assembly</strong></p>
