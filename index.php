@@ -148,7 +148,9 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN Logo" class="preloader-logo">
+        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN Logo" class="preloader-logo preloader-logo-1">
+        <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none;">
+        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" class="preloader-logo preloader-logo-3" style="display: none;">
         <div class="preloader-spinner"></div>
     </div>
     
@@ -521,8 +523,18 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
     <!-- Custom JS -->
     <script src="<?php echo BASE_URL; ?>assets/js/main.js"></script>
     <script>
-        // Preloader
+        // Preloader with logo rotation
+        let currentLogo = 1;
+        const totalLogos = 3;
+        
+        const logoInterval = setInterval(() => {
+            document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'none';
+            currentLogo = currentLogo >= totalLogos ? 1 : currentLogo + 1;
+            document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'block';
+        }, 800);
+        
         window.addEventListener('load', function() {
+            clearInterval(logoInterval);
             const preloader = document.getElementById('preloader');
             preloader.classList.add('preloader-fade-out');
             setTimeout(() => {
