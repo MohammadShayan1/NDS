@@ -715,7 +715,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                         <div class="row">
                             <div class="col-md-12 mb-2">
                                 <label class="form-label small">Committee Preference *</label>
-                                <select class="form-select form-select-sm" name="member_committee[]" required>
+                                <select class="form-select form-select-sm member-committee-select" name="member_committee[]" required>
                                     <option value="">Select committee</option>
                                     <option value="UNSC">UNSC</option>
                                     <option value="UNCSTD">UNCSTD</option>
@@ -740,6 +740,15 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             container.insertAdjacentHTML('beforeend', memberHTML);
             updateMemberCount();
             
+            // Add event listener to the newly added committee select
+            const newSelect = container.lastElementChild.querySelector('.member-committee-select');
+            if (newSelect) {
+                newSelect.addEventListener('change', updateCommitteeAvailability);
+            }
+            
+            // Update committee availability for all selects
+            updateCommitteeAvailability();
+            
             // Disable button if max reached
             if (currentMembers + 1 >= 9) {
                 this.disabled = true;
@@ -750,6 +759,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         function removeMember(id) {
             document.getElementById('member-' + id).remove();
             updateMemberCount();
+            updateCommitteeAvailability();
             
             // Re-enable add button if below max
             const currentMembers = document.querySelectorAll('.delegation-member').length;
@@ -765,6 +775,43 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             if (countElement) {
                 countElement.textContent = count;
             }
+        }
+        
+        // Update committee availability - disable already selected committees (except UNSC which can be selected twice)
+        function updateCommitteeAvailability() {
+            const allSelects = document.querySelectorAll('.member-committee-select');
+            const selectedCommittees = {};
+            
+            // Count how many times each committee is selected
+            allSelects.forEach(select => {
+                const value = select.value;
+                if (value) {
+                    selectedCommittees[value] = (selectedCommittees[value] || 0) + 1;
+                }
+            });
+            
+            // Update each select's options
+            allSelects.forEach(select => {
+                const currentValue = select.value;
+                const options = select.querySelectorAll('option');
+                
+                options.forEach(option => {
+                    const value = option.value;
+                    if (value === '') return; // Skip empty option
+                    
+                    const count = selectedCommittees[value] || 0;
+                    const isCurrentSelection = value === currentValue;
+                    
+                    // Disable if:
+                    // - Not UNSC and already selected by someone else
+                    // - UNSC and already selected twice
+                    if (value === 'UNSC') {
+                        option.disabled = !isCurrentSelection && count >= 2;
+                    } else {
+                        option.disabled = !isCurrentSelection && count >= 1;
+                    }
+                });
+            });
         }
 
         // Real-time CNIC formatting (XXXXX-XXXXXXX-X)
