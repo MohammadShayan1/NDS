@@ -1,5 +1,22 @@
 <?php
 require_once 'config/config.php';
+
+// Get site settings
+$delegateFee = getSetting('delegate_fee', '3000');
+$delegationFee = getSetting('delegation_fee', '2500');
+$earlyBirdDiscount = getSetting('early_bird_discount', '500');
+$earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
+$delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
+$delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
+$baCardTitle = getSetting('ba_card_title', 'Brand Ambassador');
+$baCardDesc = getSetting('ba_card_description', 'Become a Brand Ambassador and represent NEDMUN-VI at your institution');
+
+// Calculate prices
+$earlyDelegateFee = $delegateFee - $earlyBirdDiscount;
+$earlyDelegationFee = $delegationFee - $earlyBirdDiscount;
+
+// Format deadline
+$deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -295,25 +312,19 @@ require_once 'config/config.php';
                     <div class="registration-card card h-100 border-primary">
                         <div class="card-header bg-primary text-white text-center">
                             <i class="fas fa-users fa-3x mb-3"></i>
-                            <h3>Delegate Registration</h3>
+                            <h3><?php echo htmlspecialchars($delegateCardTitle); ?></h3>
                         </div>
                         <div class="card-body">
-                            <p class="card-text mb-4">Register as an individual delegate or bring your entire delegation to participate in our prestigious committees.</p>
+                            <p class="card-text mb-4"><?php echo htmlspecialchars($delegateCardDesc); ?></p>
                             
-                            <h5 class="mb-3" style="color: var(--secondary-color);">FOR NEDIANS</h5>
+                            <h5 class="mb-3" style="color: var(--secondary-color);">REGISTRATION FEES</h5>
                             <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
-                                <p class="mb-1"><strong>Early Bird (Till 15th Nov):</strong> PKR 1,500</p>
-                                <p class="mb-0"><strong>Regular Phase:</strong> PKR 1,800</p>
-                            </div>
-                            
-                            <h5 class="mb-3" style="color: var(--secondary-color);">FOR EXTERNALS</h5>
-                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
-                                <p class="mb-1"><strong>Early Bird (Till 15th Nov):</strong></p>
-                                <p class="mb-1 ms-3">• Delegate: PKR 2,000</p>
-                                <p class="mb-2 ms-3">• Delegation (per delegate): PKR 1,800</p>
+                                <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
+                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($earlyDelegateFee); ?></p>
+                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($earlyDelegationFee); ?></p>
                                 <p class="mb-1"><strong>Regular Phase:</strong></p>
-                                <p class="mb-1 ms-3">• Delegate: PKR 2,500</p>
-                                <p class="mb-0 ms-3">• Delegation (per delegate): PKR 2,200</p>
+                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($delegateFee); ?></p>
+                                <p class="mb-0 ms-3">• Delegation (per member): PKR <?php echo number_format($delegationFee); ?></p>
                             </div>
                             
                             <div class="alert alert-warning mb-4" style="font-size: 0.9rem;">
@@ -330,10 +341,10 @@ require_once 'config/config.php';
                     <div class="registration-card card h-100 border-warning">
                         <div class="card-header bg-warning text-dark text-center">
                             <i class="fas fa-star fa-3x mb-3"></i>
-                            <h3>Brand Ambassador</h3>
+                            <h3><?php echo htmlspecialchars($baCardTitle); ?></h3>
                         </div>
                         <div class="card-body">
-                            <p class="card-text mb-4">Become a NEDMUN-VI Brand Ambassador and help us spread the word while enjoying exclusive benefits!</p>
+                            <p class="card-text mb-4"><?php echo htmlspecialchars($baCardDesc); ?></p>
                             <ul class="list-unstyled mb-4">
                                 <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Social Media Recognition</li>
                                 <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Certificate of Appreciation</li>

@@ -20,6 +20,10 @@
             <i class="fas fa-star"></i>
             <span>Brand Ambassadors</span>
         </a>
+        <a href="<?php echo BASE_URL; ?>admin/settings" class="sidebar-link <?php echo basename($_SERVER['PHP_SELF']) === 'settings.php' ? 'active' : ''; ?>">
+            <i class="fas fa-cog"></i>
+            <span>Site Settings</span>
+        </a>
         
         <div style="border-top: 2px solid var(--border-color); margin: 1.5rem 1rem;"></div>
         

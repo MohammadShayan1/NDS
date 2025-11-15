@@ -1,6 +1,18 @@
 <?php
 require_once '../config/config.php';
 $alert = getAlert();
+
+// Get payment settings
+$jazzcashNumber = getSetting('jazzcash_number', '');
+$easypaisaNumber = getSetting('easypaisa_number', '');
+$accountTitle = getSetting('payment_account_title', 'NEDMUN-VI');
+$accountNumber = getSetting('payment_account_number', '');
+$bankName = getSetting('payment_bank_name', '');
+$iban = getSetting('payment_iban', '');
+$delegateFee = getSetting('delegate_fee', '3000');
+$delegationFee = getSetting('delegation_fee', '2500');
+$earlyBirdDiscount = getSetting('early_bird_discount', '500');
+$earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -300,11 +312,32 @@ $alert = getAlert();
                                     
                                     <div class="alert alert-info">
                                         <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
-                                        <p class="mb-2 small">Please make payment via JazzCash/Easypaisa and upload the screenshot:</p>
+                                        <p class="mb-2"><strong>Registration Fees:</strong></p>
+                                        <ul class="small mb-2">
+                                            <li>Individual Delegate: <strong>PKR <?php echo number_format($delegateFee); ?></strong></li>
+                                            <li>Delegation (per member): <strong>PKR <?php echo number_format($delegationFee); ?></strong></li>
+                                            <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
+                                        </ul>
+                                        
+                                        <p class="mb-2 mt-3"><strong>Payment Methods:</strong></p>
                                         <ul class="small mb-0">
-                                            <li><strong>Account Title:</strong> [Account Name]</li>
-                                            <li><strong>JazzCash/Easypaisa Number:</strong> [Number]</li>
-                                            <li><strong>Amount:</strong> As per your registration type</li>
+                                            <?php if (!empty($jazzcashNumber)): ?>
+                                            <li><strong>JazzCash:</strong> <?php echo htmlspecialchars($jazzcashNumber); ?></li>
+                                            <?php endif; ?>
+                                            <?php if (!empty($easypaisaNumber)): ?>
+                                            <li><strong>Easypaisa:</strong> <?php echo htmlspecialchars($easypaisaNumber); ?></li>
+                                            <?php endif; ?>
+                                            <?php if (!empty($accountNumber)): ?>
+                                            <li class="mt-2"><strong>Bank Transfer:</strong></li>
+                                            <li class="ms-3">Account Title: <?php echo htmlspecialchars($accountTitle); ?></li>
+                                            <li class="ms-3">Account Number: <?php echo htmlspecialchars($accountNumber); ?></li>
+                                            <?php if (!empty($bankName)): ?>
+                                            <li class="ms-3">Bank: <?php echo htmlspecialchars($bankName); ?></li>
+                                            <?php endif; ?>
+                                            <?php if (!empty($iban)): ?>
+                                            <li class="ms-3">IBAN: <?php echo htmlspecialchars($iban); ?></li>
+                                            <?php endif; ?>
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                     
