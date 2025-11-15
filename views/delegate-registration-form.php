@@ -495,11 +495,14 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 
         // Next step buttons
         document.querySelectorAll('.next-step').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                console.log('Next button clicked, current step:', currentStep);
                 if (validateCurrentStep()) {
                     if (currentStep < totalSteps) {
                         showStep(currentStep + 1);
                     }
+                } else {
+                    console.log('Validation failed for step', currentStep);
                 }
             });
         });
@@ -516,13 +519,21 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         // Validate current step before proceeding
         function validateCurrentStep() {
             const currentStepElement = document.getElementById('step' + currentStep);
+            if (!currentStepElement) {
+                console.error('Step element not found:', 'step' + currentStep);
+                return false;
+            }
+            
             const requiredInputs = currentStepElement.querySelectorAll('[required]:not([type="radio"]):not([type="checkbox"])');
             const requiredRadios = currentStepElement.querySelectorAll('input[type="radio"][required]');
             const requiredCheckboxes = currentStepElement.querySelectorAll('input[type="checkbox"][required]');
             
+            console.log('Validating step', currentStep, '- Inputs:', requiredInputs.length, 'Radios:', requiredRadios.length, 'Checkboxes:', requiredCheckboxes.length);
+            
             // Check text/email/etc inputs
             for (let input of requiredInputs) {
                 if (!input.value.trim() && input.style.display !== 'none' && !input.closest('[style*="display: none"]')) {
+                    console.log('Validation failed for input:', input.name);
                     input.focus();
                     input.reportValidity();
                     return false;
@@ -540,6 +551,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 const group = radioGroups[groupName];
                 const checked = group.some(radio => radio.checked);
                 if (!checked) {
+                    console.log('Validation failed for radio group:', groupName);
                     group[0].focus();
                     group[0].reportValidity();
                     return false;
@@ -549,12 +561,14 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             // Check checkboxes
             for (let checkbox of requiredCheckboxes) {
                 if (!checkbox.checked && checkbox.style.display !== 'none') {
+                    console.log('Validation failed for checkbox:', checkbox.name);
                     checkbox.focus();
                     checkbox.reportValidity();
                     return false;
                 }
             }
             
+            console.log('Validation passed for step', currentStep);
             return true;
         }
 
@@ -565,10 +579,12 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 const partType = document.querySelector('input[name="participant_type"]:checked');
                 const nextBtn = document.getElementById('step1NextBtn');
                 
-                if (regType && partType) {
-                    nextBtn.disabled = false;
-                } else {
-                    nextBtn.disabled = true;
+                if (nextBtn) {
+                    if (regType && partType) {
+                        nextBtn.disabled = false;
+                    } else {
+                        nextBtn.disabled = true;
+                    }
                 }
             });
         });
