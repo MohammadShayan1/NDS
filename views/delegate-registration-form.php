@@ -686,7 +686,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             const memberHTML = `
                 <div class="card mb-3 delegation-member" id="member-${memberCount}">
                     <div class="card-header d-flex justify-content-between align-items-center" style="background: #1a1a1a;">
-                        <span><i class="fas fa-user me-2"></i>Delegate ${memberCount}</span>
+                        <span><i class="fas fa-user me-2"></i>Delegate ${memberCount+1}</span>
                         <button type="button" class="btn btn-sm btn-danger" onclick="removeMember(${memberCount})">
                             <i class="fas fa-trash"></i>
                         </button>
