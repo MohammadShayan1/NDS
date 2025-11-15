@@ -193,7 +193,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <img src="<?php echo BASE_URL; ?>assets/images/about-nedmun.jpg" alt="NEDMUN Conference" class="img-fluid rounded shadow-lg">
+                    <img src="<?php echo BASE_URL; ?>assets/images/audi.png" alt="NEDMUN Conference" class="img-fluid rounded shadow-lg">
                 </div>
             </div>
         </div>
