@@ -213,15 +213,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                     <div id="delegationDetails" style="display: none;">
                                         <h6 class="mb-3 mt-4"><i class="fas fa-users-cog me-2"></i>Delegation Details</h6>
                                         
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="delegation_size" class="form-label">Number of Delegates in Delegation</label>
-                                                <input type="number" class="form-control" id="delegation_size" name="delegation_size" min="2" max="50">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
-                                                <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
+                                            <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
                                         </div>
                                     </div>
 
@@ -319,8 +313,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                     <!-- Delegation Members (shown only if delegation is selected) -->
                                     <div id="delegationMembersSection" style="display: none;">
                                         <h6 class="mb-3 mt-4"><i class="fas fa-users me-2"></i>Delegation Members Information</h6>
-                                        <div class="alert alert-warning">
-                                            <i class="fas fa-exclamation-triangle me-2"></i>Please provide details for all delegation members (minimum 9)
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>Add delegation members (Maximum 9 members). Click "Add Member" to add each delegate's information.
                                         </div>
                                         <div id="delegationMembersContainer">
                                             <!-- Members will be added dynamically here -->
@@ -328,6 +322,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                         <button type="button" class="btn btn-outline-primary mb-3" id="addMemberBtn">
                                             <i class="fas fa-plus me-2"></i>Add Delegation Member
                                         </button>
+                                        <div class="mb-2">
+                                            <small class="text-muted">Members added: <strong id="memberCount">0</strong> / 9</small>
+                                        </div>
                                     </div>
 
                                     <div class="mb-3">
@@ -644,6 +641,13 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 
         // Add delegation member fields
         document.getElementById('addMemberBtn').addEventListener('click', function() {
+            // Maximum 9 members limit
+            const currentMembers = document.querySelectorAll('.delegation-member').length;
+            if (currentMembers >= 9) {
+                alert('Maximum 9 delegation members allowed.');
+                return;
+            }
+            
             memberCount++;
             const container = document.getElementById('delegationMembersContainer');
             const memberHTML = `
@@ -701,11 +705,33 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', memberHTML);
+            updateMemberCount();
+            
+            // Disable button if max reached
+            if (currentMembers + 1 >= 9) {
+                this.disabled = true;
+            }
         });
 
         // Remove delegation member
         function removeMember(id) {
             document.getElementById('member-' + id).remove();
+            updateMemberCount();
+            
+            // Re-enable add button if below max
+            const currentMembers = document.querySelectorAll('.delegation-member').length;
+            if (currentMembers < 9) {
+                document.getElementById('addMemberBtn').disabled = false;
+            }
+        }
+        
+        // Update member count display
+        function updateMemberCount() {
+            const count = document.querySelectorAll('.delegation-member').length;
+            const countElement = document.getElementById('memberCount');
+            if (countElement) {
+                countElement.textContent = count;
+            }
         }
 
         // Real-time CNIC formatting (XXXXX-XXXXXXX-X)
