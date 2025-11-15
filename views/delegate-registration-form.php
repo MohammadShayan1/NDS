@@ -51,13 +51,13 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 <body class="bg-light">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
-                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" style="height: 35px; margin-right: 8px;">
-                <div style="width: 2px; height: 30px; background: var(--secondary-color); margin: 0 8px;"></div>
-                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="height: 30px; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
-            </a>
-            <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-light ms-auto">
+        <div class="container position-relative">
+            <div class="w-100 d-flex justify-content-center align-items-center">
+                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" style="height: 40px; margin-right: 10px;">
+                <span style="font-size: 24px; color: var(--secondary-color); font-weight: 600; margin: 0 10px;">X</span>
+                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="height: 35px; margin-left: 10px; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+            </div>
+            <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning position-absolute end-0">
                 <i class="fas fa-arrow-left me-2"></i>Back to Home
             </a>
         </div>
