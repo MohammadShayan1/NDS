@@ -20,6 +20,13 @@ class DelegateController {
 
     public function submit() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate CSRF token
+            if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+                showAlert('Invalid security token. Please try again.', 'danger');
+                redirect('register');
+                return;
+            }
+            
             // Handle payment screenshot upload
             $paymentScreenshot = '';
             if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
@@ -28,6 +35,18 @@ class DelegateController {
                 // Create directory if it doesn't exist
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
+                }
+                
+                // Validate file type by MIME type
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeType = finfo_file($finfo, $_FILES['payment_screenshot']['tmp_name']);
+                finfo_close($finfo);
+                
+                $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!in_array($mimeType, $allowedMimeTypes)) {
+                    showAlert('Invalid file format. Please upload JPG, JPEG, or PNG file.', 'danger');
+                    redirect('register');
+                    return;
                 }
                 
                 $fileExtension = strtolower(pathinfo($_FILES['payment_screenshot']['name'], PATHINFO_EXTENSION));
@@ -46,11 +65,13 @@ class DelegateController {
                     return;
                 }
                 
-                // Generate unique filename
-                $fileName = 'payment_' . time() . '_' . uniqid() . '.' . $fileExtension;
+                // Generate unique filename with secure random
+                $fileName = 'payment_' . time() . '_' . bin2hex(random_bytes(8)) . '.' . $fileExtension;
                 $uploadPath = $uploadDir . $fileName;
                 
                 if (move_uploaded_file($_FILES['payment_screenshot']['tmp_name'], $uploadPath)) {
+                    // Set proper permissions
+                    chmod($uploadPath, 0644);
                     $paymentScreenshot = 'uploads/payment_screenshots/' . $fileName;
                 } else {
                     showAlert('Failed to upload payment screenshot. Please try again.', 'danger');
@@ -99,6 +120,44 @@ class DelegateController {
                 redirect('register');
                 return;
             }
+            
+            // Validate phone number format (Pakistan)
+            if (!preg_match('/^[\d\s\-\+\(\)]+$/', $data['phone_number'])) {
+                showAlert('Please enter a valid phone number.', 'danger');
+                redirect('register');
+                return;
+            }
+            
+            // Validate CNIC format if provided (13 digits with optional dashes)
+            if (!empty($data['cnic_number']) && !preg_match('/^\d{5}-?\d{7}-?\d{1}$/', str_replace(' ', '', $data['cnic_number']))) {
+                showAlert('Please enter a valid CNIC number (format: 12345-1234567-1).', 'danger');
+                redirect('register');
+                return;
+            }
+            
+            // Validate registration type
+            $validRegistrationTypes = ['NED', 'Other'];
+            if (!in_array($data['registration_type'], $validRegistrationTypes)) {
+                showAlert('Invalid registration type.', 'danger');
+                redirect('register');
+                return;
+            }
+            
+            // Validate participant type
+            $validParticipantTypes = ['delegate', 'delegation'];
+            if (!in_array($data['participant_type'], $validParticipantTypes)) {
+                showAlert('Invalid participant type.', 'danger');
+                redirect('register');
+                return;
+            }
+            
+            // Validate committee preferences
+            $validCommittees = ['UNSC', 'UNCSTD', 'UNWOMEN', 'DISEC', 'SPECPOL', 'SOCHUM', 'KCC', 'PNA'];
+            if (!empty($data['committee_preference_1']) && !in_array($data['committee_preference_1'], $validCommittees)) {
+                showAlert('Invalid committee preference.', 'danger');
+                redirect('register');
+                return;
+            }
 
             // Create registration
             $registrationId = $this->model->create($data);
@@ -113,12 +172,44 @@ class DelegateController {
                     $memberCommittees = $_POST['member_committee'] ?? [];
                     $memberExperiences = $_POST['member_experience'] ?? [];
                     
+                    // Validate delegation has at least 1 additional member (form filler is member 1)
+                    if (count($memberNames) < 1) {
+                        showAlert('Delegation must have at least 2 members (including you).', 'danger');
+                        redirect('register');
+                        return;
+                    }
+                    
+                    // Validate max 8 additional members
+                    if (count($memberNames) > 8) {
+                        showAlert('Delegation cannot exceed 9 members total.', 'danger');
+                        redirect('register');
+                        return;
+                    }
+                    
                     for ($i = 0; $i < count($memberNames); $i++) {
                         if (!empty($memberNames[$i])) {
+                            // Validate member email if provided
+                            $sanitizedEmail = '';
+                            if (isset($memberEmails[$i]) && !empty($memberEmails[$i])) {
+                                if (!filter_var($memberEmails[$i], FILTER_VALIDATE_EMAIL)) {
+                                    showAlert('Invalid email address for delegation member: ' . sanitize($memberNames[$i]), 'danger');
+                                    redirect('register');
+                                    return;
+                                }
+                                $sanitizedEmail = filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL);
+                            }
+                            
+                            // Validate member committee
+                            if (!empty($memberCommittees[$i]) && !in_array($memberCommittees[$i], $validCommittees)) {
+                                showAlert('Invalid committee selection for delegation member.', 'danger');
+                                redirect('register');
+                                return;
+                            }
+                            
                             $memberData = [
                                 'registration_id' => $registrationId,
                                 'member_name' => sanitize($memberNames[$i] ?? ''),
-                                'member_email' => isset($memberEmails[$i]) && !empty($memberEmails[$i]) ? filter_var($memberEmails[$i], FILTER_SANITIZE_EMAIL) : '',
+                                'member_email' => $sanitizedEmail,
                                 'member_phone' => sanitize($memberPhones[$i] ?? ''),
                                 'member_cnic' => sanitize($memberCnics[$i] ?? ''),
                                 'member_committee_preference' => sanitize($memberCommittees[$i] ?? ''),

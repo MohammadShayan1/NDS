@@ -90,6 +90,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                             </div>
 
                             <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm" enctype="multipart/form-data">
+                                <!-- CSRF Token -->
+                                <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                                 
                                 <!-- Step 1: Registration & Participant Type -->
                                 <div class="form-step active" id="step1">
