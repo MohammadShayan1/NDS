@@ -43,6 +43,10 @@ RewriteRule ^admin/brand-ambassadors/?$ admin/brand-ambassadors.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/settings/?$ admin/settings.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^admin/logout/?$ admin/logout.php [L]
 </IfModule>
 

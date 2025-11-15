@@ -30,6 +30,19 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    <style>
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Navigation -->
@@ -65,300 +78,357 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                             </div>
 
                             <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm" enctype="multipart/form-data">
-                                <!-- Registration Type -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Registration Type <span class="text-danger">*</span></label>
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <div class="form-check custom-radio-card">
-                                                <input class="form-check-input" type="radio" name="registration_type" id="ned_type" value="NED" required>
-                                                <label class="form-check-label w-100 p-3 border rounded" for="ned_type">
-                                                    <i class="fas fa-university fa-2x d-block mb-2 text-primary"></i>
-                                                    <strong>NED Student</strong>
-                                                    <p class="small mb-0 text-muted">For current NED University students</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check custom-radio-card">
-                                                <input class="form-check-input" type="radio" name="registration_type" id="other_type" value="Other" required>
-                                                <label class="form-check-label w-100 p-3 border rounded" for="other_type">
-                                                    <i class="fas fa-school fa-2x d-block mb-2 text-primary"></i>
-                                                    <strong>Other Institution</strong>
-                                                    <p class="small mb-0 text-muted">For students from other schools/universities</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Participant Type -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Participant Type <span class="text-danger">*</span></label>
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <div class="form-check custom-radio-card">
-                                                <input class="form-check-input" type="radio" name="participant_type" id="delegate_type" value="delegate" required>
-                                                <label class="form-check-label w-100 p-3 border rounded" for="delegate_type">
-                                                    <i class="fas fa-user fa-2x d-block mb-2 text-success"></i>
-                                                    <strong>Individual Delegate</strong>
-                                                    <p class="small mb-0 text-muted">Participating as an individual</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check custom-radio-card">
-                                                <input class="form-check-input" type="radio" name="participant_type" id="delegation_type" value="delegation" required>
-                                                <label class="form-check-label w-100 p-3 border rounded" for="delegation_type">
-                                                    <i class="fas fa-users fa-2x d-block mb-2 text-success"></i>
-                                                    <strong>Delegation</strong>
-                                                    <p class="small mb-0 text-muted">Registering a group of delegates</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-                                <h5 class="mb-3"><i class="fas fa-id-card me-2"></i>Personal Information</h5>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="full_name" name="full_name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
-                                        <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="whatsapp_number" class="form-label">WhatsApp Number <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
-                                        <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="cnic_number" class="form-label">CNIC / B-Form Number</label>
-                                    <input type="text" class="form-control" id="cnic_number" name="cnic_number" placeholder="XXXXX-XXXXXXX-X" maxlength="15">
-                                    <small class="text-muted">Format: XXXXX-XXXXXXX-X</small>
-                                </div>
-
-                                <hr class="my-4">
-                                <h5 class="mb-3"><i class="fas fa-graduation-cap me-2"></i>Institution Details</h5>
-
-                                <div class="mb-3" id="institutionNameField">
-                                    <label for="institution_name" class="form-label">Institution Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="institution_name" name="institution_name" required>
-                                </div>
-
-                                <div class="mb-3" id="educationLevelField">
-                                    <label for="education_level" class="form-label">Education Level <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="education_level" name="education_level" required>
-                                        <option value="">Select your level</option>
-                                        <option value="Middle school">Middle school</option>
-                                        <option value="O Levels/ Secondary School">O Levels / Secondary School</option>
-                                        <option value="A Levels / Higher Secondary School">A Levels / Higher Secondary School</option>
-                                        <option value="Undergraduate">Undergraduate</option>
-                                    </select>
-                                </div>
-
-                                <!-- Delegation Details (shown only if delegation is selected) -->
-                                <div id="delegationDetails" style="display: none;">
-                                    <hr class="my-4">
-                                    <h5 class="mb-3"><i class="fas fa-users-cog me-2"></i>Delegation Details</h5>
+                                
+                                <!-- Step 1: Registration & Participant Type -->
+                                <div class="form-step active" id="step1">
+                                    <h5 class="mb-4"><i class="fas fa-user-check me-2"></i>Step 1: Registration Type</h5>
                                     
+                                    <!-- Registration Type -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">Registration Type <span class="text-danger">*</span></label>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio-card">
+                                                    <input class="form-check-input" type="radio" name="registration_type" id="ned_type" value="NED" required>
+                                                    <label class="form-check-label w-100 p-3 border rounded" for="ned_type">
+                                                        <i class="fas fa-university fa-2x d-block mb-2 text-primary"></i>
+                                                        <strong>NED Student</strong>
+                                                        <p class="small mb-0 text-muted">For current NED University students</p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio-card">
+                                                    <input class="form-check-input" type="radio" name="registration_type" id="other_type" value="Other" required>
+                                                    <label class="form-check-label w-100 p-3 border rounded" for="other_type">
+                                                        <i class="fas fa-school fa-2x d-block mb-2 text-primary"></i>
+                                                        <strong>Other Institution</strong>
+                                                        <p class="small mb-0 text-muted">For students from other schools/universities</p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Participant Type -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">Participant Type <span class="text-danger">*</span></label>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio-card">
+                                                    <input class="form-check-input" type="radio" name="participant_type" id="delegate_type" value="delegate" required>
+                                                    <label class="form-check-label w-100 p-3 border rounded" for="delegate_type">
+                                                        <i class="fas fa-user fa-2x d-block mb-2 text-success"></i>
+                                                        <strong>Individual Delegate</strong>
+                                                        <p class="small mb-0 text-muted">Participating as an individual</p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check custom-radio-card">
+                                                    <input class="form-check-input" type="radio" name="participant_type" id="delegation_type" value="delegation" required>
+                                                    <label class="form-check-label w-100 p-3 border rounded" for="delegation_type">
+                                                        <i class="fas fa-users fa-2x d-block mb-2 text-success"></i>
+                                                        <strong>Delegation</strong>
+                                                        <p class="small mb-0 text-muted">Registering a group of delegates</p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary next-step" disabled id="step1NextBtn">
+                                            Next <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Personal Information -->
+                                <div class="form-step" id="step2" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-id-card me-2"></i>Step 2: Personal Information</h5>
+
+                                <!-- Step 2: Personal Information -->
+                                <div class="form-step" id="step2" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-id-card me-2"></i>Step 2: Personal Information</h5>
+
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="delegation_size" class="form-label">Number of Delegates in Delegation</label>
-                                            <input type="number" class="form-control" id="delegation_size" name="delegation_size" min="2" max="50">
+                                            <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="full_name" name="full_name" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
-                                            <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
+                                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
                                         </div>
                                     </div>
-                                </div>
 
-                                <hr class="my-4">
-                                <h5 class="mb-3"><i class="fas fa-list-ul me-2"></i>Committee Preferences</h5>
-
-                                <div class="mb-3">
-                                    <label for="committee_preference_1" class="form-label">First Preference</label>
-                                    <select class="form-select" id="committee_preference_1" name="committee_preference_1">
-                                        <option value="">Select committee</option>
-                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
-                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
-                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
-                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
-                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
-                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
-                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
-                                        <option value="PNA">PNA – Pakistan National Assembly</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="committee_preference_2" class="form-label">Second Preference</label>
-                                    <select class="form-select" id="committee_preference_2" name="committee_preference_2">
-                                        <option value="">Select committee</option>
-                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
-                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
-                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
-                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
-                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
-                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
-                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
-                                        <option value="PNA">PNA – Pakistan National Assembly</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="committee_preference_3" class="form-label">Third Preference</label>
-                                    <select class="form-select" id="committee_preference_3" name="committee_preference_3">
-                                        <option value="">Select committee</option>
-                                        <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
-                                        <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
-                                        <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
-                                        <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
-                                        <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
-                                        <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
-                                        <option value="KCC">KCC – Karachi Crisis Committee</option>
-                                        <option value="PNA">PNA – Pakistan National Assembly</option>
-                                    </select>
-                                </div>
-
-                                <!-- Double Delegate Details (shown only if UNSC is selected) -->
-                                <div id="doubleDellegateDetails" style="display: none;">
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-info-circle me-2"></i><strong>UNSC is a Double Delegate Committee</strong> - Please provide partner delegate information
-                                    </div>
-                                    <h6 class="mb-3">Partner Delegate Information</h6>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="partner_name" class="form-label">Partner Full Name</label>
-                                            <input type="text" class="form-control" id="partner_name" name="partner_name">
+                                            <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                            <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
+                                            <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="partner_email" class="form-label">Partner Email</label>
-                                            <input type="email" class="form-control" id="partner_email" name="partner_email">
+                                            <label for="whatsapp_number" class="form-label">WhatsApp Number <span class="text-danger">*</span></label>
+                                            <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
+                                            <small class="text-muted">Format: 03XX-XXXXXXX or +92XXX-XXXXXXX</small>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="partner_phone" class="form-label">Partner Phone</label>
-                                            <input type="tel" class="form-control" id="partner_phone" name="partner_phone">
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="partner_cnic" class="form-label">Partner CNIC</label>
-                                            <input type="text" class="form-control" id="partner_cnic" name="partner_cnic">
-                                        </div>
-                                    </div>
+
                                     <div class="mb-3">
-                                        <label for="partner_experience" class="form-label">Partner's Previous MUN Experience</label>
-                                        <textarea class="form-control" id="partner_experience" name="partner_experience" rows="2" placeholder="Partner's previous MUN experience (if any)"></textarea>
+                                        <label for="cnic_number" class="form-label">CNIC / B-Form Number <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="cnic_number" name="cnic_number" placeholder="XXXXX-XXXXXXX-X" maxlength="15" required>
+                                        <small class="text-muted">Format: XXXXX-XXXXXXX-X</small>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary prev-step">
+                                            <i class="fas fa-arrow-left me-2"></i> Previous
+                                        </button>
+                                        <button type="button" class="btn btn-primary next-step">
+                                            Next <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
                                     </div>
                                 </div>
 
-                                <!-- Delegation Members (shown only if delegation is selected) -->
-                                <div id="delegationMembersSection" style="display: none;">
-                                    <hr class="my-4">
-                                    <h5 class="mb-3"><i class="fas fa-users me-2"></i>Delegation Members Information</h5>
-                                    <div class="alert alert-warning">
-                                        <i class="fas fa-exclamation-triangle me-2"></i>Please provide details for all delegation members (minimum 9)
+                                <!-- Step 3: Institution Details -->
+                                <div class="form-step" id="step3" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-graduation-cap me-2"></i>Step 3: Institution Details</h5>
+
+                                <!-- Step 3: Institution Details -->
+                                <div class="form-step" id="step3" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-graduation-cap me-2"></i>Step 3: Institution Details</h5>
+
+                                    <div class="mb-3" id="institutionNameField">
+                                        <label for="institution_name" class="form-label">Institution Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="institution_name" name="institution_name" required>
                                     </div>
-                                    <div id="delegationMembersContainer">
-                                        <!-- Members will be added dynamically here -->
+
+                                    <div class="mb-3" id="educationLevelField">
+                                        <label for="education_level" class="form-label">Education Level <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="education_level" name="education_level" required>
+                                            <option value="">Select your level</option>
+                                            <option value="Middle school">Middle school</option>
+                                            <option value="O Levels/ Secondary School">O Levels / Secondary School</option>
+                                            <option value="A Levels / Higher Secondary School">A Levels / Higher Secondary School</option>
+                                            <option value="Undergraduate">Undergraduate</option>
+                                            <option value="Masters">Masters</option>
+                                        </select>
                                     </div>
-                                    <button type="button" class="btn btn-outline-primary mb-3" id="addMemberBtn">
-                                        <i class="fas fa-plus me-2"></i>Add Delegation Member
-                                    </button>
-                                </div>
 
-                                <hr class="my-4">
-                                <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Additional Information</h5>
-
-                                <div class="mb-3">
-                                    <label for="mun_experience" class="form-label">Previous MUN Experience</label>
-                                    <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
-                                </div>
-
-                                <hr class="my-4">
-                                <h5 class="mb-3"><i class="fas fa-tag me-2"></i>Reference & Promo Code</h5>
-
-                                <div class="mb-3">
-                                    <label for="reference" class="form-label">Reference <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="reference" name="reference" placeholder="Brand Ambassador or NEDMUN-VI Team Member (If Any)" required>
-                                    <small class="text-muted">Please mention if referred by a Brand Ambassador or Team Member</small>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="promo_code" class="form-label">Promo Code</label>
-                                    <input type="text" class="form-control" id="promo_code" name="promo_code" placeholder="Enter promo code if you have one">
-                                    <small class="text-muted">Optional: Enter promo code for discounts (if applicable)</small>
-                                </div>
-
-                                <!-- Payment Screenshot Section -->
-                                <div class="mb-4">
-                                    <h5 class="mb-3"><i class="fas fa-credit-card me-2"></i>Payment Confirmation</h5>
-                                    
-                                    <div class="alert alert-info">
-                                        <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
-                                        <p class="mb-2"><strong>Registration Fees:</strong></p>
-                                        <ul class="small mb-2">
-                                            <li>Individual Delegate: <strong>PKR <?php echo number_format($delegateFee); ?></strong></li>
-                                            <li>Delegation (per member): <strong>PKR <?php echo number_format($delegationFee); ?></strong></li>
-                                            <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
-                                        </ul>
+                                    <!-- Delegation Details (shown only if delegation is selected) -->
+                                    <div id="delegationDetails" style="display: none;">
+                                        <h6 class="mb-3 mt-4"><i class="fas fa-users-cog me-2"></i>Delegation Details</h6>
                                         
-                                        <p class="mb-2 mt-3"><strong>Payment Methods:</strong></p>
-                                        <ul class="small mb-0">
-                                            <?php if (!empty($jazzcashNumber)): ?>
-                                            <li><strong>JazzCash:</strong> <?php echo htmlspecialchars($jazzcashNumber); ?></li>
-                                            <?php endif; ?>
-                                            <?php if (!empty($easypaisaNumber)): ?>
-                                            <li><strong>Easypaisa:</strong> <?php echo htmlspecialchars($easypaisaNumber); ?></li>
-                                            <?php endif; ?>
-                                            <?php if (!empty($accountNumber)): ?>
-                                            <li class="mt-2"><strong>Bank Transfer:</strong></li>
-                                            <li class="ms-3">Account Title: <?php echo htmlspecialchars($accountTitle); ?></li>
-                                            <li class="ms-3">Account Number: <?php echo htmlspecialchars($accountNumber); ?></li>
-                                            <?php if (!empty($bankName)): ?>
-                                            <li class="ms-3">Bank: <?php echo htmlspecialchars($bankName); ?></li>
-                                            <?php endif; ?>
-                                            <?php if (!empty($iban)): ?>
-                                            <li class="ms-3">IBAN: <?php echo htmlspecialchars($iban); ?></li>
-                                            <?php endif; ?>
-                                            <?php endif; ?>
-                                        </ul>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="delegation_size" class="form-label">Number of Delegates in Delegation</label>
+                                                <input type="number" class="form-control" id="delegation_size" name="delegation_size" min="2" max="50">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
+                                                <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                    <label for="payment_screenshot" class="form-label">Upload Payment Screenshot</label>
-                                    <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*">
-                                    <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
-                                    <div class="mt-2" id="screenshot_preview"></div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary prev-step">
+                                            <i class="fas fa-arrow-left me-2"></i> Previous
+                                        </button>
+                                        <button type="button" class="btn btn-primary next-step">
+                                            Next <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="form-check mb-4">
-                                    <input class="form-check-input" type="checkbox" id="terms_accept" required>
-                                    <label class="form-check-label" for="terms_accept">
-                                        I agree to the terms and conditions and confirm that all information provided is accurate. <span class="text-danger">*</span>
-                                    </label>
+                                <!-- Step 4: Committee Preferences -->
+                                <div class="form-step" id="step4" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-list-ul me-2"></i>Step 4: Committee Preferences</h5>
+
+                                <!-- Step 4: Committee Preferences -->
+                                <div class="form-step" id="step4" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-list-ul me-2"></i>Step 4: Committee Preferences</h5>
+
+                                    <div class="mb-3">
+                                        <label for="committee_preference_1" class="form-label">First Preference</label>
+                                        <select class="form-select" id="committee_preference_1" name="committee_preference_1">
+                                            <option value="">Select committee</option>
+                                            <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                            <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                            <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                            <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                            <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                            <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                            <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                            <option value="PNA">PNA – Pakistan National Assembly</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="committee_preference_2" class="form-label">Second Preference</label>
+                                        <select class="form-select" id="committee_preference_2" name="committee_preference_2">
+                                            <option value="">Select committee</option>
+                                            <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                            <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                            <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                            <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                            <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                            <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                            <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                            <option value="PNA">PNA – Pakistan National Assembly</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="committee_preference_3" class="form-label">Third Preference</label>
+                                        <select class="form-select" id="committee_preference_3" name="committee_preference_3">
+                                            <option value="">Select committee</option>
+                                            <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
+                                            <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
+                                            <option value="UNWOMEN">UNWOMEN – UN Entity for Gender Equality and the Empowerment of Women</option>
+                                            <option value="DISEC">DISEC – Disarmament and International Security Committee</option>
+                                            <option value="SPECPOL">SPECPOL – Special Political and Decolonization Committee</option>
+                                            <option value="SOCHUM">SOCHUM – Social, Humanitarian, and Cultural Committee</option>
+                                            <option value="KCC">KCC – Karachi Crisis Committee</option>
+                                            <option value="PNA">PNA – Pakistan National Assembly</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Double Delegate Details (shown only if UNSC is selected) -->
+                                    <div id="doubleDellegateDetails" style="display: none;">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i><strong>UNSC is a Double Delegate Committee</strong> - Please provide partner delegate information
+                                        </div>
+                                        <h6 class="mb-3">Partner Delegate Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="partner_name" class="form-label">Partner Full Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control partner-field" id="partner_name" name="partner_name">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="partner_email" class="form-label">Partner Email <span class="text-danger">*</span></label>
+                                                <input type="email" class="form-control partner-field" id="partner_email" name="partner_email">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="partner_phone" class="form-label">Partner Phone <span class="text-danger">*</span></label>
+                                                <input type="tel" class="form-control partner-field" id="partner_phone" name="partner_phone" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="partner_cnic" class="form-label">Partner CNIC</label>
+                                                <input type="text" class="form-control" id="partner_cnic" name="partner_cnic" placeholder="XXXXX-XXXXXXX-X" maxlength="15">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="partner_experience" class="form-label">Partner's Previous MUN Experience</label>
+                                            <textarea class="form-control" id="partner_experience" name="partner_experience" rows="2" placeholder="Partner's previous MUN experience (if any)"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delegation Members (shown only if delegation is selected) -->
+                                    <div id="delegationMembersSection" style="display: none;">
+                                        <h6 class="mb-3 mt-4"><i class="fas fa-users me-2"></i>Delegation Members Information</h6>
+                                        <div class="alert alert-warning">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>Please provide details for all delegation members (minimum 9)
+                                        </div>
+                                        <div id="delegationMembersContainer">
+                                            <!-- Members will be added dynamically here -->
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary mb-3" id="addMemberBtn">
+                                            <i class="fas fa-plus me-2"></i>Add Delegation Member
+                                        </button>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="mun_experience" class="form-label">Previous MUN Experience</label>
+                                        <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary prev-step">
+                                            <i class="fas fa-arrow-left me-2"></i> Previous
+                                        </button>
+                                        <button type="button" class="btn btn-primary next-step">
+                                            Next <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-check-circle me-2"></i>Complete Registration
-                                    </button>
+                                <!-- Step 5: Payment & Submit -->
+                                <div class="form-step" id="step5" style="display: none;">
+                                    <h5 class="mb-4"><i class="fas fa-credit-card me-2"></i>Step 5: Payment & Submit</h5>
+
+                                    <div class="mb-3">
+                                        <label for="reference" class="form-label">Reference</label>
+                                        <input type="text" class="form-control" id="reference" name="reference" placeholder="Brand Ambassador or NEDMUN-VI Team Member (If Any)">
+                                        <small class="text-muted">Optional: Please mention if referred by a Brand Ambassador or Team Member</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="promo_code" class="form-label">Promo Code</label>
+                                        <input type="text" class="form-control" id="promo_code" name="promo_code" placeholder="Enter promo code if you have one">
+                                        <small class="text-muted">Optional: Enter promo code for discounts (if applicable)</small>
+                                    </div>
+
+                                    <!-- Payment Screenshot Section -->
+                                    <div class="mb-4">
+                                        <div class="alert alert-info">
+                                            <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
+                                            <p class="mb-2"><strong>Registration Fees:</strong></p>
+                                            <ul class="small mb-2">
+                                                <li>Individual Delegate: <strong>PKR <?php echo number_format($delegateFee); ?></strong></li>
+                                                <li>Delegation (per member): <strong>PKR <?php echo number_format($delegationFee); ?></strong></li>
+                                                <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
+                                            </ul>
+                                            
+                                            <p class="mb-2 mt-3"><strong>Payment Methods:</strong></p>
+                                            <ul class="small mb-0">
+                                                <?php if (!empty($jazzcashNumber)): ?>
+                                                <li><strong>JazzCash:</strong> <?php echo htmlspecialchars($jazzcashNumber); ?></li>
+                                                <?php endif; ?>
+                                                <?php if (!empty($easypaisaNumber)): ?>
+                                                <li><strong>Easypaisa:</strong> <?php echo htmlspecialchars($easypaisaNumber); ?></li>
+                                                <?php endif; ?>
+                                                <?php if (!empty($accountNumber)): ?>
+                                                <li class="mt-2"><strong>Bank Transfer:</strong></li>
+                                                <li class="ms-3">Account Title: <?php echo htmlspecialchars($accountTitle); ?></li>
+                                                <li class="ms-3">Account Number: <?php echo htmlspecialchars($accountNumber); ?></li>
+                                                <?php if (!empty($bankName)): ?>
+                                                <li class="ms-3">Bank: <?php echo htmlspecialchars($bankName); ?></li>
+                                                <?php endif; ?>
+                                                <?php if (!empty($iban)): ?>
+                                                <li class="ms-3">IBAN: <?php echo htmlspecialchars($iban); ?></li>
+                                                <?php endif; ?>
+                                                <?php endif; ?>
+                                            </ul>
+                                        </div>
+                                        
+                                        <label for="payment_screenshot" class="form-label">Upload Payment Screenshot</label>
+                                        <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*">
+                                        <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
+                                        <div class="mt-2" id="screenshot_preview"></div>
+                                    </div>
+
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox" id="terms_accept" required>
+                                        <label class="form-check-label" for="terms_accept">
+                                            I agree to the terms and conditions and confirm that all information provided is accurate. <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-secondary prev-step">
+                                            <i class="fas fa-arrow-left me-2"></i> Previous
+                                        </button>
+                                        <button type="submit" class="btn btn-success btn-lg">
+                                            <i class="fas fa-check-circle me-2"></i>Complete Registration
+                                        </button>
+                                    </div>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -412,20 +482,106 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let memberCount = 0;
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        // Multi-step form navigation
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Next step buttons
+        document.querySelectorAll('.next-step').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (validateCurrentStep()) {
+                    if (currentStep < totalSteps) {
+                        showStep(currentStep + 1);
+                    }
+                }
+            });
+        });
+
+        // Previous step buttons
+        document.querySelectorAll('.prev-step').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    showStep(currentStep - 1);
+                }
+            });
+        });
+
+        // Validate current step before proceeding
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById('step' + currentStep);
+            const requiredInputs = currentStepElement.querySelectorAll('[required]:not([type="radio"]):not([type="checkbox"])');
+            const requiredRadios = currentStepElement.querySelectorAll('input[type="radio"][required]');
+            const requiredCheckboxes = currentStepElement.querySelectorAll('input[type="checkbox"][required]');
+            
+            // Check text/email/etc inputs
+            for (let input of requiredInputs) {
+                if (!input.value.trim() && input.style.display !== 'none' && !input.closest('[style*="display: none"]')) {
+                    input.focus();
+                    input.reportValidity();
+                    return false;
+                }
+            }
+            
+            // Check radio buttons
+            const radioGroups = {};
+            requiredRadios.forEach(radio => {
+                if (!radioGroups[radio.name]) radioGroups[radio.name] = [];
+                radioGroups[radio.name].push(radio);
+            });
+            
+            for (let groupName in radioGroups) {
+                const group = radioGroups[groupName];
+                const checked = group.some(radio => radio.checked);
+                if (!checked) {
+                    group[0].focus();
+                    group[0].reportValidity();
+                    return false;
+                }
+            }
+            
+            // Check checkboxes
+            for (let checkbox of requiredCheckboxes) {
+                if (!checkbox.checked && checkbox.style.display !== 'none') {
+                    checkbox.focus();
+                    checkbox.reportValidity();
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // Enable step 1 next button when both registration and participant type are selected
+        document.querySelectorAll('input[name="registration_type"], input[name="participant_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const regType = document.querySelector('input[name="registration_type"]:checked');
+                const partType = document.querySelector('input[name="participant_type"]:checked');
+                const nextBtn = document.getElementById('step1NextBtn');
+                
+                if (regType && partType) {
+                    nextBtn.disabled = false;
+                } else {
+                    nextBtn.disabled = true;
+                }
+            });
+        });
 
         // Handle NED selection - auto-fill institution details
         document.querySelectorAll('input[name="registration_type"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.value === 'NED') {
                     document.getElementById('institution_name').value = 'NED University of Engineering & Technology';
-                    document.getElementById('education_level').value = 'Undergraduate';
                     document.getElementById('institution_name').readOnly = true;
-                    document.getElementById('education_level').disabled = true;
                 } else {
                     document.getElementById('institution_name').value = '';
-                    document.getElementById('education_level').value = '';
                     document.getElementById('institution_name').readOnly = false;
-                    document.getElementById('education_level').disabled = false;
                 }
             });
         });
@@ -445,6 +601,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                     delegationMembersSection.style.display = 'none';
                     document.getElementById('delegation_size').required = false;
                 }
+                
+                // Re-check double delegate when participant type changes
+                checkDoubleDelegate();
             });
         });
 
@@ -454,11 +613,24 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             const committee2 = document.getElementById('committee_preference_2').value;
             const committee3 = document.getElementById('committee_preference_3').value;
             const doubleSection = document.getElementById('doubleDellegateDetails');
+            const partnerFields = document.querySelectorAll('.partner-field');
+            const participantType = document.querySelector('input[name="participant_type"]:checked');
             
-            if (committee1 === 'UNSC' || committee2 === 'UNSC' || committee3 === 'UNSC') {
+            // Only show partner details for individual delegates, not delegations
+            if ((committee1 === 'UNSC' || committee2 === 'UNSC' || committee3 === 'UNSC') && 
+                participantType && participantType.value === 'delegate') {
                 doubleSection.style.display = 'block';
+                // Make partner fields required
+                partnerFields.forEach(field => {
+                    field.setAttribute('required', 'required');
+                });
             } else {
                 doubleSection.style.display = 'none';
+                // Remove required attribute
+                partnerFields.forEach(field => {
+                    field.removeAttribute('required');
+                    field.value = ''; // Clear values
+                });
             }
         }
 
@@ -533,8 +705,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         }
 
         // Real-time CNIC formatting (XXXXX-XXXXXXX-X)
-        document.getElementById('cnic_number').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^0-9]/g, '');
+        function formatCNIC(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
             
             if (value.length > 13) {
                 value = value.substring(0, 13);
@@ -551,8 +723,20 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 }
             }
             
-            e.target.value = formatted;
+            input.value = formatted;
+        }
+
+        document.getElementById('cnic_number').addEventListener('input', function(e) {
+            formatCNIC(e.target);
         });
+
+        // Partner CNIC formatting
+        const partnerCNIC = document.getElementById('partner_cnic');
+        if(partnerCNIC) {
+            partnerCNIC.addEventListener('input', function(e) {
+                formatCNIC(e.target);
+            });
+        }
 
         // Real-time phone number formatting (03XX-XXXXXXX or +92XXX-XXXXXXX)
         function formatPhone(input) {
@@ -592,6 +776,14 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         document.getElementById('whatsapp_number').addEventListener('input', function(e) {
             formatPhone(e.target);
         });
+
+        // Partner phone formatting
+        const partnerPhone = document.getElementById('partner_phone');
+        if(partnerPhone) {
+            partnerPhone.addEventListener('input', function(e) {
+                formatPhone(e.target);
+            });
+        }
 
         // Payment screenshot preview
         document.getElementById('payment_screenshot').addEventListener('change', function(e) {

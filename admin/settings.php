@@ -74,15 +74,36 @@ $defaults = [
 
 $settings = array_merge($defaults, $settingsData);
 
-include 'includes/header.php';
+$alert = getAlert();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Settings - <?php echo SITE_NAME; ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/admin.css">
+</head>
+<body>
+    <?php include 'includes/sidebar.php'; ?>
 
-<div class="container-fluid px-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mt-4">
-            <i class="fas fa-cog me-2"></i>Site Settings
-        </h1>
-    </div>
+    <div class="main-content">
+        <?php include 'includes/header.php'; ?>
+
+        <div class="container-fluid py-4">
+            <?php if ($alert): ?>
+            <div class="alert alert-<?php echo $alert['type']; ?> alert-dismissible fade show" role="alert">
+                <?php echo $alert['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php endif; ?>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1><i class="fas fa-cog me-2"></i>Site Settings</h1>
+            </div>
 
     <div class="card mb-4">
         <div class="card-header">
@@ -191,7 +212,7 @@ include 'includes/header.php';
                 </div>
 
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary btn-lg">
                         <i class="fas fa-save me-2"></i>Save Settings
                     </button>
                 </div>
@@ -200,4 +221,8 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/layout.php'; ?>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

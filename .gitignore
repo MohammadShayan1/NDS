@@ -2,6 +2,7 @@
 
 # Database Configuration (SENSITIVE - Never commit!)
 config/database.php
+config/database.php.example
 config.php
 database.sql
 # Environment Variables
@@ -11,6 +12,7 @@ database.sql
 
 # Sensitive Configuration
 config/email.php
+config/email.php.example
 
 # User Uploads
 uploads/
