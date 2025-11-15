@@ -86,8 +86,8 @@ $alert = getAlert();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/admin.css">
-    <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- Summernote WYSIWYG Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'includes/sidebar.php'; ?>
@@ -180,7 +180,7 @@ $alert = getAlert();
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Delegate Card Description</label>
-                        <textarea class="form-control tinymce-editor" name="delegate_card_description" rows="5" required><?php echo htmlspecialchars($settings['delegate_card_description']); ?></textarea>
+                        <textarea class="form-control summernote" name="delegate_card_description" rows="5" required><?php echo htmlspecialchars($settings['delegate_card_description']); ?></textarea>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Brand Ambassador Card Title</label>
@@ -188,7 +188,7 @@ $alert = getAlert();
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Brand Ambassador Card Description</label>
-                        <textarea class="form-control tinymce-editor" name="ba_card_description" rows="5" required><?php echo htmlspecialchars($settings['ba_card_description']); ?></textarea>
+                        <textarea class="form-control summernote" name="ba_card_description" rows="5" required><?php echo htmlspecialchars($settings['ba_card_description']); ?></textarea>
                     </div>
                 </div>
 
@@ -226,16 +226,21 @@ $alert = getAlert();
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (required for Summernote) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
-        // Initialize TinyMCE for textareas with class 'tinymce-editor'
-        tinymce.init({
-            selector: '.tinymce-editor',
-            height: 200,
-            menubar: false,
-            plugins: 'lists link',
-            toolbar: 'undo redo | bold italic underline | bullist numlist | link | removeformat',
-            branding: false,
-            statusbar: false
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline']],
+                    ['para', ['ul', 'ol']],
+                    ['insert', ['link']],
+                    ['view', ['codeview']]
+                ]
+            });
         });
     </script>
 </body>
