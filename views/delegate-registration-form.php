@@ -592,12 +592,30 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         // Handle NED selection - auto-fill institution details
         document.querySelectorAll('input[name="registration_type"]').forEach(radio => {
             radio.addEventListener('change', function() {
+                const educationLevelSelect = document.getElementById('education_level');
+                
                 if (this.value === 'NED') {
                     document.getElementById('institution_name').value = 'NED University of Engineering & Technology';
                     document.getElementById('institution_name').readOnly = true;
+                    
+                    // Update education level options for NED students
+                    educationLevelSelect.innerHTML = `
+                        <option value="Undergraduate" selected>Undergraduate</option>
+                        <option value="Masters">Masters</option>
+                    `;
                 } else {
                     document.getElementById('institution_name').value = '';
                     document.getElementById('institution_name').readOnly = false;
+                    
+                    // Restore all education level options for non-NED students
+                    educationLevelSelect.innerHTML = `
+                        <option value="">Select your level</option>
+                        <option value="Middle school">Middle school</option>
+                        <option value="O Levels/ Secondary School">O Levels / Secondary School</option>
+                        <option value="A Levels / Higher Secondary School">A Levels / Higher Secondary School</option>
+                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="Masters">Masters</option>
+                    `;
                 }
             });
         });
