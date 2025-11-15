@@ -534,7 +534,12 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
         
         const logoInterval = setInterval(() => {
             const current = document.querySelector(`.preloader-logo-${currentLogo}`);
-            if (current) current.style.opacity = '0';
+            if (current) {
+                current.style.opacity = '0';
+                setTimeout(() => {
+                    current.style.display = 'none';
+                }, 300);
+            }
             
             currentLogo = currentLogo >= totalLogos ? 1 : currentLogo + 1;
             
