@@ -25,7 +25,7 @@ $alert = getAlert();
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2">
         <div class="container position-relative">
             <div class="w-100 d-flex justify-content-center align-items-center">
                 <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" style="height: 50px; margin-right: 12px;">
