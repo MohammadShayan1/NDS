@@ -149,7 +149,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
     <!-- Preloader -->
     <div id="preloader">
         <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN Logo" class="preloader-logo preloader-logo-1">
-        <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none;">
+        <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
         <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" class="preloader-logo preloader-logo-3" style="display: none;">
         <div class="preloader-spinner"></div>
     </div>
@@ -531,7 +531,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'none';
             currentLogo = currentLogo >= totalLogos ? 1 : currentLogo + 1;
             document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'block';
-        }, 800);
+        }, 2000);
         
         window.addEventListener('load', function() {
             clearInterval(logoInterval);
