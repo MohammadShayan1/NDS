@@ -13,6 +13,10 @@ $alert = getAlert();
     <meta name="description" content="Apply to become a NEDMUN-VI Brand Ambassador. Help us promote Karachi's largest MUN and enjoy exclusive benefits including certificates, recognition, and more!">
     <meta name="keywords" content="NEDMUN Brand Ambassador, MUN Ambassador, Student Ambassador, NEDMUN-VI, NED Debating Society">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp">
+    <link rel="apple-touch-icon" href="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -23,7 +27,12 @@ $alert = getAlert();
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
+            <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
+                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" style="height: 35px; margin-right: 8px;">
+                <div style="width: 2px; height: 30px; background: var(--secondary-color); margin: 0 8px;"></div>
+                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="height: 30px; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+            </a>
+            <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-light ms-auto">
                 <i class="fas fa-arrow-left me-2"></i>Back to Home
             </a>
         </div>
