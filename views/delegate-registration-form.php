@@ -145,11 +145,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                 </div>
 
                                 <!-- Step 2: Personal Information -->
-                                <div class="form-step" id="step2" style="display: none;">
-                                    <h5 class="mb-4"><i class="fas fa-id-card me-2"></i>Step 2: Personal Information</h5>
-
-                                <!-- Step 2: Personal Information -->
-                                <div class="form-step" id="step2" style="display: none;">
+                                <div class="form-step" id="step2">
                                     <h5 class="mb-4"><i class="fas fa-id-card me-2"></i>Step 2: Personal Information</h5>
 
                                     <div class="row">
@@ -193,11 +189,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                 </div>
 
                                 <!-- Step 3: Institution Details -->
-                                <div class="form-step" id="step3" style="display: none;">
-                                    <h5 class="mb-4"><i class="fas fa-graduation-cap me-2"></i>Step 3: Institution Details</h5>
-
-                                <!-- Step 3: Institution Details -->
-                                <div class="form-step" id="step3" style="display: none;">
+                                <div class="form-step" id="step3">
                                     <h5 class="mb-4"><i class="fas fa-graduation-cap me-2"></i>Step 3: Institution Details</h5>
 
                                     <div class="mb-3" id="institutionNameField">
@@ -244,11 +236,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                 </div>
 
                                 <!-- Step 4: Committee Preferences -->
-                                <div class="form-step" id="step4" style="display: none;">
-                                    <h5 class="mb-4"><i class="fas fa-list-ul me-2"></i>Step 4: Committee Preferences</h5>
-
-                                <!-- Step 4: Committee Preferences -->
-                                <div class="form-step" id="step4" style="display: none;">
+                                <div class="form-step" id="step4">
                                     <h5 class="mb-4"><i class="fas fa-list-ul me-2"></i>Step 4: Committee Preferences</h5>
 
                                     <div class="mb-3">
@@ -358,7 +346,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                 </div>
 
                                 <!-- Step 5: Payment & Submit -->
-                                <div class="form-step" id="step5" style="display: none;">
+                                <div class="form-step" id="step5">
                                     <h5 class="mb-4"><i class="fas fa-credit-card me-2"></i>Step 5: Payment & Submit</h5>
 
                                     <div class="mb-3">
