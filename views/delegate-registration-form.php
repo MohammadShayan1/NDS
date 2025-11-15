@@ -246,8 +246,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                     <h5 class="mb-4"><i class="fas fa-list-ul me-2"></i>Step 4: Committee Preferences</h5>
 
                                     <div class="mb-3">
-                                        <label for="committee_preference_1" class="form-label">First Preference</label>
-                                        <select class="form-select" id="committee_preference_1" name="committee_preference_1">
+                                        <label for="committee_preference_1" class="form-label">First Preference <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="committee_preference_1" name="committee_preference_1" required>
                                             <option value="">Select committee</option>
                                             <option value="UNSC">UNSC – United Nations Security Council (Double Delegate)</option>
                                             <option value="UNCSTD">UNCSTD – UN Commission on Science and Technology for Development</option>
