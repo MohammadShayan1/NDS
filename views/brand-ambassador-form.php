@@ -185,9 +185,12 @@ $alert = getAlert();
                     <p class="mb-0 text-muted small">&copy; <?php echo date('Y'); ?> NED Debating Society. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0 text-muted small">
-                        Developed by <a href="https://telinks.org/team-technical" target="_blank" class="text-decoration-none" style="color: #d4af37; font-weight: 500;">
-                            <i class="fas fa-code me-1"></i>TE Links Technical Team
+                    <p class="mb-0 text-muted">
+                        Developed by <a href="https://telinks.org/team-technical" target="_blank" class="text-decoration-none d-inline-flex align-items-center" style="color: var(--secondary-color); font-weight: 500;">
+                            <span class="telinks-logo-container me-2" style="display: inline-block; position: relative; width: 24px; height: 24px;">
+                                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="width: 100%; height: 100%; object-fit: contain; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+                            </span>
+                            TE Links Technical Team
                         </a>
                     </p>
                 </div>
