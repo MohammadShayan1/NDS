@@ -82,6 +82,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             height: 150px;
             margin-bottom: 30px;
             animation: pulse 1.5s ease-in-out infinite;
+            position: absolute;
+            transition: opacity 0.3s ease-in-out;
         }
         
         .preloader-spinner {
@@ -148,9 +150,11 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN Logo" class="preloader-logo preloader-logo-1">
-        <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
-        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" class="preloader-logo preloader-logo-3" style="display: none;">
+        <div style="position: relative; width: 150px; height: 150px; margin-bottom: 30px;">
+            <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp" alt="NEDMUN Logo" class="preloader-logo preloader-logo-1" style="opacity: 1;">
+            <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none; opacity: 0; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+            <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" class="preloader-logo preloader-logo-3" style="display: none; opacity: 0;">
+        </div>
         <div class="preloader-spinner"></div>
     </div>
     
@@ -528,9 +532,18 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
         const totalLogos = 3;
         
         const logoInterval = setInterval(() => {
-            document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'none';
+            const current = document.querySelector(`.preloader-logo-${currentLogo}`);
+            if (current) current.style.opacity = '0';
+            
             currentLogo = currentLogo >= totalLogos ? 1 : currentLogo + 1;
-            document.querySelector(`.preloader-logo-${currentLogo}`).style.display = 'block';
+            
+            const next = document.querySelector(`.preloader-logo-${currentLogo}`);
+            if (next) {
+                next.style.display = 'block';
+                setTimeout(() => {
+                    next.style.opacity = '1';
+                }, 10);
+            }
         }, 2000);
         
         window.addEventListener('load', function() {
