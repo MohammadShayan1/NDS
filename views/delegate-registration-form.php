@@ -314,8 +314,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                                 <input type="tel" class="form-control partner-field" id="partner_phone" name="partner_phone" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15">
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label for="partner_cnic" class="form-label">Partner CNIC</label>
-                                                <input type="text" class="form-control" id="partner_cnic" name="partner_cnic" placeholder="XXXXX-XXXXXXX-X" maxlength="15">
+                                                <label for="partner_cnic" class="form-label">Partner CNIC <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control partner-field" id="partner_cnic" name="partner_cnic" placeholder="XXXXX-XXXXXXX-X" maxlength="15">
                                             </div>
                                         </div>
                                         <div class="mb-3">
