@@ -48,7 +48,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
     <meta name="twitter:image" content="<?php echo BASE_URL; ?>assets/images/nedmun-twitter-card.jpg">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp">
+    <link rel="apple-touch-icon" href="<?php echo BASE_URL; ?>assets/images/NEDMUN_LOGO_PNG.webp">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
