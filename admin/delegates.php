@@ -372,6 +372,34 @@ $alert = getAlert();
                                 <span class="badge bg-success fs-6">${data.assigned_committee}</span>
                             </div>
                             ` : ''}
+                            ${data.partner_name ? `
+                            <div class="col-md-12 mb-3">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0"><i class="fas fa-handshake me-2"></i>Partner Delegate Information (UNSC Double Delegate)</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Partner Name:</strong><br>${data.partner_name}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Partner Email:</strong><br>${data.partner_email || 'N/A'}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Partner Phone:</strong><br>${data.partner_phone || 'N/A'}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Partner CNIC:</strong><br>${data.partner_cnic || 'N/A'}
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <strong>Partner MUN Experience:</strong><br>${data.partner_experience || 'N/A'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ` : ''}
                             <div class="col-md-12 mb-3">
                                 <strong>MUN Experience:</strong><br>${data.mun_experience || 'N/A'}
                             </div>

@@ -27,9 +27,12 @@ class DelegateController {
                 return;
             }
             
-            // Handle payment screenshot upload
+            // Get payment option
+            $paymentOption = sanitize($_POST['payment_option'] ?? 'pay_now');
+            
+            // Handle payment screenshot upload (only required if pay_now)
             $paymentScreenshot = '';
-            if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
+            if ($paymentOption === 'pay_now' && isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../uploads/payment_screenshots/';
                 
                 // Create directory if it doesn't exist
@@ -104,7 +107,8 @@ class DelegateController {
                 'partner_email' => !empty($_POST['partner_email']) ? filter_var($_POST['partner_email'], FILTER_SANITIZE_EMAIL) : '',
                 'partner_phone' => sanitize($_POST['partner_phone'] ?? ''),
                 'partner_cnic' => sanitize($_POST['partner_cnic'] ?? ''),
-                'partner_experience' => sanitize($_POST['partner_experience'] ?? '')
+                'partner_experience' => sanitize($_POST['partner_experience'] ?? ''),
+                'payment_option' => $paymentOption
             ];
 
             // Validate required fields
@@ -221,8 +225,12 @@ class DelegateController {
                     }
                 }
                 
-                // Send confirmation email
-                $emailSent = sendDelegateConfirmation($data);
+                // Send confirmation email based on payment option
+                if ($paymentOption === 'pay_now') {
+                    $emailSent = sendDelegateConfirmationPayNow($data);
+                } else {
+                    $emailSent = sendDelegateConfirmationPayLater($data);
+                }
                 
                 if ($emailSent) {
                     showAlert('Registration successful! A confirmation email has been sent to ' . $data['email'] . '. Please check your inbox.', 'success');

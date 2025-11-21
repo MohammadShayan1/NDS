@@ -19,7 +19,7 @@ class DelegateRegistration {
                    committee_preference_2, committee_preference_3, mun_experience, 
                    reference, promo_code,
                    partner_name, partner_email, partner_phone, partner_cnic, partner_experience,
-                   payment_screenshot) 
+                   payment_option, payment_screenshot) 
                   VALUES 
                   (:registration_type, :participant_type, :full_name, :email, :phone_number, 
                    :cnic_number, :whatsapp_number, :institution_name, :education_level, 
@@ -27,7 +27,7 @@ class DelegateRegistration {
                    :committee_preference_2, :committee_preference_3, :mun_experience, 
                    :reference, :promo_code,
                    :partner_name, :partner_email, :partner_phone, :partner_cnic, :partner_experience,
-                   :payment_screenshot)";
+                   :payment_option, :payment_screenshot)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -57,6 +57,7 @@ class DelegateRegistration {
         $partner_phone = !empty($data['partner_phone']) ? $data['partner_phone'] : null;
         $partner_cnic = !empty($data['partner_cnic']) ? $data['partner_cnic'] : null;
         $partner_experience = !empty($data['partner_experience']) ? $data['partner_experience'] : null;
+        $payment_option = !empty($data['payment_option']) ? $data['payment_option'] : 'pay_now';
         $payment_screenshot = !empty($data['payment_screenshot']) ? $data['payment_screenshot'] : null;
 
         // Bind parameters
@@ -82,6 +83,7 @@ class DelegateRegistration {
         $stmt->bindParam(':partner_phone', $partner_phone);
         $stmt->bindParam(':partner_cnic', $partner_cnic);
         $stmt->bindParam(':partner_experience', $partner_experience);
+        $stmt->bindParam(':payment_option', $payment_option);
         $stmt->bindParam(':payment_screenshot', $payment_screenshot);
 
         if ($stmt->execute()) {

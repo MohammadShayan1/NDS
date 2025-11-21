@@ -291,7 +291,11 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                             <option value="PNA">PNA – Pakistan National Assembly</option>
                                         </select>
                                     </div>
-
+ <!-- MUN Experience (shown after partner details or delegation members) -->
+                                    <div class="mb-3" id="munExperienceSection">
+                                        <label for="mun_experience" class="form-label">Your Previous MUN Experience</label>
+                                        <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
+                                    </div>
                                     <!-- Double Delegate Details (shown only if UNSC is selected) -->
                                     <div id="doubleDellegateDetails" style="display: none;">
                                         <div class="alert alert-info">
@@ -341,10 +345,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                         </div>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="mun_experience" class="form-label">Previous MUN Experience</label>
-                                        <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
-                                    </div>
+                                   
 
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-outline-secondary prev-step">
@@ -372,7 +373,30 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                         <small class="text-muted">Optional: Enter promo code for discounts (if applicable)</small>
                                     </div>
 
-                                    <!-- Payment Screenshot Section -->
+                                    <!-- Payment Option -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Payment Option <span class="text-danger">*</span></label>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" type="radio" name="payment_option" id="pay_now" value="pay_now" checked>
+                                                    <label class="form-check-label" for="pay_now">
+                                                        <strong><i class="fas fa-money-bill-wave me-2 text-success"></i>Pay Now</strong>
+                                                        <small class="d-block text-muted">Complete payment and upload screenshot to confirm registration immediately</small>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="payment_option" id="pay_later" value="pay_later">
+                                                    <label class="form-check-label" for="pay_later">
+                                                        <strong><i class="fas fa-clock me-2 text-warning"></i>Pay Later</strong>
+                                                        <small class="d-block text-muted">Register now and our team will contact you with payment details</small>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Payment Screenshot Section (shown only for Pay Now) -->
                                     <div class="mb-4">
                                         <div class="alert alert-info">
                                             <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
@@ -405,7 +429,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                             </ul>
                                         </div>
                                         
-                                        <label for="payment_screenshot" class="form-label">Upload Payment Screenshot</label>
+                                        <label for="payment_screenshot" class="form-label">Upload Payment Screenshot <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*">
                                         <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
                                         <div class="mt-2" id="screenshot_preview"></div>
@@ -640,8 +664,32 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 
                 // Re-check double delegate when participant type changes
                 checkDoubleDelegate();
+                // Update MUN experience position
+                positionMunExperience();
             });
         });
+
+        // Position MUN Experience section based on form context
+        function positionMunExperience() {
+            const munSection = document.getElementById('munExperienceSection');
+            const participantType = document.querySelector('input[name="participant_type"]:checked');
+            const doubleSection = document.getElementById('doubleDellegateDetails');
+            const delegationSection = document.getElementById('delegationMembersSection');
+            
+            if (!munSection) return;
+            
+            // If it's a double delegate (UNSC individual), place after partner section
+            if (participantType && participantType.value === 'delegate' && 
+                doubleSection && doubleSection.style.display !== 'none') {
+                doubleSection.parentNode.insertBefore(munSection, doubleSection.nextSibling);
+            }
+            // If it's a delegation, place after delegation members section
+            else if (participantType && participantType.value === 'delegation' && 
+                     delegationSection && delegationSection.style.display !== 'none') {
+                delegationSection.parentNode.insertBefore(munSection, delegationSection.nextSibling);
+            }
+            // Otherwise, keep it in default position (already positioned correctly)
+        }
 
         // Check for UNSC (Double Delegate) selection
         function checkDoubleDelegate() {
@@ -668,11 +716,70 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                     field.value = ''; // Clear values
                 });
             }
+            // Update MUN experience position after partner section visibility changes
+            positionMunExperience();
         }
 
-        document.getElementById('committee_preference_1').addEventListener('change', checkDoubleDelegate);
-        document.getElementById('committee_preference_2').addEventListener('change', checkDoubleDelegate);
-        document.getElementById('committee_preference_3').addEventListener('change', checkDoubleDelegate);
+        // Update committee preferences to prevent duplicates
+        function updateCommitteePreferences() {
+            const pref1 = document.getElementById('committee_preference_1');
+            const pref2 = document.getElementById('committee_preference_2');
+            const pref3 = document.getElementById('committee_preference_3');
+            
+            const selected1 = pref1.value;
+            const selected2 = pref2.value;
+            const selected3 = pref3.value;
+            
+            // Reset all options to enabled first
+            [pref1, pref2, pref3].forEach(select => {
+                Array.from(select.options).forEach(option => {
+                    if (option.value !== '') {
+                        option.disabled = false;
+                    }
+                });
+            });
+            
+            // Disable selected options in other dropdowns
+            if (selected1) {
+                Array.from(pref2.options).forEach(option => {
+                    if (option.value === selected1) option.disabled = true;
+                });
+                Array.from(pref3.options).forEach(option => {
+                    if (option.value === selected1) option.disabled = true;
+                });
+            }
+            
+            if (selected2) {
+                Array.from(pref1.options).forEach(option => {
+                    if (option.value === selected2) option.disabled = true;
+                });
+                Array.from(pref3.options).forEach(option => {
+                    if (option.value === selected2) option.disabled = true;
+                });
+            }
+            
+            if (selected3) {
+                Array.from(pref1.options).forEach(option => {
+                    if (option.value === selected3) option.disabled = true;
+                });
+                Array.from(pref2.options).forEach(option => {
+                    if (option.value === selected3) option.disabled = true;
+                });
+            }
+        }
+
+        document.getElementById('committee_preference_1').addEventListener('change', function() {
+            updateCommitteePreferences();
+            checkDoubleDelegate();
+        });
+        document.getElementById('committee_preference_2').addEventListener('change', function() {
+            updateCommitteePreferences();
+            checkDoubleDelegate();
+        });
+        document.getElementById('committee_preference_3').addEventListener('change', function() {
+            updateCommitteePreferences();
+            checkDoubleDelegate();
+        });
 
         // Add delegation member fields
         document.getElementById('addMemberBtn').addEventListener('click', function() {
@@ -905,6 +1012,42 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 formatPhone(e.target);
             });
         }
+
+        // Handle payment option change
+        document.querySelectorAll('input[name="payment_option"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const paymentSection = document.getElementById('paymentSection');
+                const paymentScreenshot = document.getElementById('payment_screenshot');
+                
+                if (this.value === 'pay_now') {
+                    paymentSection.style.display = 'block';
+                    paymentScreenshot.setAttribute('required', 'required');
+                } else {
+                    paymentSection.style.display = 'none';
+                    paymentScreenshot.removeAttribute('required');
+                    paymentScreenshot.value = '';
+                    document.getElementById('screenshot_preview').innerHTML = '';
+                }
+            });
+        });
+
+        // Handle payment option change
+        document.querySelectorAll('input[name="payment_option"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const paymentSection = document.getElementById('paymentSection');
+                const paymentScreenshot = document.getElementById('payment_screenshot');
+                
+                if (this.value === 'pay_now') {
+                    paymentSection.style.display = 'block';
+                    paymentScreenshot.setAttribute('required', 'required');
+                } else {
+                    paymentSection.style.display = 'none';
+                    paymentScreenshot.removeAttribute('required');
+                    paymentScreenshot.value = '';
+                    document.getElementById('screenshot_preview').innerHTML = '';
+                }
+            });
+        });
 
         // Payment screenshot preview
         document.getElementById('payment_screenshot').addEventListener('change', function(e) {
