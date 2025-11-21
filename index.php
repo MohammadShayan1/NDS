@@ -195,7 +195,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                         <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.png" alt="NEDMUN-VI" class="img-fluid" style="max-width: 400px;">
                     </div>
                     <span class="badge bg-warning text-dark mb-3 early-bird-badge" data-aos="fade-down">
-                        <i class="fas fa-clock"></i> Early Bird Registration Valid till 15th November
+                        <i class="fas fa-clock"></i> Early Bird Registration Valid till <?php echo $deadlineFormatted; ?>
                     </span>
                     <p class="lead mb-2 tagline" data-aos="fade-up" style="color: var(--secondary-color); font-style: italic; font-size: 1.3rem;">
                         "Noting the Past, Navigating the Present, Nurturing the Future"
