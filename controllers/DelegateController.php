@@ -30,6 +30,13 @@ class DelegateController {
             // Get payment option
             $paymentOption = sanitize($_POST['payment_option'] ?? 'pay_now');
             
+            // Validate payment screenshot is provided for pay_now option
+            if ($paymentOption === 'pay_now' && (!isset($_FILES['payment_screenshot']) || $_FILES['payment_screenshot']['error'] !== UPLOAD_ERR_OK)) {
+                showAlert('Payment screenshot is required when selecting "Pay Now" option.', 'danger');
+                redirect('register');
+                return;
+            }
+            
             // Handle payment screenshot upload (only required if pay_now)
             $paymentScreenshot = '';
             if ($paymentOption === 'pay_now' && isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
