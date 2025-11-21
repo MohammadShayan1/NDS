@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mshayan/public_html/nds.telinks.org
+    - export DEPLOYPATH=/home/mshayan/public_html/nedmun.telinks.org
     - /bin/cp -R * $DEPLOYPATH
     - /bin/cp -R .htaccess $DEPLOYPATH 2>/dev/null || true
