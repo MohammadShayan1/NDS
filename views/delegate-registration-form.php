@@ -511,6 +511,23 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         let currentStep = 1;
         const totalSteps = 5;
 
+        // Initialize payment section visibility on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentSection = document.getElementById('paymentSection');
+            const payNowRadio = document.getElementById('pay_now');
+            const payLaterRadio = document.getElementById('pay_later');
+            const paymentScreenshot = document.getElementById('payment_screenshot');
+            
+            // Check which option is selected and show/hide accordingly
+            if (payNowRadio && payNowRadio.checked) {
+                paymentSection.style.display = 'block';
+                paymentScreenshot.setAttribute('required', 'required');
+            } else if (payLaterRadio && payLaterRadio.checked) {
+                paymentSection.style.display = 'none';
+                paymentScreenshot.removeAttribute('required');
+            }
+        });
+
         // Multi-step form navigation
         function showStep(step) {
             document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
