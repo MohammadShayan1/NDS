@@ -4,7 +4,10 @@ require_once 'config/config.php';
 // Get site settings
 $delegateFee = getSetting('delegate_fee', '3000');
 $delegationFee = getSetting('delegation_fee', '2500');
+$nedDelegateFee = getSetting('ned_delegate_fee', '2500');
+$nedDelegationFee = getSetting('ned_delegation_fee', '2000');
 $earlyBirdDiscount = getSetting('early_bird_discount', '500');
+$nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
 $delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');

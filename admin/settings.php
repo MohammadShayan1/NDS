@@ -13,7 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $settings = [
             'delegate_fee' => $_POST['delegate_fee'],
             'delegation_fee' => $_POST['delegation_fee'],
+            'ned_delegate_fee' => $_POST['ned_delegate_fee'],
+            'ned_delegation_fee' => $_POST['ned_delegation_fee'],
             'early_bird_discount' => $_POST['early_bird_discount'],
+            'ned_early_bird_discount' => $_POST['ned_early_bird_discount'],
             'early_bird_deadline' => $_POST['early_bird_deadline'],
             'payment_account_title' => $_POST['payment_account_title'],
             'payment_account_number' => $_POST['payment_account_number'],
@@ -56,7 +59,10 @@ $settingsData = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 $defaults = [
     'delegate_fee' => '3000',
     'delegation_fee' => '2500',
+    'ned_delegate_fee' => '2500',
+    'ned_delegation_fee' => '2000',
     'early_bird_discount' => '500',
+    'ned_early_bird_discount' => '300',
     'early_bird_deadline' => date('Y-m-d', strtotime('+30 days')),
     'payment_account_title' => 'NEDMUN-VI',
     'payment_account_number' => '',
@@ -125,16 +131,28 @@ $alert = getAlert();
                 <h5 class="mb-3"><i class="fas fa-money-bill-wave me-2"></i>Payment Information</h5>
                 <div class="row mb-4">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Individual Delegate Fee (PKR)</label>
+                        <label class="form-label">Individual Delegate Fee - Other Institutions (PKR)</label>
                         <input type="number" class="form-control" name="delegate_fee" value="<?php echo htmlspecialchars($settings['delegate_fee']); ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Delegation Fee per Member (PKR)</label>
+                        <label class="form-label">Delegation Fee per Member - Other Institutions (PKR)</label>
                         <input type="number" class="form-control" name="delegation_fee" value="<?php echo htmlspecialchars($settings['delegation_fee']); ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Early Bird Discount (PKR)</label>
+                        <label class="form-label">Individual Delegate Fee - NED Students (PKR)</label>
+                        <input type="number" class="form-control" name="ned_delegate_fee" value="<?php echo htmlspecialchars($settings['ned_delegate_fee']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Delegation Fee per Member - NED Students (PKR)</label>
+                        <input type="number" class="form-control" name="ned_delegation_fee" value="<?php echo htmlspecialchars($settings['ned_delegation_fee']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Early Bird Discount - Other Institutions (PKR)</label>
                         <input type="number" class="form-control" name="early_bird_discount" value="<?php echo htmlspecialchars($settings['early_bird_discount']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Early Bird Discount - NED Students (PKR)</label>
+                        <input type="number" class="form-control" name="ned_early_bird_discount" value="<?php echo htmlspecialchars($settings['ned_early_bird_discount']); ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Early Bird Deadline</label>
