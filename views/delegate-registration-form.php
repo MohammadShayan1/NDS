@@ -52,20 +52,129 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Registration Form Header Responsiveness */
+        .registration-header .navbar {
+            padding: 0.75rem 1rem;
+        }
+        
+        .registration-header .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+        
+        .registration-header .logo-container img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .registration-header .logo-separator {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        /* Mobile responsiveness for registration header */
+        @media (max-width: 991px) {
+            .registration-header .btn {
+                position: static !important;
+                margin-top: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .registration-header .navbar {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            .registration-header .logo-container {
+                gap: 0.5rem;
+            }
+            
+            .registration-header .logo-container img {
+                height: 35px;
+            }
+            
+            .registration-header .logo-separator {
+                font-size: 1.4rem;
+            }
+            
+            .registration-header .btn {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .registration-header .navbar {
+                flex-wrap: wrap;
+            }
+            
+            .registration-header .logo-container {
+                gap: 0.4rem;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .registration-header .logo-container img {
+                height: 30px;
+            }
+            
+            .registration-header .logo-separator {
+                font-size: 1.2rem;
+            }
+            
+            .registration-header .btn {
+                font-size: 0.8rem;
+                padding: 0.35rem 0.7rem;
+                white-space: nowrap;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .registration-header .logo-container img:first-child {
+                height: 25px;
+            }
+            
+            .registration-header .logo-container img:last-child {
+                height: 22px;
+            }
+            
+            .registration-header .logo-separator {
+                font-size: 1rem;
+                margin: 0 0.3rem;
+            }
+            
+            .registration-header .btn {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .registration-header .btn i {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2">
-        <div class="container position-relative">
-            <div class="w-100 d-flex justify-content-center align-items-center">
-                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" style="height: 50px; margin-right: 12px;">
-                <span style="font-size: 28px; color: var(--secondary-color); font-weight: 600; margin: 0 12px;">X</span>
-                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="height: 45px; margin-left: 12px; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2 registration-header">
+        <div class="container">
+            <div class="w-100 d-flex flex-wrap justify-content-center align-items-center position-relative">
+                <div class="logo-container">
+                    <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo">
+                    <span class="logo-separator">X</span>
+                    <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
+                </div>
+                <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning position-absolute end-0">
+                    <i class="fas fa-arrow-left me-2"></i><span class="d-none d-sm-inline">Back to </span>Home
+                </a>
             </div>
-            <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning position-absolute end-0">
-                <i class="fas fa-arrow-left me-2"></i>Back to Home
-            </a>
         </div>
     </nav>
 
