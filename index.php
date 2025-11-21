@@ -388,7 +388,25 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                             <p class="card-text mb-4"><?php echo htmlspecialchars($delegateCardDesc); ?></p>
                             
                             <h5 class="mb-3" style="color: var(--secondary-color);">REGISTRATION FEES</h5>
+                            
+                            <!-- NED Students Pricing -->
                             <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
+                                <p class="mb-2" style="color: var(--secondary-color); font-weight: bold;">
+                                    <i class="fas fa-graduation-cap me-2"></i>NED Students
+                                </p>
+                                <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
+                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($nedDelegateFee - $nedEarlyBirdDiscount); ?></p>
+                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($nedDelegationFee - $nedEarlyBirdDiscount); ?></p>
+                                <p class="mb-1"><strong>Regular Phase:</strong></p>
+                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($nedDelegateFee); ?></p>
+                                <p class="mb-0 ms-3">• Delegation (per member): PKR <?php echo number_format($nedDelegationFee); ?></p>
+                            </div>
+                            
+                            <!-- Other Institutions Pricing -->
+                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #6c757d;">
+                                <p class="mb-2" style="color: #6c757d; font-weight: bold;">
+                                    <i class="fas fa-university me-2"></i>Other Institutions
+                                </p>
                                 <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
                                 <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($earlyDelegateFee); ?></p>
                                 <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($earlyDelegationFee); ?></p>
