@@ -467,8 +467,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 
                                     <div class="mb-3">
                                         <label for="reference" class="form-label">Reference</label>
-                                        <input type="text" class="form-control" id="reference" name="reference" placeholder="Brand Ambassador or NEDMUN-VI Team Member (If Any)">
-                                        <small class="text-muted">Optional: Please mention if referred by a Brand Ambassador or Team Member</small>
+                                        <input type="text" class="form-control" id="reference" name="reference" placeholder="NEDMUN-VI Team Member (If Any)">
+                                        <small class="text-muted">Optional: Please mention if referred by a Team Member</small>
                                     </div>
 
                                     <div class="mb-3">
@@ -919,11 +919,11 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                         <div class="row">
                             <div class="col-md-6 mb-2">
                                 <label class="form-label small">Phone Number *</label>
-                                <input type="tel" class="form-control form-control-sm" name="member_phone[]" required>
+                                <input type="tel" class="form-control form-control-sm member-phone" name="member_phone[]" placeholder="03XX-XXXXXXX or +92XXX-XXXXXXX" maxlength="15" required>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <label class="form-label small">CNIC / B-Form *</label>
-                                <input type="text" class="form-control form-control-sm" name="member_cnic[]" required>
+                                <input type="text" class="form-control form-control-sm member-cnic" name="member_cnic[]" placeholder="XXXXX-XXXXXXX-X" maxlength="15" required>
                             </div>
                         </div>
                         <div class="row">
@@ -954,14 +954,22 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             container.insertAdjacentHTML('beforeend', memberHTML);
             updateMemberCount();
             
-            // Add event listener to the newly added committee select
-            const newSelect = container.lastElementChild.querySelector('.member-committee-select');
-            if (newSelect) {
-                newSelect.addEventListener('change', updateCommitteeAvailability);
+            // Add event listeners to the newly added fields
+            const newMember = container.lastElementChild;
+            const newPhone = newMember.querySelector('.member-phone');
+            const newCnic = newMember.querySelector('.member-cnic');
+            
+            if (newPhone) {
+                newPhone.addEventListener('input', function(e) {
+                    formatPhoneNumber(e.target);
+                });
             }
             
-            // Update committee availability for all selects
-            updateCommitteeAvailability();
+            if (newCnic) {
+                newCnic.addEventListener('input', function(e) {
+                    formatCNIC(e.target);
+                });
+            }
             
             // Disable button if max reached
             if (currentMembers + 1 >= 8) {
@@ -973,7 +981,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         function removeMember(id) {
             document.getElementById('member-' + id).remove();
             updateMemberCount();
-            updateCommitteeAvailability();
             
             // Re-enable add button if below max
             const currentMembers = document.querySelectorAll('.delegation-member').length;
@@ -991,50 +998,11 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             }
         }
         
-        // Update committee availability - disable already selected committees (except UNSC which can be selected twice)
+        // Update committee availability - each delegation member can select independently
         function updateCommitteeAvailability() {
-            const allSelects = document.querySelectorAll('.member-committee-select');
-            const selectedCommittees = {};
-            
-            // Count head delegate's committee preferences first
-            const committee1 = document.getElementById('committee_preference_1')?.value;
-            const committee2 = document.getElementById('committee_preference_2')?.value;
-            const committee3 = document.getElementById('committee_preference_3')?.value;
-            
-            if (committee1) selectedCommittees[committee1] = (selectedCommittees[committee1] || 0) + 1;
-            if (committee2) selectedCommittees[committee2] = (selectedCommittees[committee2] || 0) + 1;
-            if (committee3) selectedCommittees[committee3] = (selectedCommittees[committee3] || 0) + 1;
-            
-            // Count how many times each committee is selected by delegation members
-            allSelects.forEach(select => {
-                const value = select.value;
-                if (value) {
-                    selectedCommittees[value] = (selectedCommittees[value] || 0) + 1;
-                }
-            });
-            
-            // Update each select's options
-            allSelects.forEach(select => {
-                const currentValue = select.value;
-                const options = select.querySelectorAll('option');
-                
-                options.forEach(option => {
-                    const value = option.value;
-                    if (value === '') return; // Skip empty option
-                    
-                    const count = selectedCommittees[value] || 0;
-                    const isCurrentSelection = value === currentValue;
-                    
-                    // Disable if:
-                    // - Not UNSC and already selected
-                    // - UNSC and already selected twice
-                    if (value === 'UNSC') {
-                        option.disabled = !isCurrentSelection && count >= 2;
-                    } else {
-                        option.disabled = !isCurrentSelection && count >= 1;
-                    }
-                });
-            });
+            // This function is now simplified since delegation members can select committees independently
+            // No restrictions between delegation members - each can choose any committee
+            // Only the head delegate (form filler) has restrictions on their own 3 preferences
         }
 
         // Real-time CNIC formatting (XXXXX-XXXXXXX-X)
@@ -1115,6 +1083,14 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         if(partnerPhone) {
             partnerPhone.addEventListener('input', function(e) {
                 formatPhone(e.target);
+            });
+        }
+
+        // Partner CNIC formatting
+        const partnerCnic = document.getElementById('partner_cnic');
+        if(partnerCnic) {
+            partnerCnic.addEventListener('input', function(e) {
+                formatCNIC(e.target);
             });
         }
 

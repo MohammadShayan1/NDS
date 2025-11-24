@@ -43,9 +43,6 @@ function renderAdminLayout($pageTitle = 'Admin Panel', $currentPage = '') {
                     <a href="<?php echo BASE_URL; ?>admin/delegates" class="sidebar-link <?php echo $currentPage === 'delegates' ? 'active' : ''; ?>">
                         <i class="fas fa-users me-2"></i>Delegate Registrations
                     </a>
-                    <a href="<?php echo BASE_URL; ?>admin/brand-ambassadors" class="sidebar-link <?php echo $currentPage === 'brand-ambassadors' ? 'active' : ''; ?>">
-                        <i class="fas fa-star me-2"></i>Brand Ambassadors
-                    </a>
                     <a href="<?php echo BASE_URL; ?>admin/logout" class="sidebar-link text-danger">
                         <i class="fas fa-sign-out-alt me-2"></i>Logout
                     </a>

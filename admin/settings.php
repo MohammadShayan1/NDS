@@ -26,10 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             'easypaisa_number' => $_POST['easypaisa_number'],
             'delegate_card_title' => $_POST['delegate_card_title'],
             'delegate_card_description' => $_POST['delegate_card_description'],
-            'ba_card_title' => $_POST['ba_card_title'],
-            'ba_card_description' => $_POST['ba_card_description'],
-            'registration_status' => isset($_POST['registration_status']) ? 'open' : 'closed',
-            'ba_registration_status' => isset($_POST['ba_registration_status']) ? 'open' : 'closed'
+            'registration_status' => isset($_POST['registration_status']) ? 'open' : 'closed'
         ];
         
         foreach ($settings as $key => $value) {
@@ -72,10 +69,7 @@ $defaults = [
     'easypaisa_number' => '',
     'delegate_card_title' => 'Delegate Registration',
     'delegate_card_description' => 'Register as an individual delegate or delegation for NEDMUN-VI',
-    'ba_card_title' => 'Brand Ambassador',
-    'ba_card_description' => 'Become a Brand Ambassador and represent NEDMUN-VI at your institution',
-    'registration_status' => 'open',
-    'ba_registration_status' => 'open'
+    'registration_status' => 'open'
 ];
 
 $settings = array_merge($defaults, $settingsData);
@@ -201,36 +195,20 @@ $alert = getAlert();
                         <label class="form-label">Delegate Card Title</label>
                         <input type="text" class="form-control" name="delegate_card_title" value="<?php echo htmlspecialchars($settings['delegate_card_title']); ?>" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label class="form-label">Delegate Card Description</label>
                         <textarea class="form-control summernote" name="delegate_card_description" rows="5" required><?php echo htmlspecialchars($settings['delegate_card_description']); ?></textarea>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Brand Ambassador Card Title</label>
-                        <input type="text" class="form-control" name="ba_card_title" value="<?php echo htmlspecialchars($settings['ba_card_title']); ?>" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Brand Ambassador Card Description</label>
-                        <textarea class="form-control summernote" name="ba_card_description" rows="5" required><?php echo htmlspecialchars($settings['ba_card_description']); ?></textarea>
                     </div>
                 </div>
 
                 <!-- Registration Status -->
                 <h5 class="mb-3"><i class="fas fa-toggle-on me-2"></i>Registration Status</h5>
                 <div class="row mb-4">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="registration_status" id="registration_status" <?php echo $settings['registration_status'] === 'open' ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="registration_status">
                                 Delegate Registration Open
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="ba_registration_status" id="ba_registration_status" <?php echo $settings['ba_registration_status'] === 'open' ? 'checked' : ''; ?>>
-                            <label class="form-check-label" for="ba_registration_status">
-                                Brand Ambassador Registration Open
                             </label>
                         </div>
                     </div>

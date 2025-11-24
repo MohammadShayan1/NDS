@@ -11,8 +11,6 @@ $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
 $delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
-$baCardTitle = getSetting('ba_card_title', 'Brand Ambassador');
-$baCardDesc = getSetting('ba_card_description', 'Become a Brand Ambassador and represent NEDMUN-VI at your institution');
 
 // Calculate prices
 $earlyDelegateFee = $delegateFee - $earlyBirdDiscount;
@@ -218,9 +216,6 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     <!-- <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
                         <a href="<?php echo BASE_URL; ?>register" class="btn btn-lg btn-primary me-3 mb-3">
                             <i class="fas fa-user-plus me-2"></i>Register as Delegate
-                        </a>
-                        <a href="<?php echo BASE_URL; ?>brand-ambassador" class="btn btn-lg btn-outline-light mb-3">
-                            <i class="fas fa-star me-2"></i>Become Brand Ambassador
                         </a> -->
                     </div>
                 </div>
@@ -377,8 +372,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                 <h2 class="section-title">Join NEDMUN-VI</h2>
                 <p class="lead text-muted">Choose your path to participate</p>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-6" data-aos="fade-right">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
                     <div class="registration-card card h-100 border-primary">
                         <div class="card-header bg-primary text-white text-center">
                             <i class="fas fa-users fa-3x mb-3"></i>
@@ -421,27 +416,6 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                             
                             <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-user-plus me-2"></i>Register Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="registration-card card h-100 border-warning">
-                        <div class="card-header bg-warning text-dark text-center">
-                            <i class="fas fa-star fa-3x mb-3"></i>
-                            <h3><?php echo htmlspecialchars($baCardTitle); ?></h3>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text mb-4"><?php echo htmlspecialchars($baCardDesc); ?></p>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Social Media Recognition</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Certificate of Appreciation</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Letter of Recommendation</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Commemorative Shield</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Free Conference Attendance (for selected BAs)</li>
-                            </ul>
-                            <a href="<?php echo BASE_URL; ?>brand-ambassador" class="btn btn-warning btn-lg w-100">
-                                <i class="fas fa-star me-2"></i>Become Brand Ambassador
                             </a>
                         </div>
                     </div>

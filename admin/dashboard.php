@@ -2,7 +2,6 @@
 require_once '../config/config.php';
 require_once '../config/database.php';
 require_once '../models/DelegateRegistration.php';
-require_once '../models/BrandAmbassador.php';
 
 requireLogin();
 
@@ -10,13 +9,10 @@ $database = new Database();
 $db = $database->connect();
 
 $delegateModel = new DelegateRegistration($db);
-$baModel = new BrandAmbassador($db);
 
 $delegateStats = $delegateModel->getStats();
-$baStats = $baModel->getStats();
 
 $recentDelegates = array_slice($delegateModel->getAll(), 0, 5);
-$recentBAs = array_slice($baModel->getAll(), 0, 5);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,25 +82,11 @@ $recentBAs = array_slice($baModel->getAll(), 0, 5);
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-3">
-                    <div class="card stat-card bg-info text-white">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="text-uppercase mb-1">Brand Ambassadors</h6>
-                                    <h2 class="mb-0"><?php echo $baStats['total']; ?></h2>
-                                </div>
-                                <i class="fas fa-star fa-3x opacity-50"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Registration Breakdown -->
             <div class="row g-4 mb-4">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header bg-light">
                             <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Registration Breakdown</h5>
@@ -150,48 +132,11 @@ $recentBAs = array_slice($baModel->getAll(), 0, 5);
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0"><i class="fas fa-star me-2"></i>Brand Ambassador Status</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span>Pending Review</span>
-                                    <strong><?php echo $baStats['pending']; ?></strong>
-                                </div>
-                                <div class="progress" style="height: 25px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $baStats['total'] > 0 ? ($baStats['pending']/$baStats['total']*100) : 0; ?>%"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span>Approved</span>
-                                    <strong><?php echo $baStats['approved']; ?></strong>
-                                </div>
-                                <div class="progress" style="height: 25px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $baStats['total'] > 0 ? ($baStats['approved']/$baStats['total']*100) : 0; ?>%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span>Rejected</span>
-                                    <strong><?php echo $baStats['rejected']; ?></strong>
-                                </div>
-                                <div class="progress" style="height: 25px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $baStats['total'] > 0 ? ($baStats['rejected']/$baStats['total']*100) : 0; ?>%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Recent Activity -->
             <div class="row g-4">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent Delegate Registrations</h5>
@@ -215,39 +160,6 @@ $recentBAs = array_slice($baModel->getAll(), 0, 5);
                                             <td><?php echo htmlspecialchars($delegate['institution_name']); ?></td>
                                             <td><span class="badge bg-<?php echo $delegate['registration_type'] === 'NED' ? 'primary' : 'secondary'; ?>"><?php echo $delegate['registration_type']; ?></span></td>
                                             <td><span class="badge bg-<?php echo $delegate['status'] === 'confirmed' ? 'success' : 'warning'; ?>"><?php echo ucfirst($delegate['status']); ?></span></td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent BA Applications</h5>
-                            <a href="<?php echo BASE_URL; ?>admin/brand-ambassadors" class="btn btn-sm btn-warning">View All</a>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Institution</th>
-                                            <th>Delegates</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($recentBAs as $ba): ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($ba['full_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($ba['institution']); ?></td>
-                                            <td><?php echo htmlspecialchars($ba['delegates_count']); ?></td>
-                                            <td><span class="badge bg-<?php echo $ba['status'] === 'approved' ? 'success' : ($ba['status'] === 'rejected' ? 'danger' : 'warning'); ?>"><?php echo ucfirst($ba['status']); ?></span></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>

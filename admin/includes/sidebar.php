@@ -16,10 +16,6 @@
             <i class="fas fa-users"></i>
             <span>Delegate Registrations</span>
         </a>
-        <a href="<?php echo BASE_URL; ?>admin/brand-ambassadors" class="sidebar-link <?php echo basename($_SERVER['PHP_SELF']) === 'brand-ambassadors.php' ? 'active' : ''; ?>">
-            <i class="fas fa-star"></i>
-            <span>Brand Ambassadors</span>
-        </a>
         <a href="<?php echo BASE_URL; ?>admin/settings" class="sidebar-link <?php echo basename($_SERVER['PHP_SELF']) === 'settings.php' ? 'active' : ''; ?>">
             <i class="fas fa-cog"></i>
             <span>Site Settings</span>
