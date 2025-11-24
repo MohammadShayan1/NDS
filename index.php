@@ -23,8 +23,8 @@ $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
 $delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
 
 // Calculate prices
-$earlyDelegateFee = $delegateFee - $earlyBirdDiscount;
-$earlyDelegationFee = $delegationFee - $earlyBirdDelegationDiscount;
+$earlyDelegateFee = $earlyBirdDiscount;
+$earlyDelegationFee = $earlyBirdDelegationDiscount;
 
 // Format deadline
 $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
