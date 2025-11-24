@@ -7,6 +7,7 @@ $delegationFee = getSetting('delegation_fee', '2500');
 $nedDelegateFee = getSetting('ned_delegate_fee', '2500');
 $nedDelegationFee = getSetting('ned_delegation_fee', '2000');
 $earlyBirdDiscount = getSetting('early_bird_discount', '500');
+$earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500');
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
@@ -14,7 +15,7 @@ $delegateCardDesc = getSetting('delegate_card_description', 'Register as an indi
 
 // Calculate prices
 $earlyDelegateFee = $delegateFee - $earlyBirdDiscount;
-$earlyDelegationFee = $delegationFee - $earlyBirdDiscount;
+$earlyDelegationFee = $delegationFee - $earlyBirdDelegationDiscount;
 
 // Format deadline
 $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));

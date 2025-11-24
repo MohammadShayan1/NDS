@@ -14,6 +14,7 @@ $delegationFee = getSetting('delegation_fee', '2500');
 $nedDelegateFee = getSetting('ned_delegate_fee', '2500');
 $nedDelegationFee = getSetting('ned_delegation_fee', '2000');
 $earlyBirdDiscount = getSetting('early_bird_discount', '500');
+$earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500');
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 ?>
@@ -511,7 +512,8 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                                     <ul class="small mb-2">
                                                         <li>Individual Delegate: <strong>PKR <?php echo number_format($delegateFee); ?></strong></li>
                                                         <li>Delegation (per member): <strong>PKR <?php echo number_format($delegationFee); ?></strong></li>
-                                                        <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
+                                                        <li>Early Bird Discount - Delegate (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
+                                                        <li>Early Bird Discount - Delegation (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDelegationDiscount); ?> OFF</strong></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-md-6">

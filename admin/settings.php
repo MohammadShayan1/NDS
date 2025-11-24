@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             'ned_delegate_fee' => $_POST['ned_delegate_fee'],
             'ned_delegation_fee' => $_POST['ned_delegation_fee'],
             'early_bird_discount' => $_POST['early_bird_discount'],
+            'early_bird_delegation_discount' => $_POST['early_bird_delegation_discount'],
             'ned_early_bird_discount' => $_POST['ned_early_bird_discount'],
             'early_bird_deadline' => $_POST['early_bird_deadline'],
             'payment_account_title' => $_POST['payment_account_title'],
@@ -59,6 +60,7 @@ $defaults = [
     'ned_delegate_fee' => '2500',
     'ned_delegation_fee' => '2000',
     'early_bird_discount' => '500',
+    'early_bird_delegation_discount' => '500',
     'ned_early_bird_discount' => '300',
     'early_bird_deadline' => date('Y-m-d', strtotime('+30 days')),
     'payment_account_title' => 'NEDMUN-VI',
@@ -141,8 +143,12 @@ $alert = getAlert();
                         <input type="number" class="form-control" name="ned_delegation_fee" value="<?php echo htmlspecialchars($settings['ned_delegation_fee']); ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Early Bird Discount - Other Institutions (PKR)</label>
+                        <label class="form-label">Early Bird Discount - Individual Delegate (Other Institutions) (PKR)</label>
                         <input type="number" class="form-control" name="early_bird_discount" value="<?php echo htmlspecialchars($settings['early_bird_discount']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Early Bird Discount - Delegation (Other Institutions) (PKR)</label>
+                        <input type="number" class="form-control" name="early_bird_delegation_discount" value="<?php echo htmlspecialchars($settings['early_bird_delegation_discount']); ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Early Bird Discount - NED Students (PKR)</label>
