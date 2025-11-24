@@ -5,6 +5,9 @@ require_once 'config/config.php';
 $alert = getAlert();
 
 // Get site settings
+$siteName = getSetting('site_name', 'NEDMUN-VI');
+$eventDate = getSetting('event_date', '2nd - 4th January, 2026');
+$eventVenue = getSetting('event_venue', 'NED University of Engineering And Technology, University Road, Karachi');
 $delegateFee = getSetting('delegate_fee', '3000');
 $delegationFee = getSetting('delegation_fee', '2500');
 $nedDelegateFee = getSetting('ned_delegate_fee', '2500');
@@ -13,6 +16,9 @@ $earlyBirdDiscount = getSetting('early_bird_discount', '500');
 $earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500');
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
+$contactEmail = getSetting('contact_email', 'nedmunofficial@gmail.com');
+$contactPhoneDG = getSetting('contact_phone_dg', '0324-3343946');
+$contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
 $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
 $delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
 
@@ -221,10 +227,10 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                     </p>
                     <div class="event-details mb-5" data-aos="fade-up" data-aos-delay="200">
                         <p class="lead mb-2">
-                            <i class="fas fa-calendar-alt me-2"></i><?php echo EVENT_DATE; ?>
+                            <i class="fas fa-calendar-alt me-2"></i><?php echo $eventDate; ?>
                         </p>
                         <p class="lead">
-                            <i class="fas fa-map-marker-alt me-2"></i><?php echo EVENT_VENUE; ?>
+                            <i class="fas fa-map-marker-alt me-2"></i><?php echo $eventVenue; ?>
                         </p>
                     </div>
                     <!-- <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
@@ -451,18 +457,18 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                         <h4 class="mb-4">Contact Information</h4>
                         <div class="contact-item mb-3">
                             <i class="fas fa-envelope text-primary me-3"></i>
-                            <span>nedmunofficial@gmail.com</span>
+                            <span><?php echo $contactEmail; ?></span>
                         </div>
                         <div class="contact-item mb-3">
                             <i class="fas fa-phone text-primary me-3"></i>
                             <div>
-                                <p class="mb-1">Directorate General: 0324-3343946</p>
-                                <p class="mb-0">Deputy Secretary General: 0333-3772513</p>
+                                <p class="mb-1">Directorate General: <?php echo $contactPhoneDG; ?></p>
+                                <p class="mb-0">Deputy Secretary General: <?php echo $contactPhoneDSG; ?></p>
                             </div>
                         </div>
                         <div class="contact-item mb-3">
                             <i class="fas fa-map-marker-alt text-primary me-3"></i>
-                            <span><?php echo EVENT_VENUE; ?></span>
+                            <span><?php echo $eventVenue; ?></span>
                         </div>
                         <div class="social-links mt-4">
                             <h5 class="mb-3">Follow Us</h5>

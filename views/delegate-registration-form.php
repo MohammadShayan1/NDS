@@ -17,6 +17,9 @@ $earlyBirdDiscount = getSetting('early_bird_discount', '500');
 $earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500');
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
+$contactEmail = getSetting('contact_email', 'nedmunofficial@gmail.com');
+$contactPhoneDG = getSetting('contact_phone_dg', '0324-3343946');
+$contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -591,9 +594,9 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 </div>
                 <div class="col-lg-4 mb-4 mb-lg-0 text-center">
                     <h6 style="color: #d4af37;">Contact Us</h6>
-                    <p class="text-muted small mb-1">Email: nedmunofficial@gmail.com</p>
-                    <p class="text-muted small mb-1">DG: 0324-3343946</p>
-                    <p class="text-muted small">DSG: 0333-3772513</p>
+                    <p class="text-muted small mb-1">Email: <?php echo $contactEmail; ?></p>
+                    <p class="text-muted small mb-1">DG: <?php echo $contactPhoneDG; ?></p>
+                    <p class="text-muted small">DSG: <?php echo $contactPhoneDSG; ?></p>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <h6 style="color: #d4af37;">Follow Us</h6>

@@ -11,6 +11,12 @@ $db = $database->connect();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_settings') {
     try {
         $settings = [
+            'site_name' => $_POST['site_name'],
+            'event_date' => $_POST['event_date'],
+            'event_venue' => $_POST['event_venue'],
+            'contact_email' => $_POST['contact_email'],
+            'contact_phone_dg' => $_POST['contact_phone_dg'],
+            'contact_phone_dsg' => $_POST['contact_phone_dsg'],
             'delegate_fee' => $_POST['delegate_fee'],
             'delegation_fee' => $_POST['delegation_fee'],
             'ned_delegate_fee' => $_POST['ned_delegate_fee'],
@@ -55,6 +61,12 @@ $settingsData = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
 // Default values
 $defaults = [
+    'site_name' => 'NEDMUN-VI',
+    'event_date' => '2nd - 4th January, 2026',
+    'event_venue' => 'NED University of Engineering And Technology, University Road, Karachi',
+    'contact_email' => 'nedmunofficial@gmail.com',
+    'contact_phone_dg' => '0324-3343946',
+    'contact_phone_dsg' => '0333-3772513',
     'delegate_fee' => '3000',
     'delegation_fee' => '2500',
     'ned_delegate_fee' => '2500',
@@ -123,6 +135,45 @@ $alert = getAlert();
             <form method="POST" action="">
                 <input type="hidden" name="action" value="update_settings">
                 
+                <!-- Event Information -->
+                <h5 class="mb-3"><i class="fas fa-calendar-alt me-2"></i>Event Information</h5>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Site Name</label>
+                        <input type="text" class="form-control" name="site_name" value="<?php echo htmlspecialchars($settings['site_name']); ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Event Date</label>
+                        <input type="text" class="form-control" name="event_date" value="<?php echo htmlspecialchars($settings['event_date']); ?>" required>
+                        <small class="text-muted">Format: 2nd - 4th January, 2026</small>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Early Bird Deadline</label>
+                        <input type="date" class="form-control" name="early_bird_deadline" value="<?php echo htmlspecialchars($settings['early_bird_deadline']); ?>" required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Event Venue</label>
+                        <input type="text" class="form-control" name="event_venue" value="<?php echo htmlspecialchars($settings['event_venue']); ?>" required>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <h5 class="mb-3"><i class="fas fa-address-book me-2"></i>Contact Information</h5>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Contact Email</label>
+                        <input type="email" class="form-control" name="contact_email" value="<?php echo htmlspecialchars($settings['contact_email']); ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Phone (Directorate General)</label>
+                        <input type="text" class="form-control" name="contact_phone_dg" value="<?php echo htmlspecialchars($settings['contact_phone_dg']); ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Phone (Deputy Secretary General)</label>
+                        <input type="text" class="form-control" name="contact_phone_dsg" value="<?php echo htmlspecialchars($settings['contact_phone_dsg']); ?>" required>
+                    </div>
+                </div>
+                
                 <!-- Payment Settings -->
                 <h5 class="mb-3"><i class="fas fa-money-bill-wave me-2"></i>Payment Information</h5>
                 <div class="row mb-4">
@@ -153,10 +204,6 @@ $alert = getAlert();
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Early Bird Discount - NED Students (PKR)</label>
                         <input type="number" class="form-control" name="ned_early_bird_discount" value="<?php echo htmlspecialchars($settings['ned_early_bird_discount']); ?>" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Early Bird Deadline</label>
-                        <input type="date" class="form-control" name="early_bird_deadline" value="<?php echo htmlspecialchars($settings['early_bird_deadline']); ?>" required>
                     </div>
                 </div>
 
