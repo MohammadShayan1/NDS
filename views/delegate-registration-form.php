@@ -168,7 +168,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             <div class="w-100 d-flex justify-content-between align-items-center">
                 <div class="logo-container">
                     <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo">
-                    <span class="logo-separator">X</span>
                     <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
                 </div>
                 <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning">
