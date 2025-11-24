@@ -400,7 +400,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                             <h3><?php echo htmlspecialchars($delegateCardTitle); ?></h3>
                         </div>
                         <div class="card-body">
-                            <p class="card-text mb-4"><?php echo htmlspecialchars($delegateCardDesc); ?></p>
+                            <p class="card-text mb-4"><?php echo $delegateCardDesc; ?></p>
                             
                             <h5 class="mb-3" style="color: var(--secondary-color);">REGISTRATION FEES</h5>
                             
