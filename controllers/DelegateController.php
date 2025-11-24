@@ -102,7 +102,6 @@ class DelegateController {
                 'institution_name' => sanitize($_POST['institution_name'] ?? ''),
                 'education_level' => !empty($_POST['education_level']) ? sanitize($_POST['education_level']) : null,
                 'delegation_size' => !empty($_POST['delegation_size']) ? intval($_POST['delegation_size']) : null,
-                'head_delegate_name' => sanitize($_POST['head_delegate_name'] ?? ''),
                 'committee_preference_1' => sanitize($_POST['committee_preference_1'] ?? ''),
                 'committee_preference_2' => sanitize($_POST['committee_preference_2'] ?? ''),
                 'committee_preference_3' => sanitize($_POST['committee_preference_3'] ?? ''),

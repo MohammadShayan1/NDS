@@ -45,7 +45,8 @@ class DelegateRegistration {
         $education_level = !empty($data['education_level']) ? $data['education_level'] : 'Middle school';
         
         $delegation_size = !empty($data['delegation_size']) ? intval($data['delegation_size']) : null;
-        $head_delegate_name = !empty($data['head_delegate_name']) ? $data['head_delegate_name'] : null;
+        // Head delegate is the person filling the form
+        $head_delegate_name = !empty($data['full_name']) ? $data['full_name'] : null;
         $committee_preference_1 = !empty($data['committee_preference_1']) ? $data['committee_preference_1'] : null;
         $committee_preference_2 = !empty($data['committee_preference_2']) ? $data['committee_preference_2'] : null;
         $committee_preference_3 = !empty($data['committee_preference_3']) ? $data['committee_preference_3'] : null;

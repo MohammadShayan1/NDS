@@ -335,16 +335,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                         </select>
                                     </div>
 
-                                    <!-- Delegation Details (shown only if delegation is selected) -->
-                                    <div id="delegationDetails" style="display: none;">
-                                        <h6 class="mb-3 mt-4"><i class="fas fa-users-cog me-2"></i>Delegation Details</h6>
-                                        
-                                        <div class="mb-3">
-                                            <label for="head_delegate_name" class="form-label">Head Delegate Name</label>
-                                            <input type="text" class="form-control" id="head_delegate_name" name="head_delegate_name">
-                                        </div>
-                                    </div>
-
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-outline-secondary prev-step">
                                             <i class="fas fa-arrow-left me-2"></i> Previous
@@ -403,11 +393,13 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                             <option value="PNA">PNA – Pakistan National Assembly</option>
                                         </select>
                                     </div>
- <!-- MUN Experience (shown after partner details or delegation members) -->
+
+                                    <!-- MUN Experience (shown after committee preferences) -->
                                     <div class="mb-3" id="munExperienceSection">
                                         <label for="mun_experience" class="form-label">Your Previous MUN Experience</label>
                                         <textarea class="form-control" id="mun_experience" name="mun_experience" rows="3" placeholder="Please describe your previous MUN experience (if any)"></textarea>
                                     </div>
+
                                     <!-- Double Delegate Details (shown only if UNSC is selected) -->
                                     <div id="doubleDellegateDetails" style="display: none;">
                                         <div class="alert alert-info">
@@ -788,50 +780,23 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
             });
         });
 
-        // Show/hide delegation details and members based on participant type
+        // Show/hide delegation members based on participant type
         document.querySelectorAll('input[name="participant_type"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                const delegationDetails = document.getElementById('delegationDetails');
                 const delegationMembersSection = document.getElementById('delegationMembersSection');
                 
                 if (this.value === 'delegation') {
-                    delegationDetails.style.display = 'block';
                     delegationMembersSection.style.display = 'block';
                     document.getElementById('delegation_size').required = true;
                 } else {
-                    delegationDetails.style.display = 'none';
                     delegationMembersSection.style.display = 'none';
                     document.getElementById('delegation_size').required = false;
                 }
                 
                 // Re-check double delegate when participant type changes
                 checkDoubleDelegate();
-                // Update MUN experience position
-                positionMunExperience();
             });
         });
-
-        // Position MUN Experience section based on form context
-        function positionMunExperience() {
-            const munSection = document.getElementById('munExperienceSection');
-            const participantType = document.querySelector('input[name="participant_type"]:checked');
-            const doubleSection = document.getElementById('doubleDellegateDetails');
-            const delegationSection = document.getElementById('delegationMembersSection');
-            
-            if (!munSection) return;
-            
-            // If it's a double delegate (UNSC individual), place after partner section
-            if (participantType && participantType.value === 'delegate' && 
-                doubleSection && doubleSection.style.display !== 'none') {
-                doubleSection.parentNode.insertBefore(munSection, doubleSection.nextSibling);
-            }
-            // If it's a delegation, place after delegation members section
-            else if (participantType && participantType.value === 'delegation' && 
-                     delegationSection && delegationSection.style.display !== 'none') {
-                delegationSection.parentNode.insertBefore(munSection, delegationSection.nextSibling);
-            }
-            // Otherwise, keep it in default position (already positioned correctly)
-        }
 
         // Check for UNSC (Double Delegate) selection
         function checkDoubleDelegate() {
@@ -858,8 +823,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                     field.value = ''; // Clear values
                 });
             }
-            // Update MUN experience position after partner section visibility changes
-            positionMunExperience();
         }
 
         // Update committee preferences to prevent duplicates
