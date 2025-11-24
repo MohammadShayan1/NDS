@@ -410,8 +410,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                                     <i class="fas fa-graduation-cap me-2"></i>NED Students
                                 </p>
                                 <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
-                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($nedDelegateFee - $nedEarlyBirdDiscount); ?></p>
-                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($nedDelegationFee - $nedEarlyBirdDiscount); ?></p>
+                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format( $nedEarlyBirdDiscount); ?></p>
+                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($nedEarlyBirdDiscount); ?></p>
                                 <p class="mb-1"><strong>Regular Phase:</strong></p>
                                 <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($nedDelegateFee); ?></p>
                                 <p class="mb-0 ms-3">• Delegation (per member): PKR <?php echo number_format($nedDelegationFee); ?></p>
