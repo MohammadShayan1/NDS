@@ -1,6 +1,9 @@
 <?php
 require_once 'config/config.php';
 
+// Get alert message if any
+$alert = getAlert();
+
 // Get site settings
 $delegateFee = getSetting('delegate_fee', '3000');
 $delegationFee = getSetting('delegation_fee', '2500');
@@ -186,6 +189,16 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             </div>
         </div>
     </nav>
+
+    <!-- Alert Messages -->
+    <?php if ($alert): ?>
+    <div class="container" style="padding-top: 80px;">
+        <div class="alert alert-<?php echo $alert['type']; ?> alert-dismissible fade show" role="alert">
+            <?php echo $alert['message']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <!-- Hero Section -->
     <header class="hero-section" id="home">
@@ -554,6 +567,14 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             preloader.classList.add('preloader-fade-out');
             setTimeout(() => {
                 preloader.style.display = 'none';
+                
+                // Scroll to alert if present
+                const alert = document.querySelector('.alert');
+                if (alert) {
+                    setTimeout(() => {
+                        alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
             }, 500);
         });
         

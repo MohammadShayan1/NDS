@@ -239,7 +239,7 @@ class DelegateController {
                 }
                 
                 if ($emailSent) {
-                    showAlert('Registration successful! A confirmation email has been sent to ' . $data['email'] . '. Please check your inbox.', 'success');
+                    showAlert('Registration successful! A confirmation email has been sent to ' . $data['email'] . '. Please check your inbox (and spam/junk folder if not received).', 'success');
                 } else {
                     showAlert('Registration successful! However, we could not send a confirmation email. Our team will contact you soon.', 'warning');
                 }
