@@ -502,7 +502,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                     </div>
 
                                     <!-- Payment Screenshot Section (shown only for Pay Now) -->
-                                    <div class="mb-4">
+                                    <div id="paymentSection" class="mb-4">
                                         <div class="alert alert-info">
                                             <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
                                             <p class="mb-2"><strong>Registration Fees:</strong></p>
@@ -549,7 +549,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                                         </div>
                                         
                                         <label for="payment_screenshot" class="form-label">Upload Payment Screenshot <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*">
+                                        <input type="file" class="form-control" id="payment_screenshot" name="payment_screenshot" accept="image/*" required>
                                         <small class="text-muted">Supported formats: JPG, PNG, JPEG (Max size: 5MB)</small>
                                         <div class="mt-2" id="screenshot_preview"></div>
                                     </div>
@@ -1095,24 +1095,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 formatCNIC(e.target);
             });
         }
-
-        // Handle payment option change
-        document.querySelectorAll('input[name="payment_option"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const paymentSection = document.getElementById('paymentSection');
-                const paymentScreenshot = document.getElementById('payment_screenshot');
-                
-                if (this.value === 'pay_now') {
-                    paymentSection.style.display = 'block';
-                    paymentScreenshot.setAttribute('required', 'required');
-                } else {
-                    paymentSection.style.display = 'none';
-                    paymentScreenshot.removeAttribute('required');
-                    paymentScreenshot.value = '';
-                    document.getElementById('screenshot_preview').innerHTML = '';
-                }
-            });
-        });
 
         // Handle payment option change
         document.querySelectorAll('input[name="payment_option"]').forEach(radio => {
