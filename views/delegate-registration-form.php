@@ -199,7 +199,7 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                         <div class="card-body p-4">
                             <div class="alert alert-success">
                                 <h5><i class="fas fa-clock me-2"></i>Early Bird Registration!</h5>
-                                <p class="mb-0">Register before <?php echo EARLY_BIRD_DEADLINE; ?> to avail special early bird rates!</p>
+                                <p class="mb-0">Register before <?php echo date('d M', strtotime($earlyBirdDeadline)); ?> to avail special early bird rates!</p>
                             </div>
 
                             <form action="<?php echo BASE_URL; ?>register?action=submit" method="POST" id="delegateForm" enctype="multipart/form-data">
