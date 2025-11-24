@@ -79,9 +79,12 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         
         /* Mobile responsiveness for registration header */
         @media (max-width: 991px) {
-            .registration-header .btn {
-                position: static !important;
-                margin-top: 0.5rem;
+            .registration-header .logo-container img {
+                height: 40px;
+            }
+            
+            .registration-header .logo-separator {
+                font-size: 1.5rem;
             }
         }
         
@@ -109,15 +112,13 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
         }
         
         @media (max-width: 576px) {
-            .registration-header .navbar {
-                flex-wrap: wrap;
+            .registration-header .navbar .w-100 {
+                flex-direction: column;
+                gap: 0.75rem;
             }
             
             .registration-header .logo-container {
                 gap: 0.4rem;
-                justify-content: center;
-                width: 100%;
-                margin-bottom: 0.5rem;
             }
             
             .registration-header .logo-container img {
@@ -132,8 +133,6 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
                 font-size: 0.8rem;
                 padding: 0.35rem 0.7rem;
                 white-space: nowrap;
-                width: 100%;
-                text-align: center;
             }
         }
         
@@ -166,13 +165,13 @@ $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-2 registration-header">
         <div class="container">
-            <div class="w-100 d-flex flex-wrap justify-content-center align-items-center position-relative">
+            <div class="w-100 d-flex justify-content-between align-items-center">
                 <div class="logo-container">
                     <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo">
                     <span class="logo-separator">X</span>
                     <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
                 </div>
-                <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning position-absolute end-0">
+                <a href="<?php echo BASE_URL; ?>" class="btn btn-sm btn-outline-warning">
                     <i class="fas fa-arrow-left me-2"></i><span class="d-none d-sm-inline">Back to </span>Home
                 </a>
             </div>
