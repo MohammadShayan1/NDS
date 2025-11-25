@@ -94,6 +94,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
         .preloader-logo {
             width: 150px;
             height: 150px;
+            object-fit: contain;
             margin-bottom: 30px;
             animation: pulse 1.5s ease-in-out infinite;
             position: absolute;
