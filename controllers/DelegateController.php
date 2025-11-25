@@ -27,19 +27,16 @@ class DelegateController {
                 return;
             }
             
-            // Get payment option
-            $paymentOption = sanitize($_POST['payment_option'] ?? 'pay_now');
-            
-            // Validate payment screenshot is provided for pay_now option
-            if ($paymentOption === 'pay_now' && (!isset($_FILES['payment_screenshot']) || $_FILES['payment_screenshot']['error'] !== UPLOAD_ERR_OK)) {
-                showAlert('Payment screenshot is required when selecting "Pay Now" option.', 'danger');
+            // Validate payment screenshot is provided (now mandatory)
+            if (!isset($_FILES['payment_screenshot']) || $_FILES['payment_screenshot']['error'] !== UPLOAD_ERR_OK) {
+                showAlert('Payment screenshot is required for registration.', 'danger');
                 redirect('register');
                 return;
             }
             
-            // Handle payment screenshot upload (only required if pay_now)
+            // Handle payment screenshot upload (mandatory)
             $paymentScreenshot = '';
-            if ($paymentOption === 'pay_now' && isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
+            if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../uploads/payment_screenshots/';
                 
                 // Create directory if it doesn't exist
@@ -113,8 +110,7 @@ class DelegateController {
                 'partner_email' => !empty($_POST['partner_email']) ? filter_var($_POST['partner_email'], FILTER_SANITIZE_EMAIL) : '',
                 'partner_phone' => sanitize($_POST['partner_phone'] ?? ''),
                 'partner_cnic' => sanitize($_POST['partner_cnic'] ?? ''),
-                'partner_experience' => sanitize($_POST['partner_experience'] ?? ''),
-                'payment_option' => $paymentOption
+                'partner_experience' => sanitize($_POST['partner_experience'] ?? '')
             ];
 
             // Validate required fields
@@ -231,12 +227,8 @@ class DelegateController {
                     }
                 }
                 
-                // Send confirmation email based on payment option
-                if ($paymentOption === 'pay_now') {
-                    $emailSent = sendDelegateConfirmationPayNow($data);
-                } else {
-                    $emailSent = sendDelegateConfirmationPayLater($data);
-                }
+                // Send confirmation email (payment is now mandatory)
+                $emailSent = sendDelegateConfirmationPayNow($data);
                 
                 if ($emailSent) {
                     showAlert('Registration successful! A confirmation email has been sent to ' . $data['email'] . '. Please check your inbox (and spam/junk folder if not received).', 'success');

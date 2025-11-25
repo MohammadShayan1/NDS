@@ -18,8 +18,10 @@ $earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 $contactEmail = getSetting('contact_email', 'nedmunofficial@gmail.com');
-$contactPhoneDG = getSetting('contact_phone_dg', '0324-3343946');
-$contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
+$contactPhone1 = getSetting('contact_phone_1', '0324-3343946');
+$contactPhone1Label = getSetting('contact_phone_1_label', 'Directorate General');
+$contactPhone2 = getSetting('contact_phone_2', '0333-3772513');
+$contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary General');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -480,30 +482,8 @@ $contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
                                     </div>
 
                                     <!-- Payment Option -->
+                                    <!-- Payment Screenshot Section -->
                                     <div class="mb-4">
-                                        <label class="form-label">Payment Option <span class="text-danger">*</span></label>
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <div class="form-check mb-3">
-                                                    <input class="form-check-input" type="radio" name="payment_option" id="pay_now" value="pay_now" checked>
-                                                    <label class="form-check-label" for="pay_now">
-                                                        <strong><i class="fas fa-money-bill-wave me-2 text-success"></i>Pay Now</strong>
-                                                        <small class="d-block text-muted">Complete payment and upload screenshot to confirm registration immediately</small>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="payment_option" id="pay_later" value="pay_later">
-                                                    <label class="form-check-label" for="pay_later">
-                                                        <strong><i class="fas fa-clock me-2 text-warning"></i>Pay Later</strong>
-                                                        <small class="d-block text-muted">Register now and our team will contact you with payment details</small>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Payment Screenshot Section (shown only for Pay Now) -->
-                                    <div id="paymentSection" class="mb-4">
                                         <div class="alert alert-info">
                                             <h6><i class="fas fa-info-circle me-2"></i>Payment Instructions</h6>
                                             <p class="mb-2"><strong>Registration Fees:</strong></p>
@@ -595,8 +575,8 @@ $contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
                 <div class="col-lg-4 mb-4 mb-lg-0 text-center">
                     <h6 style="color: #d4af37;">Contact Us</h6>
                     <p class="text-muted small mb-1">Email: <?php echo $contactEmail; ?></p>
-                    <p class="text-muted small mb-1">DG: <?php echo $contactPhoneDG; ?></p>
-                    <p class="text-muted small">DSG: <?php echo $contactPhoneDSG; ?></p>
+                    <p class="text-muted small mb-1"><?php echo $contactPhone1Label; ?>: <?php echo $contactPhone1; ?></p>
+                    <p class="text-muted small"><?php echo $contactPhone2Label; ?>: <?php echo $contactPhone2; ?></p>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <h6 style="color: #d4af37;">Follow Us</h6>
@@ -1096,24 +1076,6 @@ $contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
                 formatCNIC(e.target);
             });
         }
-
-        // Handle payment option change
-        document.querySelectorAll('input[name="payment_option"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const paymentSection = document.getElementById('paymentSection');
-                const paymentScreenshot = document.getElementById('payment_screenshot');
-                
-                if (this.value === 'pay_now') {
-                    paymentSection.style.display = 'block';
-                    paymentScreenshot.setAttribute('required', 'required');
-                } else {
-                    paymentSection.style.display = 'none';
-                    paymentScreenshot.removeAttribute('required');
-                    paymentScreenshot.value = '';
-                    document.getElementById('screenshot_preview').innerHTML = '';
-                }
-            });
-        });
 
         // Payment screenshot preview
         document.getElementById('payment_screenshot').addEventListener('change', function(e) {

@@ -17,8 +17,10 @@ $earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500
 $nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
 $earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
 $contactEmail = getSetting('contact_email', 'nedmunofficial@gmail.com');
-$contactPhoneDG = getSetting('contact_phone_dg', '0324-3343946');
-$contactPhoneDSG = getSetting('contact_phone_dsg', '0333-3772513');
+$contactPhone1 = getSetting('contact_phone_1', '0324-3343946');
+$contactPhone1Label = getSetting('contact_phone_1_label', 'Directorate General');
+$contactPhone2 = getSetting('contact_phone_2', '0333-3772513');
+$contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary General');
 $delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
 $delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
 
@@ -462,8 +464,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                         <div class="contact-item mb-3">
                             <i class="fas fa-phone text-primary me-3"></i>
                             <div>
-                                <p class="mb-1">Directorate General: <?php echo $contactPhoneDG; ?></p>
-                                <p class="mb-0">Deputy Secretary General: <?php echo $contactPhoneDSG; ?></p>
+                                <p class="mb-1"><?php echo $contactPhone1Label; ?>: <?php echo $contactPhone1; ?></p>
+                                <p class="mb-0"><?php echo $contactPhone2Label; ?>: <?php echo $contactPhone2; ?></p>
                             </div>
                         </div>
                         <div class="contact-item mb-3">

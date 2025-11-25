@@ -15,8 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             'event_date' => $_POST['event_date'],
             'event_venue' => $_POST['event_venue'],
             'contact_email' => $_POST['contact_email'],
-            'contact_phone_dg' => $_POST['contact_phone_dg'],
-            'contact_phone_dsg' => $_POST['contact_phone_dsg'],
+            'contact_phone_1' => $_POST['contact_phone_1'],
+            'contact_phone_1_label' => $_POST['contact_phone_1_label'],
+            'contact_phone_2' => $_POST['contact_phone_2'],
+            'contact_phone_2_label' => $_POST['contact_phone_2_label'],
             'delegate_fee' => $_POST['delegate_fee'],
             'delegation_fee' => $_POST['delegation_fee'],
             'ned_delegate_fee' => $_POST['ned_delegate_fee'],
@@ -65,8 +67,10 @@ $defaults = [
     'event_date' => '2nd - 4th January, 2026',
     'event_venue' => 'NED University of Engineering And Technology, University Road, Karachi',
     'contact_email' => 'nedmunofficial@gmail.com',
-    'contact_phone_dg' => '0324-3343946',
-    'contact_phone_dsg' => '0333-3772513',
+    'contact_phone_1' => '0324-3343946',
+    'contact_phone_1_label' => 'Directorate General',
+    'contact_phone_2' => '0333-3772513',
+    'contact_phone_2_label' => 'Deputy Secretary General',
     'delegate_fee' => '3000',
     'delegation_fee' => '2500',
     'ned_delegate_fee' => '2500',
@@ -165,12 +169,22 @@ $alert = getAlert();
                         <input type="email" class="form-control" name="contact_email" value="<?php echo htmlspecialchars($settings['contact_email']); ?>" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Phone (Directorate General)</label>
-                        <input type="text" class="form-control" name="contact_phone_dg" value="<?php echo htmlspecialchars($settings['contact_phone_dg']); ?>" required>
+                        <label class="form-label">Contact Phone 1</label>
+                        <input type="text" class="form-control" name="contact_phone_1" value="<?php echo htmlspecialchars($settings['contact_phone_1']); ?>" required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Phone (Deputy Secretary General)</label>
-                        <input type="text" class="form-control" name="contact_phone_dsg" value="<?php echo htmlspecialchars($settings['contact_phone_dsg']); ?>" required>
+                        <label class="form-label">Contact Phone 1 Designation</label>
+                        <input type="text" class="form-control" name="contact_phone_1_label" value="<?php echo htmlspecialchars($settings['contact_phone_1_label']); ?>" required>
+                        <small class="text-muted">e.g., Directorate General, Event Manager</small>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Contact Phone 2</label>
+                        <input type="text" class="form-control" name="contact_phone_2" value="<?php echo htmlspecialchars($settings['contact_phone_2']); ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Contact Phone 2 Designation</label>
+                        <input type="text" class="form-control" name="contact_phone_2_label" value="<?php echo htmlspecialchars($settings['contact_phone_2_label']); ?>" required>
+                        <small class="text-muted">e.g., Deputy Secretary General, Support Team</small>
                     </div>
                 </div>
                 
