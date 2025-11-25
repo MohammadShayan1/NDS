@@ -575,14 +575,6 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             preloader.classList.add('preloader-fade-out');
             setTimeout(() => {
                 preloader.style.display = 'none';
-                
-                // Scroll to alert if present
-                const alert = document.querySelector('.alert');
-                if (alert) {
-                    setTimeout(() => {
-                        alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 100);
-                }
             }, 500);
         });
         
