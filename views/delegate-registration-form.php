@@ -493,8 +493,8 @@ $contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary Gene
                                                     <ul class="small mb-2">
                                                         <li>Individual Delegate: <strong>PKR <?php echo number_format($delegateFee); ?></strong></li>
                                                         <li>Delegation (per member): <strong>PKR <?php echo number_format($delegationFee); ?></strong></li>
-                                                        <li>Early Bird Discount - Delegate (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?> OFF</strong></li>
-                                                        <li>Early Bird Discount - Delegation (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDelegationDiscount); ?> OFF</strong></li>
+                                                        <li>Early Bird Discount - Delegate (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDiscount); ?></strong></li>
+                                                        <li>Early Bird Discount - Delegation (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($earlyBirdDelegationDiscount); ?></strong></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-md-6">
@@ -502,7 +502,7 @@ $contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary Gene
                                                     <ul class="small mb-2">
                                                         <li>Individual Delegate: <strong>PKR <?php echo number_format($nedDelegateFee); ?></strong></li>
                                                         <li>Delegation (per member): <strong>PKR <?php echo number_format($nedDelegationFee); ?></strong></li>
-                                                        <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($nedEarlyBirdDiscount); ?> OFF</strong></li>
+                                                        <li>Early Bird Discount (Till <?php echo date('jS M', strtotime($earlyBirdDeadline)); ?>): <strong>PKR <?php echo number_format($nedEarlyBirdDiscount); ?></strong></li>
                                                     </ul>
                                                 </div>
                                             </div>
