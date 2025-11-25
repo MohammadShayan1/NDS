@@ -147,6 +147,10 @@ class DelegateRegistration {
     }
 
     public function updateStatus($id, $status, $payment_status, $notes = '') {
+        // Get current payment status before update
+        $currentDelegate = $this->getById($id);
+        $previousPaymentStatus = $currentDelegate['payment_status'];
+        
         $query = "UPDATE " . $this->table . " 
                   SET status = :status, payment_status = :payment_status, admin_notes = :notes 
                   WHERE id = :id";
@@ -157,7 +161,25 @@ class DelegateRegistration {
         $stmt->bindParam(':payment_status', $payment_status);
         $stmt->bindParam(':notes', $notes);
         
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            // Send verification email when payment status is changed to paid or waived
+            if (($payment_status === 'paid' || $payment_status === 'waived') && 
+                $previousPaymentStatus !== $payment_status) {
+                
+                // Include email functions
+                require_once __DIR__ . '/../config/email.php';
+                
+                // Get updated delegate data
+                $delegateData = $this->getById($id);
+                
+                // Send payment verification confirmation email
+                sendPaymentVerifiedConfirmation($delegateData);
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
 
     public function delete($id) {
