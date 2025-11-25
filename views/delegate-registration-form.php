@@ -2,6 +2,9 @@
 require_once '../config/config.php';
 $alert = getAlert();
 
+// Check registration status
+$registrationStatus = getSetting('registration_status', 'open');
+
 // Get payment settings
 $jazzcashNumber = getSetting('jazzcash_number', '');
 $easypaisaNumber = getSetting('easypaisa_number', '');
@@ -200,6 +203,22 @@ $contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary Gene
                             <p class="mb-0">Join Karachi's Largest Model United Nations</p>
                         </div>
                         <div class="card-body p-4">
+                            <?php if ($registrationStatus !== 'open'): ?>
+                                <!-- Registration Closed Message -->
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <i class="fas fa-times-circle fa-3x mb-3"></i>
+                                    <h4 class="alert-heading">Registration Closed</h4>
+                                    <p class="mb-3">We're sorry, but delegate registration for NEDMUN-VI is currently closed.</p>
+                                    <hr>
+                                    <p class="mb-0">For any inquiries, please contact us at <a href="mailto:<?php echo $contactEmail; ?>" class="alert-link"><?php echo $contactEmail; ?></a></p>
+                                    <div class="mt-4">
+                                        <a href="<?php echo BASE_URL; ?>" class="btn btn-primary">
+                                            <i class="fas fa-home me-2"></i>Back to Home
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <!-- Registration Form (Only shown when registration is open) -->
                             <div class="alert alert-success">
                                 <h5><i class="fas fa-clock me-2"></i>Early Bird Registration!</h5>
                                 <p class="mb-0">Register before <?php echo date('d M', strtotime($earlyBirdDeadline)); ?> to avail special early bird rates!</p>
@@ -553,6 +572,7 @@ $contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary Gene
                                 </div>
 
                             </form>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
