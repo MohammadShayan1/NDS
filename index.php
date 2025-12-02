@@ -91,7 +91,7 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             flex-direction: column;
         }
         
-        .preloader-logo {
+.preloader-logo {
             width: 150px;
             height: 150px;
             object-fit: contain;
@@ -130,6 +130,54 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                 visibility: hidden;
             }
         }
+        /* Dropdown Menu Styling */
+.dropdown-menu-dark {
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.2);
+}
+
+.dropdown-menu-dark .dropdown-item {
+    color: #ffffff;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+    background-color: var(--secondary-color);
+    color: #000000;
+    transform: translateX(5px);
+}
+
+.dropdown-menu-dark .dropdown-item i {
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu-dark .dropdown-item:hover i {
+    color: #000000;
+}
+
+.dropdown-menu-dark .dropdown-divider {
+    border-color: rgba(218, 165, 32, 0.3);
+}
+
+.nav-link.dropdown-toggle:hover {
+    color: var(--secondary-color) !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 991px) {
+    .dropdown-menu-dark {
+        background-color: rgba(0, 0, 0, 0.98);
+        border: none;
+        margin-left: 1rem;
+    }
+    
+    .dropdown-menu-dark .dropdown-item {
+        padding: 0.5rem 1rem;
+    }
+}
     </style>
     
     <!-- Structured Data for SEO -->
@@ -173,31 +221,52 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
         <div class="preloader-spinner"></div>
     </div>
     
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
-                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo" class="nds-logo me-2">
-                <div class="logo-separator"></div>
-                <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#committees">Committees</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-lg-3" href="<?php echo BASE_URL; ?>register">Register Now</a>
-                    </li>
-                </ul>
-            </div>
+   <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
+            <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo" class="nds-logo me-2">
+            <div class="logo-separator"></div>
+            <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#committees">Committees</a></li>
+                <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
+                
+                <!-- Forms Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-file-alt me-1"></i>Forms
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="formsDropdown">
+                        <li>
+                            <a class="dropdown-item" href="https://forms.gle/bdX25duCQBJcvroX8" target="_blank">
+                                <i class="fas fa-user me-2"></i>Vendors Form
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="https://forms.gle/HpQNSiTPNpHqoNy36" target="_blank">
+                                <i class="fas fa-camera me-2"></i>Form for media
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-primary ms-lg-3" href="<?php echo BASE_URL; ?>register">Register Now</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Alert Messages -->
     <?php if ($alert): ?>
