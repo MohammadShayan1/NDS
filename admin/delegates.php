@@ -16,8 +16,9 @@ if (isset($_GET['action'])) {
         $status = sanitize($_POST['status']);
         $payment_status = sanitize($_POST['payment_status']);
         $notes = sanitize($_POST['admin_notes']);
+        $payment_amount = !empty($_POST['payment_amount']) ? floatval($_POST['payment_amount']) : null;
         
-        if ($delegateModel->updateStatus($id, $status, $payment_status, $notes)) {
+        if ($delegateModel->updateStatus($id, $status, $payment_status, $notes, $payment_amount)) {
             showAlert('Status updated successfully!', 'success');
         } else {
             showAlert('Error updating status.', 'danger');
@@ -109,6 +110,14 @@ $alert = getAlert();
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="card border-success" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);">
+                        <div class="card-body text-center">
+                            <h3 class="text-success"><i class="fas fa-money-bill-wave me-2"></i>PKR <?php echo number_format($stats['total_revenue'] ?? 0, 0); ?></h3>
+                            <p class="mb-0 text-muted fw-bold">Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Delegates Table -->
@@ -125,6 +134,7 @@ $alert = getAlert();
                                     <th>Institution</th>
                                     <th>Type</th>
                                     <th>Participant</th>
+                                    <th>Promo/Referral</th>
                                     <th>Status</th>
                                     <th>Payment</th>
                                     <th>Date</th>
@@ -141,6 +151,17 @@ $alert = getAlert();
                                     <td><?php echo htmlspecialchars($delegate['institution_name']); ?></td>
                                     <td><span class="badge bg-<?php echo $delegate['registration_type'] === 'NED' ? 'primary' : 'secondary'; ?>"><?php echo $delegate['registration_type']; ?></span></td>
                                     <td><span class="badge bg-info"><?php echo ucfirst($delegate['participant_type']); ?></span></td>
+                                    <td>
+                                        <?php if (!empty($delegate['promo_code'])): ?>
+                                            <span class="badge bg-warning text-dark" title="Promo Code"><i class="fas fa-tag"></i> <?php echo htmlspecialchars($delegate['promo_code']); ?></span>
+                                        <?php endif; ?>
+                                        <?php if (!empty($delegate['reference'])): ?>
+                                            <span class="badge bg-purple" title="Referral" style="background-color: #6f42c1;"><i class="fas fa-user-friends"></i> <?php echo htmlspecialchars($delegate['reference']); ?></span>
+                                        <?php endif; ?>
+                                        <?php if (empty($delegate['promo_code']) && empty($delegate['reference'])): ?>
+                                            <span class="text-muted">—</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><span class="badge bg-<?php echo $delegate['status'] === 'confirmed' ? 'success' : ($delegate['status'] === 'rejected' ? 'danger' : 'warning'); ?>"><?php echo ucfirst($delegate['status']); ?></span></td>
                                     <td><span class="badge bg-<?php echo $delegate['payment_status'] === 'paid' ? 'success' : ($delegate['payment_status'] === 'waived' ? 'info' : 'warning'); ?>"><?php echo ucfirst($delegate['payment_status']); ?></span></td>
                                     <td><?php echo date('M d, Y', strtotime($delegate['created_at'])); ?></td>
@@ -161,7 +182,13 @@ $alert = getAlert();
                                         <button class="btn btn-sm btn-success" onclick="assignCommittee(<?php echo $delegate['id']; ?>, 'main')" title="Assign Committee">
                                             <i class="fas fa-clipboard-check"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-warning" onclick="editStatus(<?php echo $delegate['id']; ?>)" title="Edit Status">
+                                        <button class="btn btn-sm btn-warning" 
+                                                onclick="editStatus(<?php echo $delegate['id']; ?>)" 
+                                                data-status="<?php echo $delegate['status']; ?>" 
+                                                data-payment-status="<?php echo $delegate['payment_status']; ?>" 
+                                                data-payment-amount="<?php echo $delegate['payment_amount'] ?? ''; ?>" 
+                                                data-admin-notes="<?php echo htmlspecialchars($delegate['admin_notes'] ?? '', ENT_QUOTES); ?>" 
+                                                title="Edit Status">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button class="btn btn-sm btn-danger" onclick="deleteDelegate(<?php echo $delegate['id']; ?>)" title="Delete">
@@ -203,7 +230,7 @@ $alert = getAlert();
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Registration Status</label>
-                            <select class="form-select" name="status" required>
+                            <select class="form-select" name="status" id="editStatus" required>
                                 <option value="pending">Pending</option>
                                 <option value="confirmed">Confirmed</option>
                                 <option value="rejected">Rejected</option>
@@ -212,15 +239,20 @@ $alert = getAlert();
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Payment Status</label>
-                            <select class="form-select" name="payment_status" required>
+                            <select class="form-select" name="payment_status" id="editPaymentStatus" required>
                                 <option value="pending">Pending</option>
                                 <option value="paid">Paid</option>
                                 <option value="waived">Waived</option>
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Payment Amount (PKR)</label>
+                            <input type="number" class="form-control" name="payment_amount" id="editPaymentAmount" step="0.01" min="0" placeholder="Enter amount received">
+                            <small class="text-muted">Leave empty if no payment received yet</small>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Admin Notes</label>
-                            <textarea class="form-control" name="admin_notes" rows="3"></textarea>
+                            <textarea class="form-control" name="admin_notes" id="editAdminNotes" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -282,9 +314,14 @@ $alert = getAlert();
                             <option value="PNA">Pakistan National Assembly (PNA)</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Allotment Details <span class="text-muted">(Optional)</span></label>
+                        <textarea class="form-control" id="allotmentDetails" rows="4" placeholder="Enter country/portfolio assignment, special instructions, or any additional details for this delegate..."></textarea>
+                        <small class="text-muted">Example: "Representing France" or "Portfolio: Minister of Defense"</small>
+                    </div>
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle me-2"></i>
-                        An acceptance email will be sent to the delegate with their assigned committee.
+                        An acceptance email will be sent to the delegate with their assigned committee and allotment details.
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -562,6 +599,7 @@ $alert = getAlert();
 
         function confirmAssignment() {
             const committee = document.getElementById('assignedCommittee').value;
+            const allotmentDetails = document.getElementById('allotmentDetails').value;
             
             if (!committee) {
                 alert('Please select a committee');
@@ -575,6 +613,7 @@ $alert = getAlert();
                 formData.append('member_id', currentAssignId);
             }
             formData.append('assigned_committee', committee);
+            formData.append('allotment_details', allotmentDetails);
             formData.append('type', currentAssignType);
             
             fetch('<?php echo BASE_URL; ?>admin/ajax/assign-committee.php', {
@@ -596,8 +635,26 @@ $alert = getAlert();
             });
         }
 
-        function editStatus(id) {
+        function editStatus(id, button) {
+            // Get the button element if not passed
+            if (!button) {
+                button = event.target.closest('button');
+            }
+            
             document.getElementById('editForm').action = '<?php echo BASE_URL; ?>admin/delegates?action=update_status&id=' + id;
+            
+            // Get current values from data attributes
+            const currentStatus = button.getAttribute('data-status');
+            const currentPaymentStatus = button.getAttribute('data-payment-status');
+            const currentPaymentAmount = button.getAttribute('data-payment-amount');
+            const currentNotes = button.getAttribute('data-admin-notes');
+            
+            // Set current values
+            document.getElementById('editStatus').value = currentStatus;
+            document.getElementById('editPaymentStatus').value = currentPaymentStatus;
+            document.getElementById('editPaymentAmount').value = currentPaymentAmount || '';
+            document.getElementById('editAdminNotes').value = currentNotes || '';
+            
             new bootstrap.Modal(document.getElementById('editModal')).show();
         }
 

@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $delegateId = $_POST['delegate_id'] ?? null;
     $memberId = $_POST['member_id'] ?? null;
     $assignedCommittee = $_POST['assigned_committee'] ?? null;
+    $allotmentDetails = $_POST['allotment_details'] ?? null;
     $type = $_POST['type'] ?? 'main'; // 'main' or 'member'
     
     if (!$assignedCommittee) {
@@ -27,10 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($type === 'member' && $memberId) {
             // Update delegation member
             $query = "UPDATE delegation_members 
-                     SET assigned_committee = :committee, status = 'confirmed' 
+                     SET assigned_committee = :committee, allotment_details = :allotment, status = 'confirmed' 
                      WHERE id = :id";
             $stmt = $db->prepare($query);
             $stmt->bindParam(':committee', $assignedCommittee);
+            $stmt->bindParam(':allotment', $allotmentDetails);
             $stmt->bindParam(':id', $memberId);
             $stmt->execute();
             
@@ -47,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'full_name' => $member['member_name'],
                     'email' => $member['member_email']
                 ];
-                sendDelegateAcceptance($memberData, $assignedCommittee);
+                sendDelegateAcceptance($memberData, $assignedCommittee, $allotmentDetails);
             }
             
             echo json_encode([
@@ -59,10 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Update main delegate
             $model = new DelegateRegistration($db);
             $query = "UPDATE delegate_registrations 
-                     SET assigned_committee = :committee, status = 'confirmed' 
+                     SET assigned_committee = :committee, allotment_details = :allotment, status = 'confirmed' 
                      WHERE id = :id";
             $stmt = $db->prepare($query);
             $stmt->bindParam(':committee', $assignedCommittee);
+            $stmt->bindParam(':allotment', $allotmentDetails);
             $stmt->bindParam(':id', $delegateId);
             $stmt->execute();
             
@@ -71,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             if ($delegate) {
                 // Send acceptance email
-                sendDelegateAcceptance($delegate, $assignedCommittee);
+                sendDelegateAcceptance($delegate, $assignedCommittee, $allotmentDetails);
             }
             
             echo json_encode([

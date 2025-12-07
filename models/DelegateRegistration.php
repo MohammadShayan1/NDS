@@ -146,13 +146,13 @@ class DelegateRegistration {
         return $stmt->fetch();
     }
 
-    public function updateStatus($id, $status, $payment_status, $notes = '') {
+    public function updateStatus($id, $status, $payment_status, $notes = '', $payment_amount = null) {
         // Get current payment status before update
         $currentDelegate = $this->getById($id);
         $previousPaymentStatus = $currentDelegate['payment_status'];
         
         $query = "UPDATE " . $this->table . " 
-                  SET status = :status, payment_status = :payment_status, admin_notes = :notes 
+                  SET status = :status, payment_status = :payment_status, admin_notes = :notes, payment_amount = :payment_amount 
                   WHERE id = :id";
         
         $stmt = $this->conn->prepare($query);
@@ -160,6 +160,7 @@ class DelegateRegistration {
         $stmt->bindParam(':status', $status);
         $stmt->bindParam(':payment_status', $payment_status);
         $stmt->bindParam(':notes', $notes);
+        $stmt->bindParam(':payment_amount', $payment_amount);
         
         if ($stmt->execute()) {
             // Send verification email when payment status is changed to paid or waived
@@ -198,7 +199,8 @@ class DelegateRegistration {
                     SUM(CASE WHEN participant_type = 'delegation' THEN 1 ELSE 0 END) as delegations,
                     SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending,
                     SUM(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) as confirmed,
-                    SUM(CASE WHEN payment_status = 'paid' THEN 1 ELSE 0 END) as paid
+                    SUM(CASE WHEN payment_status = 'paid' THEN 1 ELSE 0 END) as paid,
+                    COALESCE(SUM(CASE WHEN payment_amount IS NOT NULL THEN payment_amount ELSE 0 END), 0) as total_revenue
                   FROM " . $this->table;
         
         $stmt = $this->conn->prepare($query);
