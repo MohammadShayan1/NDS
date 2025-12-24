@@ -77,7 +77,7 @@ NDS/
 
 ### Step 1: Clone Repository
 ```bash
-git clone https://github.com/yourusername/nedmun-vi.git
+git clone https://github.com/MohammadShayan1/nedmun-vi.git
 cd nedmun-vi
 ```
 
@@ -119,7 +119,7 @@ cd nedmun-vi
 # SSH into your cPanel account
 cd public_html/nedmun
 git init
-git remote add origin https://github.com/yourusername/nedmun-vi.git
+git remote add origin https://github.com/MohammadShayan1/nedmun-vi.git
 git pull origin main
 ```
 
@@ -327,7 +327,7 @@ NDS/
 3. Open `config/config.php`
 4. Update the `BASE_URL` constant:
    ```php
-   define('BASE_URL', 'http://localhost/telinks.live/NDS/');
+   define('BASE_URL', 'http://localhost/NDS/');
    ```
 
 ### Step 3: File Permissions
@@ -337,8 +337,8 @@ chmod -R 755 /path/to/NDS
 ```
 
 ### Step 4: Access the Application
-- **Homepage**: `http://localhost/telinks.live/NDS/`
-- **Admin Login**: `http://localhost/telinks.live/NDS/admin`
+- **Homepage**: `http://localhost/NDS/`
+- **Admin Login**: `http://localhost/NDS/admin`
 - **Default Credentials**:
   - Username: `admin`
   - Password: `admin123`
@@ -550,5 +550,3 @@ This software is protected by copyright law and international treaties. Unauthor
 ║  treaties including the Berne Convention.                    ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
-
-**For licensing inquiries**: info@telinks.org
