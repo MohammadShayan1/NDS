@@ -465,7 +465,8 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                 <p class="lead text-muted">Choose your path to participate</p>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up">
+                <!-- MUN Delegate Registration Card -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up">
                     <div class="registration-card card h-100 border-primary">
                         <div class="card-header bg-primary text-white text-center">
                             <i class="fas fa-users fa-3x mb-3"></i>
@@ -509,6 +510,55 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                             <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-user-plus me-2"></i>Register Now
                             </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Event Registration Card -->
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="registration-card card h-100 border-warning" style="border-width: 2px;">
+                        <div class="card-header text-white text-center" style="background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);">
+                            <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                            <h3 style="color: #000; font-weight: 800;">Social Event</h3>
+                            <h4 class="mt-2" style="color: #000; font-size: 2rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">حرف راز</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text mb-4">Join us for an exclusive social evening celebrating culture, poetry, and meaningful conversations.</p>
+                            
+                            <h5 class="mb-3" style="color: #d4af37;">REGISTRATION FEES</h5>
+                            
+                            <!-- NED Students Pricing -->
+                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #d4af37;">
+                                <p class="mb-2" style="color: #d4af37; font-weight: bold;">
+                                    <i class="fas fa-graduation-cap me-2"></i>NED Students
+                                </p>
+                                <p class="mb-0 ms-3">• Registration Fee: PKR <?php echo number_format(getSetting('ned_event_fee', '300')); ?></p>
+                            </div>
+                            
+                            <!-- Outsiders Pricing -->
+                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #b8860b;">
+                                <p class="mb-2" style="color: #b8860b; font-weight: bold;">
+                                    <i class="fas fa-university me-2"></i>Other Institutions
+                                </p>
+                                <p class="mb-0 ms-3">• Registration Fee: PKR <?php echo number_format(getSetting('event_fee', '500')); ?></p>
+                            </div>
+                            
+                            <div class="alert mb-4" style="background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; color: #000; font-size: 0.9rem;">
+                                <i class="fas fa-info-circle me-2" style="color: #d4af37;"></i><strong>What's Included:</strong> Entry, refreshments, and entertainment
+                            </div>
+                            
+                            <?php
+                            $eventRegistrationStatus = getSetting('event_registration_status', 'closed');
+                            if ($eventRegistrationStatus === 'open'):
+                            ?>
+                            <a href="<?php echo BASE_URL; ?>event-registration" class="btn btn-lg w-100" style="background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%); color: #000; font-weight: 700; border: none;">
+                                <i class="fas fa-ticket-alt me-2"></i>Register for Event
+                            </a>
+                            <?php else: ?>
+                            <button class="btn btn-lg w-100 btn-secondary" disabled>
+                                <i class="fas fa-lock me-2"></i>Registration Closed
+                            </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

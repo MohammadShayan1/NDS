@@ -1,6 +1,7 @@
 <?php
 require_once '../config/config.php';
 require_once '../config/database.php';
+require_once '../config/email.php';
 require_once '../models/EventRegistration.php';
 
 requireLogin();
@@ -17,6 +18,13 @@ if (isset($_GET['action'])) {
         $notes = sanitize($_POST['admin_notes']);
         
         if ($eventModel->updateStatus($id, $status, $notes)) {
+            // Send event pass email on approval
+            if ($status === 'approved') {
+                $registration = $eventModel->getById($id);
+                if ($registration) {
+                    sendEventPass($registration);
+                }
+            }
             showAlert('Status updated successfully!', 'success');
         } else {
             showAlert('Error updating status.', 'danger');
