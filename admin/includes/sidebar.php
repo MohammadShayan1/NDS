@@ -16,6 +16,10 @@
             <i class="fas fa-users"></i>
             <span>Delegate Registrations</span>
         </a>
+        <a href="<?php echo BASE_URL; ?>admin/event-registrations" class="sidebar-link <?php echo basename($_SERVER['PHP_SELF']) === 'event-registrations.php' ? 'active' : ''; ?>">
+            <i class="fas fa-calendar-check"></i>
+            <span>Social Event</span>
+        </a>
         <a href="<?php echo BASE_URL; ?>admin/settings" class="sidebar-link <?php echo basename($_SERVER['PHP_SELF']) === 'settings.php' ? 'active' : ''; ?>">
             <i class="fas fa-cog"></i>
             <span>Site Settings</span>

@@ -35,7 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             'easypaisa_number' => $_POST['easypaisa_number'],
             'delegate_card_title' => $_POST['delegate_card_title'],
             'delegate_card_description' => $_POST['delegate_card_description'],
-            'registration_status' => isset($_POST['registration_status']) ? 'open' : 'closed'
+            'registration_status' => isset($_POST['registration_status']) ? 'open' : 'closed',
+            'event_registration_status' => isset($_POST['event_registration_status']) ? 'open' : 'closed',
+            'event_fee' => $_POST['event_fee'],
+            'ned_event_fee' => $_POST['ned_event_fee'],
+            'bank_name' => $_POST['bank_name'],
+            'account_title' => $_POST['account_title'],
+            'account_number' => $_POST['account_number']
         ];
         
         foreach ($settings as $key => $value) {
@@ -87,7 +93,13 @@ $defaults = [
     'easypaisa_number' => '',
     'delegate_card_title' => 'Delegate Registration',
     'delegate_card_description' => 'Register as an individual delegate or delegation for NEDMUN-VI',
-    'registration_status' => 'open'
+    'registration_status' => 'open',
+    'event_registration_status' => 'open',
+    'event_fee' => '500',
+    'ned_event_fee' => '300',
+    'bank_name' => 'Habib Bank Limited (HBL)',
+    'account_title' => 'NED Debating Society',
+    'account_number' => '12345678901234'
 ];
 
 $settings = array_merge($defaults, $settingsData);
@@ -284,6 +296,56 @@ $alert = getAlert();
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary btn-lg">
                         <i class="fas fa-save me-2"></i>Save Settings
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Social Event Settings Card (Harf-e-Raaz) -->
+    <div class="card mb-4">
+        <div class="card-header" style="background: linear-gradient(135deg, #d4af37, #b8860b); color: #000; font-weight: 600;">
+            <i class="fas fa-calendar-check me-2"></i>
+            Social Event Settings (حرف راز)
+        </div>
+        <div class="card-body">
+            <form method="POST" action="">
+                <input type="hidden" name="action" value="update_settings">
+
+                <div class="row mb-4">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="event_registration_status" id="event_registration_status" <?php echo $settings['event_registration_status'] === 'open' ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="event_registration_status">
+                                <strong>Social Event Registration Open</strong>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Social Event Fee - Other Institutions (PKR)</label>
+                        <input type="number" class="form-control" name="event_fee" value="<?php echo htmlspecialchars($settings['event_fee']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Social Event Fee - NED Students (PKR)</label>
+                        <input type="number" class="form-control" name="ned_event_fee" value="<?php echo htmlspecialchars($settings['ned_event_fee']); ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" name="bank_name" value="<?php echo htmlspecialchars($settings['bank_name']); ?>" placeholder="e.g., Habib Bank Limited (HBL)">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Account Title</label>
+                        <input type="text" class="form-control" name="account_title" value="<?php echo htmlspecialchars($settings['account_title']); ?>" placeholder="e.g., NED Debating Society">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Account Number</label>
+                        <input type="text" class="form-control" name="account_number" value="<?php echo htmlspecialchars($settings['account_number']); ?>" placeholder="e.g., 12345678901234">
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-lg" style="background: linear-gradient(135deg, #d4af37, #8b7500); border: 2px solid #d4af37; color: #000; font-weight: 600; border-radius: 50px; padding: 0.75rem 2rem; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 20px rgba(212, 175, 55, 0.5)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 0 15px rgba(212, 175, 55, 0.2)'">
+                        <i class="fas fa-save me-2"></i>Save Social Event Settings
                     </button>
                 </div>
             </form>
