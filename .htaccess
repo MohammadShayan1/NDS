@@ -57,6 +57,11 @@ RewriteRule ^admin/settings/?$ admin/settings.php [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^admin/logout/?$ admin/logout.php [L]
+
+# Committee Study Guides - Allow direct access to PDF files in docs folder
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} ^/docs/.+\.pdf$ [NC]
+RewriteRule ^ - [L]
 </IfModule>
 
 # Prevent directory browsing

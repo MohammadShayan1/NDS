@@ -236,7 +236,62 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#committees">Committees</a></li>
+                
+                <!-- Committees Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#committees" id="committeesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users-cog me-1"></i>Committees
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="committeesDropdown">
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNSC Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>UNSC Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNCSTD Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>UNCSTD Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNWOMAN Studyguide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>UNWOMEN Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/DISEC Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>DISEC Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/SPECPOL Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>SPECPOL Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/SOCHUM Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>SOCHUM Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/KCC Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>KCC Study Guide
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/PNA Study Guide.pdf" target="_blank">
+                                <i class="fas fa-file-pdf me-2"></i>PNA Study Guide
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="#committees">
+                                <i class="fas fa-th-large me-2"></i>View All Committees
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
                 <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
                 
                 <!-- Forms Dropdown -->
@@ -261,7 +316,11 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                 
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 <li class="nav-item">
+                    <?php if (getSetting('registration_status', 'open') === 'open'): ?>
                     <a class="btn btn-primary ms-lg-3" href="<?php echo BASE_URL; ?>register">Register Now</a>
+                    <?php else: ?>
+                    <span class="btn btn-secondary ms-lg-3 disabled"><i class="fas fa-lock me-2"></i>Registration Closed</span>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>
@@ -366,90 +425,114 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/UNSC.png" alt="UNSC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNSC</h5>
                             <p class="card-text small"><strong>United Nations Security Council</strong></p>
-                            <span class="badge bg-warning text-dark">Double Delegate</span>
+                            <span class="badge bg-warning text-dark mb-3">Double Delegate</span>
+                            <a href="<?php echo BASE_URL; ?>docs/UNSC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/UNCSTD.png" alt="UNCSTD Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNCSTD</h5>
                             <p class="card-text small"><strong>UN Commission on Science and Technology for Development</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/UNCSTD Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/UNWOMEN.png" alt="UNWOMEN Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">UNWOMEN</h5>
                             <p class="card-text small"><strong>UN Entity for Gender Equality and the Empowerment of Women</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/UNWOMAN Studyguide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/DISEC.png" alt="DISEC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">DISEC</h5>
                             <p class="card-text small"><strong>Disarmament and International Security Committee</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/DISEC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/SPECPOL.png" alt="SPECPOL Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">SPECPOL</h5>
                             <p class="card-text small"><strong>Special Political and Decolonization Committee</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/SPECPOL Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="350">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/SOCHUM.png" alt="SOCHUM Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">SOCHUM</h5>
                             <p class="card-text small"><strong>Social, Humanitarian, and Cultural Committee</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/SOCHUM Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/KCC.png" alt="KCC Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">KCC</h5>
                             <p class="card-text small"><strong>Karachi Crisis Committee</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/KCC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="450">
                     <div class="committee-card card h-100">
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <div class="committee-icon mb-3">
                                 <img src="<?php echo BASE_URL; ?>assets/images/PNA.png" alt="PNA Logo" style="width: 80px; height: 80px; object-fit: contain;">
                             </div>
                             <h5 class="card-title">PNA</h5>
                             <p class="card-text small"><strong>Pakistan National Assembly</strong></p>
+                            <a href="<?php echo BASE_URL; ?>docs/PNA Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
+                                <i class="fas fa-file-pdf me-1"></i>Study Guide
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -507,52 +590,9 @@ $deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
                                 <i class="fas fa-users me-2"></i><strong>Note:</strong> Each delegation must consist of minimum 9 delegates
                             </div>
                             
+                            <?php if (getSetting('registration_status', 'open') === 'open'): ?>
                             <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-user-plus me-2"></i>Register Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social Event Registration Card -->
-                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="registration-card card h-100 border-warning" style="border-width: 2px;">
-                        <div class="card-header text-white text-center" style="background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);">
-                            <i class="fas fa-calendar-check fa-3x mb-3"></i>
-                            <h3 style="color: #000; font-weight: 800;">Social Event</h3>
-                            <h4 class="mt-2" style="color: #000; font-size: 2rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">حرف راز</h4>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text mb-4">Join us for an exclusive social evening celebrating culture, poetry, and meaningful conversations.</p>
-                            
-                            <h5 class="mb-3" style="color: #d4af37;">REGISTRATION FEES</h5>
-                            
-                            <!-- NED Students Pricing -->
-                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #d4af37;">
-                                <p class="mb-2" style="color: #d4af37; font-weight: bold;">
-                                    <i class="fas fa-graduation-cap me-2"></i>NED Students
-                                </p>
-                                <p class="mb-0 ms-3">• Registration Fee: PKR <?php echo number_format(getSetting('ned_event_fee', '300')); ?></p>
-                            </div>
-                            
-                            <!-- Outsiders Pricing -->
-                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #b8860b;">
-                                <p class="mb-2" style="color: #b8860b; font-weight: bold;">
-                                    <i class="fas fa-university me-2"></i>Other Institutions
-                                </p>
-                                <p class="mb-0 ms-3">• Registration Fee: PKR <?php echo number_format(getSetting('event_fee', '500')); ?></p>
-                            </div>
-                            
-                            <div class="alert mb-4" style="background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; color: #000; font-size: 0.9rem;">
-                                <i class="fas fa-info-circle me-2" style="color: #d4af37;"></i><strong>What's Included:</strong> Entry, refreshments, and entertainment
-                            </div>
-                            
-                            <?php
-                            $eventRegistrationStatus = getSetting('event_registration_status', 'closed');
-                            if ($eventRegistrationStatus === 'open'):
-                            ?>
-                            <a href="<?php echo BASE_URL; ?>event-registration" class="btn btn-lg w-100" style="background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%); color: #000; font-weight: 700; border: none;">
-                                <i class="fas fa-ticket-alt me-2"></i>Register for Event
                             </a>
                             <?php else: ?>
                             <button class="btn btn-lg w-100 btn-secondary" disabled>
