@@ -1,748 +1,312 @@
 <?php
 require_once 'config/config.php';
-
-// Get alert message if any
-$alert = getAlert();
-
-// Get site settings
-$siteName = getSetting('site_name', 'NEDMUN-VI');
-$eventDate = getSetting('event_date', '2nd - 4th January, 2026');
-$eventVenue = getSetting('event_venue', 'NED University of Engineering And Technology, University Road, Karachi');
-$delegateFee = getSetting('delegate_fee', '3000');
-$delegationFee = getSetting('delegation_fee', '2500');
-$nedDelegateFee = getSetting('ned_delegate_fee', '2500');
-$nedDelegationFee = getSetting('ned_delegation_fee', '2000');
-$earlyBirdDiscount = getSetting('early_bird_discount', '500');
-$earlyBirdDelegationDiscount = getSetting('early_bird_delegation_discount', '500');
-$nedEarlyBirdDiscount = getSetting('ned_early_bird_discount', '300');
-$earlyBirdDeadline = getSetting('early_bird_deadline', date('Y-m-d'));
-$contactEmail = getSetting('contact_email', 'nedmunofficial@gmail.com');
-$contactPhone1 = getSetting('contact_phone_1', '0324-3343946');
-$contactPhone1Label = getSetting('contact_phone_1_label', 'Directorate General');
-$contactPhone2 = getSetting('contact_phone_2', '0333-3772513');
-$contactPhone2Label = getSetting('contact_phone_2_label', 'Deputy Secretary General');
-$delegateCardTitle = getSetting('delegate_card_title', 'Delegate Registration');
-$delegateCardDesc = getSetting('delegate_card_description', 'Register as an individual delegate or delegation for NEDMUN-VI');
-
-// Calculate prices
-$earlyDelegateFee = $earlyBirdDiscount;
-$earlyDelegationFee = $earlyBirdDelegationDiscount;
-
-// Format deadline
-$deadlineFormatted = date('jS M', strtotime($earlyBirdDeadline));
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title><?php echo SITE_NAME; ?> - Karachi's Largest Model United Nations</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="<?php echo META_DESCRIPTION; ?>">
-    <meta name="keywords" content="<?php echo META_KEYWORDS; ?>">
-    <meta name="author" content="NED Debating Society">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="NEDMUN-VI - Karachi's Largest MUN Conference">
-    <meta property="og:description" content="<?php echo META_DESCRIPTION; ?>">
-    <meta property="og:image" content="<?php echo BASE_URL; ?>assets/images/nedmun-og-image.jpg">
-    <meta property="og:url" content="<?php echo BASE_URL; ?>">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NEDMUN-VI - Karachi's Largest MUN Conference">
-    <meta name="twitter:description" content="<?php echo META_DESCRIPTION; ?>">
-    <meta name="twitter:image" content="<?php echo BASE_URL; ?>assets/images/nedmun-twitter-card.jpg">
+    <title>Thank You - NEDMUN-VI</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp">
-    <link rel="apple-touch-icon" href="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- Preloader Styles -->
     <style>
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            z-index: 9999;
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #DAA520;
+            --text-light: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .thank-you-container {
+            text-align: center;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+            height: 100vh;
         }
         
-.preloader-logo {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
             margin-bottom: 30px;
-            animation: pulse 1.5s ease-in-out infinite;
-            position: absolute;
-            transition: opacity 0.3s ease-in-out;
+            flex-wrap: wrap;
         }
         
-        .preloader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(218, 165, 32, 0.2);
-            border-top: 4px solid #DAA520;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .logo-item {
+            animation: fadeInUp 1s ease-out;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
+        .logo-item img {
+            max-width: 180px;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(218, 165, 32, 0.3));
+            transition: transform 0.3s ease;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .logo-item img:hover {
+            transform: scale(1.05);
         }
         
-        .preloader-fade-out {
-            animation: fadeOut 0.5s ease-out forwards;
+        .logo-separator {
+            width: 3px;
+            height: 80px;
+            background: var(--secondary-color);
+            animation: fadeIn 1.5s ease-out;
         }
         
-        @keyframes fadeOut {
-            to {
+        .thank-you-text {
+            animation: fadeInUp 1.2s ease-out;
+            margin-bottom: 20px;
+        }
+        
+        .thank-you-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+        }
+        
+        .thank-you-text h2 {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            font-weight: 300;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .tagline {
+            font-style: italic;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        
+        .footer-logo {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(218, 165, 32, 0.3);
+            animation: fadeInUp 1.6s ease-out;
+        }
+        
+        .footer-logo p {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .telinks-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .telinks-logo:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .telinks-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);
+        }
+        
+        @keyframes fadeIn {
+            from {
                 opacity: 0;
-                visibility: hidden;
+            }
+            to {
+                opacity: 1;
             }
         }
-        /* Dropdown Menu Styling */
-.dropdown-menu-dark {
-    background-color: rgba(0, 0, 0, 0.95);
-    border: 1px solid var(--secondary-color);
-    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.2);
-}
-
-.dropdown-menu-dark .dropdown-item {
-    color: #ffffff;
-    padding: 0.7rem 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.dropdown-menu-dark .dropdown-item:hover {
-    background-color: var(--secondary-color);
-    color: #000000;
-    transform: translateX(5px);
-}
-
-.dropdown-menu-dark .dropdown-item i {
-    color: var(--secondary-color);
-    transition: color 0.3s ease;
-}
-
-.dropdown-menu-dark .dropdown-item:hover i {
-    color: #000000;
-}
-
-.dropdown-menu-dark .dropdown-divider {
-    border-color: rgba(218, 165, 32, 0.3);
-}
-
-.nav-link.dropdown-toggle:hover {
-    color: var(--secondary-color) !important;
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 991px) {
-    .dropdown-menu-dark {
-        background-color: rgba(0, 0, 0, 0.98);
-        border: none;
-        margin-left: 1rem;
-    }
-    
-    .dropdown-menu-dark .dropdown-item {
-        padding: 0.5rem 1rem;
-    }
-}
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .thank-you-container {
+                padding: 15px;
+            }
+            
+            .thank-you-text h1 {
+                font-size: 2.2rem;
+                margin-bottom: 12px;
+            }
+            
+            .thank-you-text h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .logo-container {
+                gap: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .logo-separator {
+                height: 60px;
+            }
+            
+            .logo-item img {
+                max-width: 120px;
+            }
+            
+            .tagline {
+                font-size: 0.95rem;
+            }
+            
+            .footer-logo {
+                margin-top: 25px;
+                padding-top: 25px;
+            }
+            
+            .footer-logo p {
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .thank-you-text h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .thank-you-text h2 {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+            
+            .logo-item img {
+                max-width: 100px;
+            }
+            
+            .logo-separator {
+                height: 50px;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .telinks-logo {
+                font-size: 0.9rem;
+            }
+            
+            .telinks-logo img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            .logo-item img {
+                max-width: 100px;
+            }
+            
+            .logo-separator {
+                height: 50px;
+            }
+            
+            .thank-you-text h1 {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            
+            .thank-you-text h2 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .footer-logo {
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+        }
     </style>
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Event",
-        "name": "NEDMUN-VI",
-        "description": "Karachi's largest Model United Nations conference",
-        "startDate": "2026-01-02",
-        "endDate": "2026-01-04",
-        "eventStatus": "https://schema.org/EventScheduled",
-        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "location": {
-            "@type": "Place",
-            "name": "NED University of Engineering and Technology",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "University Road",
-                "addressLocality": "Karachi",
-                "addressRegion": "Sindh",
-                "addressCountry": "Pakistan"
-            }
-        },
-        "organizer": {
-            "@type": "Organization",
-            "name": "NED Debating Society",
-            "url": "<?php echo BASE_URL; ?>"
-        }
-    }
-    </script>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div style="position: relative; width: 150px; height: 150px; margin-bottom: 30px;">
-            <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN Logo" class="preloader-logo preloader-logo-1" style="opacity: 1;">
-            <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" class="preloader-logo preloader-logo-2" style="display: none; opacity: 0; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
-            <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NDS Logo" class="preloader-logo preloader-logo-3" style="display: none; opacity: 0;">
+    <div class="thank-you-container">
+        <!-- Logos Section -->
+        <div class="logo-container">
+            <div class="logo-item">
+                <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN Logo">
+            </div>
+            <div class="logo-separator"></div>
+            <div class="logo-item">
+                <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo">
+            </div>
         </div>
-        <div class="preloader-spinner"></div>
+        
+        <!-- Thank You Message -->
+        <div class="thank-you-text">
+            <h1>Thank You For Joining Us!</h1>
+            <h2>NEDMUN-VI has concluded successfully</h2>
+            <p class="tagline">"Noting the Past, Navigating the Present, Nurturing the Future"</p>
+        </div>
+        
+        <!-- Footer with Telinks Logo -->
+        <div class="footer-logo">
+            <p>Website Developed By</p>
+            <a href="https://telinks.org/team-technical" target="_blank" class="telinks-logo">
+                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo">
+                <span>TE Links Technical Team</span>
+            </a>
+        </div>
     </div>
     
-   <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="<?php echo BASE_URL; ?>">
-            <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society Logo" class="nds-logo me-2">
-            <div class="logo-separator"></div>
-            <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI Logo" class="nedmun-logo ms-2">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                
-                <!-- Committees Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#committees" id="committeesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-users-cog me-1"></i>Committees
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="committeesDropdown">
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNSC Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>UNSC Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNCSTD Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>UNCSTD Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/UNWOMAN Studyguide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>UNWOMEN Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/DISEC Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>DISEC Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/SPECPOL Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>SPECPOL Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/SOCHUM Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>SOCHUM Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/KCC Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>KCC Study Guide
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL; ?>docs/PNA Study Guide.pdf" target="_blank">
-                                <i class="fas fa-file-pdf me-2"></i>PNA Study Guide
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="#committees">
-                                <i class="fas fa-th-large me-2"></i>View All Committees
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
-                <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
-                
-                <!-- Forms Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-file-alt me-1"></i>Forms
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="formsDropdown">
-                        <li>
-                            <a class="dropdown-item" href="https://forms.gle/bdX25duCQBJcvroX8" target="_blank">
-                                <i class="fas fa-user me-2"></i>Vendors Form
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="https://forms.gle/HpQNSiTPNpHqoNy36" target="_blank">
-                                <i class="fas fa-camera me-2"></i>Form for media
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                <li class="nav-item">
-                    <?php if (getSetting('registration_status', 'open') === 'open'): ?>
-                    <a class="btn btn-primary ms-lg-3" href="<?php echo BASE_URL; ?>register">Register Now</a>
-                    <?php else: ?>
-                    <span class="btn btn-secondary ms-lg-3 disabled"><i class="fas fa-lock me-2"></i>Registration Closed</span>
-                    <?php endif; ?>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-    <!-- Alert Messages -->
-    <?php if ($alert): ?>
-    <div class="container" style="padding-top: 80px;">
-        <div class="alert alert-<?php echo $alert['type']; ?> alert-dismissible fade show" role="alert">
-            <?php echo $alert['message']; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <!-- Hero Section -->
-    <header class="hero-section" id="home">
-        <div class="hero-overlay"></div>
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-lg-8 mx-auto text-center text-white">
-                    <div class="mb-4" data-aos="zoom-in">
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 400px;">
-                    </div>
-                    <span class="badge bg-warning text-dark mb-3 early-bird-badge" data-aos="fade-down">
-                        <i class="fas fa-clock"></i> Early Bird Registration Valid till <?php echo $deadlineFormatted; ?>
-                    </span>
-                    <p class="lead mb-2 tagline" data-aos="fade-up" style="color: var(--secondary-color); font-style: italic; font-size: 1.3rem;">
-                        "Noting the Past, Navigating the Present, Nurturing the Future"
-                    </p>
-                    <h2 class="h3 mb-4" data-aos="fade-up" data-aos-delay="100">Karachi's Largest Model United Nations</h2>
-                    <p class="mb-4" data-aos="fade-up" data-aos-delay="150" style="font-size: 1.1rem;">
-                        Enhance your portfolio by participating in Karachi's largest Model United Nations Conference
-                    </p>
-                    <div class="event-details mb-5" data-aos="fade-up" data-aos-delay="200">
-                        <p class="lead mb-2">
-                            <i class="fas fa-calendar-alt me-2"></i><?php echo $eventDate; ?>
-                        </p>
-                        <p class="lead">
-                            <i class="fas fa-map-marker-alt me-2"></i><?php echo $eventVenue; ?>
-                        </p>
-                    </div>
-                    <!-- <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
-                        <a href="<?php echo BASE_URL; ?>register" class="btn btn-lg btn-primary me-3 mb-3">
-                            <i class="fas fa-user-plus me-2"></i>Register as Delegate
-                        </a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <a href="#about"><i class="fas fa-chevron-down"></i></a>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section class="py-5 bg-light" id="about">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-                    <div class="about-logos d-flex align-items-center justify-content-center justify-content-lg-start mb-4">
-                        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-3" style="max-width: 200px;">
-                        <div class="mx-3" style="width: 2px; height: 80px; background: var(--secondary-color);"></div>
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 200px;">
-                    </div>
-                    <h2 class="section-title mb-4">About NEDMUN-VI</h2>
-                    <p class="lead mb-4">Welcome to the sixth edition of NED Model United Nations - Karachi's premier platform for youth diplomacy and international relations!</p>
-                    <p>Organized by the <strong style="color: var(--secondary-color);">NED Debating Society (NDS)</strong>, NEDMUN-VI brings together bright minds from across Pakistan to engage in meaningful diplomatic discourse, develop leadership skills, and address global challenges.</p>
-                    <p>Join us for three days of intensive debate, networking, and personal growth as we simulate the workings of the United Nations and tackle pressing international issues.</p>
-                    <div class="stats-row mt-5">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <h3 class="display-4 text-primary fw-bold">500+</h3>
-                                <p>Delegates Expected</p>
-                            </div>
-                            <div class="col-4">
-                                <h3 class="display-4 text-primary fw-bold">8</h3>
-                                <p>Committees</p>
-                            </div>
-                            <div class="col-4">
-                                <h3 class="display-4 text-primary fw-bold">3</h3>
-                                <p>Days of Conference</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <img src="<?php echo BASE_URL; ?>assets/images/audi.png" alt="NEDMUN Conference" class="img-fluid rounded shadow-lg">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Committees Section -->
-    <section class="py-5" id="committees">
-        <div class="container py-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Our Committees</h2>
-                <p class="lead text-muted">8 Diverse committees covering critical global and national issues</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/UNSC.png" alt="UNSC Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">UNSC</h5>
-                            <p class="card-text small"><strong>United Nations Security Council</strong></p>
-                            <span class="badge bg-warning text-dark mb-3">Double Delegate</span>
-                            <a href="<?php echo BASE_URL; ?>docs/UNSC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/UNCSTD.png" alt="UNCSTD Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">UNCSTD</h5>
-                            <p class="card-text small"><strong>UN Commission on Science and Technology for Development</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/UNCSTD Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/UNWOMEN.png" alt="UNWOMEN Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">UNWOMEN</h5>
-                            <p class="card-text small"><strong>UN Entity for Gender Equality and the Empowerment of Women</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/UNWOMAN Studyguide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/DISEC.png" alt="DISEC Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">DISEC</h5>
-                            <p class="card-text small"><strong>Disarmament and International Security Committee</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/DISEC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/SPECPOL.png" alt="SPECPOL Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">SPECPOL</h5>
-                            <p class="card-text small"><strong>Special Political and Decolonization Committee</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/SPECPOL Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="350">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/SOCHUM.png" alt="SOCHUM Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">SOCHUM</h5>
-                            <p class="card-text small"><strong>Social, Humanitarian, and Cultural Committee</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/SOCHUM Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/KCC.png" alt="KCC Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">KCC</h5>
-                            <p class="card-text small"><strong>Karachi Crisis Committee</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/KCC Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="450">
-                    <div class="committee-card card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <div class="committee-icon mb-3">
-                                <img src="<?php echo BASE_URL; ?>assets/images/PNA.png" alt="PNA Logo" style="width: 80px; height: 80px; object-fit: contain;">
-                            </div>
-                            <h5 class="card-title">PNA</h5>
-                            <p class="card-text small"><strong>Pakistan National Assembly</strong></p>
-                            <a href="<?php echo BASE_URL; ?>docs/PNA Study Guide.pdf" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">
-                                <i class="fas fa-file-pdf me-1"></i>Study Guide
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Registration Options Section -->
-    <section class="py-5 bg-light" id="registration">
-        <div class="container py-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Join NEDMUN-VI</h2>
-                <p class="lead text-muted">Choose your path to participate</p>
-            </div>
-            <div class="row justify-content-center">
-                <!-- MUN Delegate Registration Card -->
-                <div class="col-lg-6 mb-4" data-aos="fade-up">
-                    <div class="registration-card card h-100 border-primary">
-                        <div class="card-header bg-primary text-white text-center">
-                            <i class="fas fa-users fa-3x mb-3"></i>
-                            <h3><?php echo htmlspecialchars($delegateCardTitle); ?></h3>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text mb-4"><?php echo $delegateCardDesc; ?></p>
-                            
-                            <h5 class="mb-3" style="color: var(--secondary-color);">REGISTRATION FEES</h5>
-                            
-                            <!-- NED Students Pricing -->
-                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid var(--secondary-color);">
-                                <p class="mb-2" style="color: var(--secondary-color); font-weight: bold;">
-                                    <i class="fas fa-graduation-cap me-2"></i>NED Students
-                                </p>
-                                <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
-                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format( $nedEarlyBirdDiscount); ?></p>
-                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($nedEarlyBirdDiscount); ?></p>
-                                <p class="mb-1"><strong>Regular Phase:</strong></p>
-                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($nedDelegateFee); ?></p>
-                                <p class="mb-0 ms-3">• Delegation (per member): PKR <?php echo number_format($nedDelegationFee); ?></p>
-                            </div>
-                            
-                            <!-- Other Institutions Pricing -->
-                            <div class="pricing-info mb-3 p-3" style="background: #1a1a1a; border-left: 3px solid #6c757d;">
-                                <p class="mb-2" style="color: #6c757d; font-weight: bold;">
-                                    <i class="fas fa-university me-2"></i>Other Institutions
-                                </p>
-                                <p class="mb-1"><strong>Early Bird (Till <?php echo $deadlineFormatted; ?>):</strong></p>
-                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($earlyDelegateFee); ?></p>
-                                <p class="mb-3 ms-3">• Delegation (per member): PKR <?php echo number_format($earlyDelegationFee); ?></p>
-                                <p class="mb-1"><strong>Regular Phase:</strong></p>
-                                <p class="mb-1 ms-3">• Individual Delegate: PKR <?php echo number_format($delegateFee); ?></p>
-                                <p class="mb-0 ms-3">• Delegation (per member): PKR <?php echo number_format($delegationFee); ?></p>
-                            </div>
-                            
-                            <div class="alert alert-warning mb-4" style="font-size: 0.9rem;">
-                                <i class="fas fa-users me-2"></i><strong>Note:</strong> Each delegation must consist of minimum 9 delegates
-                            </div>
-                            
-                            <?php if (getSetting('registration_status', 'open') === 'open'): ?>
-                            <a href="<?php echo BASE_URL; ?>register" class="btn btn-primary btn-lg w-100">
-                                <i class="fas fa-user-plus me-2"></i>Register Now
-                            </a>
-                            <?php else: ?>
-                            <button class="btn btn-lg w-100 btn-secondary" disabled>
-                                <i class="fas fa-lock me-2"></i>Registration Closed
-                            </button>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="py-5" id="contact">
-        <div class="container py-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="lead text-muted">Have questions? We're here to help!</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 mb-4" data-aos="fade-right">
-                    <div class="contact-info">
-                        <h4 class="mb-4">Contact Information</h4>
-                        <div class="contact-item mb-3">
-                            <i class="fas fa-envelope text-primary me-3"></i>
-                            <span><?php echo $contactEmail; ?></span>
-                        </div>
-                        <div class="contact-item mb-3">
-                            <i class="fas fa-phone text-primary me-3"></i>
-                            <div>
-                                <p class="mb-1"><?php echo $contactPhone1Label; ?>: <?php echo $contactPhone1; ?></p>
-                                <p class="mb-0"><?php echo $contactPhone2Label; ?>: <?php echo $contactPhone2; ?></p>
-                            </div>
-                        </div>
-                        <div class="contact-item mb-3">
-                            <i class="fas fa-map-marker-alt text-primary me-3"></i>
-                            <span><?php echo $eventVenue; ?></span>
-                        </div>
-                        <div class="social-links mt-4">
-                            <h5 class="mb-3">Follow Us</h5>
-                            <a href="<?php echo FACEBOOK_URL; ?>" target="_blank" class="social-icon">
-                                <i class="fab fa-facebook fa-2x"></i>
-                            </a>
-                            <a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="social-icon">
-                                <i class="fab fa-instagram fa-2x"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7235.9697956697355!2d67.10825628877602!3d24.932584390522308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb338bf22becb0f%3A0xd5e50842c5c4867b!2sNED%20University%20Of%20Engineering%20%26%20Technology%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1762890726262!5m2!1sen!2s" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="<?php echo BASE_URL; ?>assets/images/nds-logo.png" alt="NED Debating Society" class="img-fluid me-2" style="max-width: 150px;">
-                        <div style="width: 2px; height: 50px; background: var(--secondary-color); margin: 0 8px;"></div>
-                        <img src="<?php echo BASE_URL; ?>assets/images/NEDMUN.webp" alt="NEDMUN-VI" class="img-fluid" style="max-width: 150px;">
-                    </div>
-                    <p class="text-muted">Empowering youth through debate, diplomacy, and leadership since its inception.</p>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="mb-3" style="color: var(--secondary-color);">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#about" class="text-muted text-decoration-none">About NEDMUN</a></li>
-                        <li><a href="#committees" class="text-muted text-decoration-none">Committees</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>register" class="text-muted text-decoration-none">Register</a></li>
-                        <li><a href="#contact" class="text-muted text-decoration-none">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h5 class="mb-3" style="color: var(--secondary-color);">Organized By</h5>
-                    <p><strong>NED Debating Society (NDS)</strong></p>
-                    <p class="text-muted small">NED University of Engineering & Technology, Karachi</p>
-                </div>
-            </div>
-            <hr style="border-color: var(--secondary-color); opacity: 0.3;" class="my-4">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <p class="mb-0 text-muted">&copy; <?php echo date('Y'); ?> TE Links. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0 text-muted">
-                        Developed by <a href="https://telinks.org/team-technical" target="_blank" class="text-decoration-none d-inline-flex align-items-center" style="color: var(--secondary-color); font-weight: 500;">
-                            <span class="telinks-logo-container me-2" style="display: inline-block; position: relative; width: 24px; height: 24px;">
-                                <img src="<?php echo BASE_URL; ?>assets/images/telinkslogoblwh.png" alt="TE Links Logo" style="width: 100%; height: 100%; object-fit: contain; filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);">
-                            </span>
-                            TE Links Technical Team
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS Animation -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Custom JS -->
-    <script src="<?php echo BASE_URL; ?>assets/js/main.js"></script>
-    <script>
-        // Preloader with logo rotation
-        let currentLogo = 1;
-        const totalLogos = 3;
-        
-        const logoInterval = setInterval(() => {
-            const current = document.querySelector(`.preloader-logo-${currentLogo}`);
-            if (current) {
-                current.style.opacity = '0';
-                setTimeout(() => {
-                    current.style.display = 'none';
-                }, 300);
-            }
-            
-            currentLogo = currentLogo >= totalLogos ? 1 : currentLogo + 1;
-            
-            const next = document.querySelector(`.preloader-logo-${currentLogo}`);
-            if (next) {
-                next.style.display = 'block';
-                setTimeout(() => {
-                    next.style.opacity = '1';
-                }, 10);
-            }
-        }, 2000);
-        
-        window.addEventListener('load', function() {
-            clearInterval(logoInterval);
-            const preloader = document.getElementById('preloader');
-            preloader.classList.add('preloader-fade-out');
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        });
-        
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-    </script>
 </body>
 </html>
