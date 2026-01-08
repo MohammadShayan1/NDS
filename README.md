@@ -1,11 +1,33 @@
-# NEDMUN-VI Registration System
+# NEDMUN-VI Website
 
 > **COPYRIGHT NOTICE**: This software is proprietary and confidential.  
-> Copyright © 2025 NED Debating Society & TE Links. All Rights Reserved.  
+> Copyright © 2026 NED Debating Society & TE Links. All Rights Reserved.  
 > Unauthorized copying, distribution, or use is strictly prohibited.  
 > See [LICENSE](LICENSE) file for full terms and conditions.
 
-A complete Model-View-Controller (MVC) based web application for managing NEDMUN-VI (NED Model United Nations) conference registrations, built with core PHP and MySQL.
+## Event Status: CONCLUDED ✅
+
+**NEDMUN-VI** (NED Model United Nations) conference was successfully held from **January 2-4, 2026** at NED University of Engineering & Technology, Karachi.
+
+This repository contains the complete web application that powered the event's online presence and registration system. The website is now displaying a "Thank You" page for all participants.
+
+---
+
+## About NEDMUN-VI
+
+NEDMUN-VI was Karachi's largest Model United Nations conference, organized by the NED Debating Society (NDS). The event brought together 500+ delegates across 8 committees for three days of diplomatic discourse and leadership development.
+
+**Event Tagline**: *"Noting the Past, Navigating the Present, Nurturing the Future"*
+
+### Event Highlights
+- **500+ Delegates** from across Pakistan
+- **8 Committees**: UNSC, UNCSTD, UNWOMEN, DISEC, SPECPOL, SOCHUM, KCC, PNA
+- **3 Days** of intensive debate and networking
+- **Venue**: NED University of Engineering and Technology
+
+---
+
+A complete Model-View-Controller (MVC) based web application built with core PHP and MySQL that managed the entire event lifecycle.
 
 ## 🎯 Features
 

@@ -1,13 +1,31 @@
-# Changelog - NEDMUN-VI Registration System
+# Changelog - NEDMUN-VI Website
 
 > **COPYRIGHT NOTICE**: Proprietary Software - All Rights Reserved  
-> Copyright © 2025 NED Debating Society & TE Links  
+> Copyright © 2026 NED Debating Society & TE Links  
 > See [LICENSE](LICENSE) for complete terms and restrictions.
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.0] - 2026-01-08
+
+### Changed - Event Concluded
+- **Homepage Conversion** - Transformed main page into a "Thank You" page
+  - Clean, centered design with gradient background
+  - Prominent NEDMUN and NDS logos display
+  - Event tagline: "Noting the Past, Navigating the Present, Nurturing the Future"
+  - Thank you message for participants
+  - Website credit to TE Links Technical Team
+  - 100vh viewport fit with no scrolling
+  - Fully responsive design for all devices
+  - Smooth fade-in animations
+
+### Status
+- **Event Status**: CONCLUDED (January 2-4, 2026)
+- **Registration System**: CLOSED
+- **Website**: Thank You page active
 
 ## [1.0.0] - 2025-11-13
 
