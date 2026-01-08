@@ -5,30 +5,17 @@
 RewriteEngine On
 RewriteBase /
 
-# Remove trailing slashes (except for directories that exist)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} (.+)/$
-RewriteRule ^ %1 [R=301,L]
+# Serve index.html as directory index
+DirectoryIndex index.html index.htm
 
-# Brand Ambassador form
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^brand-ambassador/?$ controllers/BrandAmbassadorController.php [L]
+# Allow direct access to all static files (images, CSS, JS, PDFs, etc.)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# Delegate registration form
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^register/?$ controllers/DelegateController.php [L]
-
-# Event registration form (Harf-e-Raaz)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^event-registration/?$ views/event-registration-form.php [L]
-
-# Admin routes
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^admin/?$ admin/index.php [L]
+# Admin routes (keep for admin panel access)
+# Redirect /admin to /admin/login
+RewriteRule ^admin/?$ admin/login [R=301,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -48,31 +35,25 @@ RewriteRule ^admin/event-registrations/?$ admin/event-registrations.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^admin/brand-ambassadors/?$ admin/brand-ambassadors.php [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^admin/settings/?$ admin/settings.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^admin/logout/?$ admin/logout.php [L]
 
-# Committee Study Guides - Allow direct access to PDF files in docs folder
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteCond %{REQUEST_URI} ^/docs/.+\.pdf$ [NC]
-RewriteRule ^ - [L]
+# Redirect old PHP routes to index.html (for backwards compatibility)
+RewriteRule ^(register|brand-ambassador|event-registration)/?$ /index.html [R=301,L]
 </IfModule>
 
 # Prevent directory browsing
 Options -Indexes
 
-# Protect config files
-<FilesMatch "(config|database)\.php$">
+# Protect sensitive files
+<FilesMatch "(config|database|\.git|\.env)">
     Require all denied
 </FilesMatch>
 
-# PHP settings
+# PHP settings for admin panel
 <IfModule mod_php7.c>
 php_value upload_max_filesize 10M
 php_value post_max_size 10M
@@ -80,9 +61,8 @@ php_value max_execution_time 300
 php_value max_input_time 300
 </IfModule>
 
-# Error pages (customize as needed)
-# ErrorDocument 404 /telinks.live/NDS/404.php
-# ErrorDocument 500 /telinks.live/NDS/500.php
+# Custom error page
+ErrorDocument 404 /index.html
 
 # Caching
 <IfModule mod_expires.c>

@@ -1,7 +1,7 @@
 # NEDMUN-VI Website
 
 > **COPYRIGHT NOTICE**: This software is proprietary and confidential.  
-> Copyright © 2026 NED Debating Society & TE Links. All Rights Reserved.  
+> Copyright © 2026 NED Debating Society & Mohammad Shayan. All Rights Reserved.  
 > Unauthorized copying, distribution, or use is strictly prohibited.  
 > See [LICENSE](LICENSE) file for full terms and conditions.
 
@@ -278,7 +278,7 @@ git pull origin main
 
 ## 📄 License
 
-Copyright © 2025 NED Debating Society. All rights reserved.
+Copyright © 2026 Mohammad Shayan. All rights reserved.
 
 ---
 
@@ -501,17 +501,11 @@ Add Google Analytics to track visitors:
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
 ```
 
-## 🤝 Support
-
-For issues or questions:
-- Email: nedmunofficial@gmail.com
-- Technical Partner: [TE Links](https://telinks.org)
-
 ## 📄 License
 
 **PROPRIETARY SOFTWARE - ALL RIGHTS RESERVED**
 
-Copyright © 2025 NED Debating Society & TE Links
+Copyright © 2026 Mohammad Shayan
 
 This software is protected by copyright law and international treaties. Unauthorized reproduction, distribution, modification, or use of this software, in whole or in part, is strictly prohibited and will be prosecuted to the fullest extent of the law.
 
@@ -533,7 +527,7 @@ This software is protected by copyright law and international treaties. Unauthor
 
 ## 🎓 Credits
 
-- **Developed by**: [TE Links](https://telinks.org) - Technical Partner
+- **Developed by**: Mohammad Shayan
 - **For**: NED Debating Society
 - **Event**: NEDMUN-VI (January 2-4, 2026)
 - **Framework**: Bootstrap 5.3.2, PHP 7.4+, MySQL 5.7+
@@ -561,7 +555,7 @@ This software is protected by copyright law and international treaties. Unauthor
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║  PROPRIETARY AND CONFIDENTIAL                                ║
-║  Copyright (c) 2025 NED Debating Society & TE Links         ║
+║  Copyright (c) 2025 Mohammad Shayan                          ║
 ║  All Rights Reserved Worldwide                               ║
 ║                                                              ║
 ║  This software contains trade secrets and proprietary        ║

@@ -1,7 +1,7 @@
 # Changelog - NEDMUN-VI Website
 
 > **COPYRIGHT NOTICE**: Proprietary Software - All Rights Reserved  
-> Copyright © 2026 NED Debating Society & TE Links  
+> Copyright © 2026 NED Debating Society & Mohammad Shayan  
 > See [LICENSE](LICENSE) for complete terms and restrictions.
 
 All notable changes to this project will be documented in this file.
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Prominent NEDMUN and NDS logos display
   - Event tagline: "Noting the Past, Navigating the Present, Nurturing the Future"
   - Thank you message for participants
-  - Website credit to TE Links Technical Team
+  - Website credit to Mohammad Shayan (Developer)
   - 100vh viewport fit with no scrolling
   - Fully responsive design for all devices
   - Smooth fade-in animations
